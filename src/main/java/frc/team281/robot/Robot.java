@@ -41,7 +41,6 @@ public class Robot extends TimedRobot implements CommandFactory {
 
         driveSubsystem.initialize();
         operatorInterface.initialize();
-        operatorInterface.initialize();
     }
 
     @Override

@@ -27,7 +27,7 @@ public class DriveSystemMode {
         ENTERED, CURRENT, REJECTED
     }
 
-    private DriveMode mode = DriveMode.DISABLED;
+    private DriveMode mode = DriveMode.READY;
 
     public DriveMode getMode() {
         return mode;

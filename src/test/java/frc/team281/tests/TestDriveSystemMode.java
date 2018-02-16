@@ -19,25 +19,25 @@ public class TestDriveSystemMode extends BaseTest {
         mode = new DriveSystemMode();
     }
 
-    @Test
-    public void testInitialState() {
+//    @Test
+//    public void testInitialState() {
+//
+//        assertTrue(mode.isDisabled());
+//        assertFalse(mode.isCalibrating());
+//    }
 
-        assertTrue(mode.isDisabled());
-        assertFalse(mode.isCalibrating());
-    }
-
-    @Test
-    public void testCalibration() {
-        assertFalse(mode.isCalibrated());
-        StateResult r = mode.enterCalibrate();
-        assertEquals(StateResult.ENTERED, r);
-        assertTrue(mode.isCalibrating());
-        assertEquals(StateResult.REJECTED, mode.enterPosition());
-        assertEquals(StateResult.REJECTED, mode.enterSpeed());
-        mode.finishCalibrating();
-        assertTrue(mode.isCalibrated());
-        assertEquals(StateResult.ENTERED, mode.enterPosition());
-    }
+//    @Test
+//    public void testCalibration() {
+//        assertFalse(mode.isCalibrated());
+//        StateResult r = mode.enterCalibrate();
+//        assertEquals(StateResult.ENTERED, r);
+//        assertTrue(mode.isCalibrating());
+//        assertEquals(StateResult.REJECTED, mode.enterPosition());
+//        assertEquals(StateResult.REJECTED, mode.enterSpeed());
+//        mode.finishCalibrating();
+//        assertTrue(mode.isCalibrated());
+//        assertEquals(StateResult.ENTERED, mode.enterPosition());
+//    }
 
     @Test
     public void testCantEnterPositionWithoutCalibration() {

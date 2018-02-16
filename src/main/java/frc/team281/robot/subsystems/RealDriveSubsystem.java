@@ -68,7 +68,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
         this.leftTalonSettings = TalonSettingsBuilder.defaults()
                 .withCurrentLimits(35, 30, 200)
                 .coastInNeutral()
-                .withDirections(false, false)
+                .withDirections(true, true)
                 .limitMotorOutputs(0.5, 0.01)
                 .noMotorStartupRamping()
                 .usePositionControl()
@@ -121,6 +121,8 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
         }
         return true;
     }
+    // TODO put in the code for the motors get Talon settings object and apply it to all the motors
+    // ask dave;
 
     public void stop() {
         if (enterSpeedMode()) {
@@ -130,6 +132,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
     }
 
     public void arcadeDrive(double forw, double turn) {
+        
         if (enterSpeedMode()) {
             drive.arcadeDrive(-forw, turn, true);
         }
@@ -148,7 +151,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
             int encoderCountsRight = encoderConverter.toCounts(desiredPosition.getRightInches());
             positionControllerGroup.setDesiredPosition(encoderCountsLeft, encoderCountsRight);
         }
-
+  
     }
 
     @Override
