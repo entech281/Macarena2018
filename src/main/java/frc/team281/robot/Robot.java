@@ -93,4 +93,94 @@ public class Robot extends TimedRobot implements CommandFactory {
     public DriveToPositionCommand createPositionCommand() {
         return new DriveToPositionCommand(this.driveSubsystem, new Position(120,120));
     }
+
+    @Override
+    public LifterRaiseCommand createLifterRaiseCommand() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public LifterLowerCommand createLifterLowerCommand() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public LifterStopCommand createLifterStopCommand() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public LifterScaleHighCommand createLifterScaleHighCommand() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public LifterScaleMidCommand createLifterScaleMidCommand() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public LifterScaleLowCommand createLifterScaleLowCommand() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public LifterFenceCommand createLifterFenceCommand() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public LifterGroundCommand createLifterGroundCommand() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public GrabberLoadCommand createGrabberLoadCommand() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public GrabberShootCommand createGrabberShootCommand() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public GrabberStopCommand createGrabberStopCommand() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public GrabberOpenCommand createGrabberOpenCommand() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public GrabberCloseCommand createGrabberCloseCommand() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public WristPivotUpCommand createWristPivotUpCommand() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public WristPivotDownCommand createWristPivotDownCommand() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
