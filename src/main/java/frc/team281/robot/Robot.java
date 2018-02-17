@@ -106,11 +106,11 @@ public class Robot extends TimedRobot implements CommandFactory {
         return null;
     }
 
-    @Override
-    public LifterStopCommand createLifterStopCommand() {
+    // @Override
+    // public LifterStopCommand createLifterStopCommand() {
         // TODO Auto-generated method stub
-        return null;
-    }
+    //     return null;
+    // }
 
     @Override
     public LifterScaleHighCommand createLifterScaleHighCommand() {

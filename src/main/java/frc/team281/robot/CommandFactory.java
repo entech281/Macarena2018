@@ -1,6 +1,8 @@
 package frc.team281.robot;
 
 import frc.team281.robot.commands.JoystickDriveCommand;
+import frc.team281.robot.commands.LifterLowerCommand;
+import frc.team281.robot.commands.LifterRaiseCommand;
 import frc.team281.robot.commands.DriveToPositionCommand;
 
 /**
@@ -22,7 +24,7 @@ public interface CommandFactory {
     
     LifterLowerCommand createLifterLowerCommand();
     
-    LifterStopCommand createLifterStopCommand();
+    // LifterStopCommand createLifterStopCommand();
     
     LifterScaleHighCommand createLifterScaleHighCommand();
     
