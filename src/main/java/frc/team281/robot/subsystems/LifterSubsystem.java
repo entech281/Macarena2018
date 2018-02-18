@@ -12,7 +12,6 @@ public class LifterSubsystem extends BaseSubsystem {
     private DigitalInput limitSwitch;
     
     public LifterSubsystem() {
-        // TODO Auto-generated constructor stub
     }
 
     @Override
@@ -23,7 +22,11 @@ public class LifterSubsystem extends BaseSubsystem {
     }
 
     public void gotoHeight(double heightInches) {
-        
+        // run the motors until the encoder says we're at a certain height
+    }
+    
+    public void home() {
+        // go down until you hit the limit switch, then set encoders to 0
     }
     
 }

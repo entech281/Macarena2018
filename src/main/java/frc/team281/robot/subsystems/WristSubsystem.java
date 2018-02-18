@@ -12,7 +12,6 @@ public class WristSubsystem extends BaseSubsystem {
     private DigitalInput limitSwitch;
     
     public WristSubsystem() {
-        // TODO Auto-generated constructor stub
     }
 
     @Override
@@ -23,11 +22,11 @@ public class WristSubsystem extends BaseSubsystem {
     }
 
     public void pivotUp() {
-        
+        // trigger up solenoid
     }
     
     public void pivotDown() {
-        
+        // trigger down solenoid
     }
     
 }

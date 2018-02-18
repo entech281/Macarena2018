@@ -17,7 +17,6 @@ public class GrabberSubsystem extends BaseSubsystem {
     private DoubleSolenoid rightSolenoid;
     
     public GrabberSubsystem() {
-        // TODO Auto-generated constructor stub
     }
 
     @Override
@@ -31,23 +30,23 @@ public class GrabberSubsystem extends BaseSubsystem {
     }
 
     public void load() {
-        
+        // run the motors until the switch is tripped then stop the motors
     }
     
     public void shoot() {
-        
+        // run motors for N seconds, N is some constant
     }
     
     public void stop() {
-        
+        // stop the motors
     }
     
     public void open() {
-        
+        // turn the solenoids to the N side direction
     }
     
     public void close() {
-        
+        // turn the solenoids to the outside direction (opposite of N)
     }
     
 }
