@@ -18,8 +18,8 @@ public class TestPositionCalculator {
     public void testTurningRigth() {
         
         Position p = PositionCalculator.turnRight(90);  
-        assertEquals(-21.6, p.getLeftInches(), TOLERANCE);
-        assertEquals(21.6, p.getRightInches(), TOLERANCE);
+        assertEquals(21.6, p.getLeftInches(), TOLERANCE);
+        assertEquals(-21.6, p.getRightInches(), TOLERANCE);
         
     }
     @Test
@@ -34,22 +34,22 @@ public class TestPositionCalculator {
     public void testTurningLeft() {
         
         Position p = PositionCalculator.turnLeft(90);   
-        assertEquals(21.6, p.getLeftInches(), TOLERANCE);
-        assertEquals(-21.6, p.getRightInches(), TOLERANCE);
-        
-    }
-    @Test
-    public void testNegativeTurningLeft() {
-        Position p = PositionCalculator.turnLeft(-90);  
         assertEquals(-21.6, p.getLeftInches(), TOLERANCE);
         assertEquals(21.6, p.getRightInches(), TOLERANCE);
         
     }
     @Test
-    public void testNegativeTurningRight() {
-        Position p = PositionCalculator.turnRight(-90); 
+    public void testNegativeTurningLeft() {
+        Position p = PositionCalculator.turnLeft(-90);  
         assertEquals(21.6, p.getLeftInches(), TOLERANCE);
         assertEquals(-21.6, p.getRightInches(), TOLERANCE);
+        
+    }
+    @Test
+    public void testNegativeTurningRight() {
+        Position p = PositionCalculator.turnRight(-90); 
+        assertEquals(-21.6, p.getLeftInches(), TOLERANCE);
+        assertEquals(21.6, p.getRightInches(), TOLERANCE);
         
     }
     

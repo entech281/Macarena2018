@@ -22,13 +22,13 @@ public class PositionCalculator {
     
     public static Position turnRight(double degrees) {
     	double d = computeTurn(degrees);
-    	return new Position( -d,d);
+    	return new Position( d,-d);
     }
     
     
     public static Position turnLeft(double degrees) {
     	double d = computeTurn(degrees);
-    	return new Position( d,-d);
+    	return new Position( -d,d);
     }
     
     public static BasicMoves builder() {

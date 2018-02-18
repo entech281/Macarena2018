@@ -91,12 +91,12 @@ public class TalonPositionControllerGroup {
 		int total = 0;
 		int count = 0;
 		Integer pos = frontRight.getActualPosition();
-		if (pos != null && pos > 0 ) {
+		if (pos != null &&  Math.abs(pos) > 0 ) {
 			total += pos;
 			count += 1;
 		}
 		pos = rearRight.getActualPosition();
-		if (pos != null && pos > 0 ) {
+		if (pos != null &&  Math.abs(pos) > 0 ) {
 			total += pos;
 			count += 1;
 		}
