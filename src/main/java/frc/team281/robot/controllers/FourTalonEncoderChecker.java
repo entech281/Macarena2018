@@ -1,16 +1,19 @@
 package frc.team281.robot.controllers;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import frc.team281.robot.RobotMap;
 import frc.team281.robot.logger.DataLogger;
 import frc.team281.robot.logger.DataLoggerFactory;
-import frc.team281.robot.subsystems.TalonSettingsBuilder;
 import frc.team281.robot.subsystems.drive.FourTalonsWithSettings;
 
 public class FourTalonEncoderChecker {
 
+	
+	//if any single encoder on a side is this value, 
+	//and the other is not, then we'll consider an encoder broken
+	public static int MIN_COUNTS_TO_CONSIDER=20;
 	
 	private DataLogger log;
 	private FourTalonsWithSettings talons;
@@ -34,7 +37,7 @@ public class FourTalonEncoderChecker {
 		} else {
 			if (shouldLeftFrontFollowLeftRear()) {
 				log.warn("Left Front Encoder appears to be broken. It will follow Left Rear");
-				talons.getFrontLeft().set(ControlMode.Follower, RobotMap.CAN.FRONT_RIGHT_MOTOR);
+				talons.getFrontLeft().set(ControlMode.Follower, RobotMap.CAN.REAR_LEFT_MOTOR);
 			}
 			if (shouldLeftRearFollowLeftFront()) {
 				log.warn("Left Rear Encoder appears to be broken. It will follow Left Front");
@@ -42,7 +45,7 @@ public class FourTalonEncoderChecker {
 			}
 			if (shouldRightFrontFollowRightRear()) {
 				log.warn("Right Front Encoder appears to be broken. It will follow Right Rear");
-				talons.getFrontRight().set(ControlMode.Follower,RobotMap.CAN.FRONT_RIGHT_MOTOR);
+				talons.getFrontRight().set(ControlMode.Follower,RobotMap.CAN.REAR_RIGHT_MOTOR);
 			}
 			if (shouldRightRearFollowRightFront()) {
 				log.warn("Right Rear Encoder appears to be broken. It will follow Right Front");
@@ -75,20 +78,30 @@ public class FourTalonEncoderChecker {
 		return this.hasProblems() && !this.canDrive();
 	}
 
+	protected boolean checkPair(WPI_TalonSRX primary, WPI_TalonSRX secondary) {
+		int myCounts = primary.getSelectedSensorPosition(0);
+		int myPairCounts = secondary.getSelectedSensorPosition(0);
+		if ( myPairCounts > MIN_COUNTS_TO_CONSIDER && myCounts == 0) {
+			return false;
+		}
+		else {
+			return true;
+		}		
+	}
 	public boolean isLeftRearOk() {
-		return talons.getRearLeft().getSelectedSensorPosition(0) > 0;
+		return checkPair(talons.getRearLeft(),talons.getFrontLeft());
 	}
 
 	public boolean isLeftFrontOk() {
-		return talons.getFrontLeft().getSelectedSensorPosition(0) > 0;
+		return checkPair(talons.getFrontLeft(),talons.getRearLeft());
 	}
 
 	public boolean isRightRearOk() {
-		return talons.getRearRight().getSelectedSensorPosition(0) > 0;
+		return checkPair(talons.getRearRight(),talons.getFrontRight());
 	}
 
 	public boolean isRightFrontOk() {
-		return talons.getFrontRight().getSelectedSensorPosition(0) > 0;
+		return checkPair(talons.getFrontRight(),talons.getRearRight());
 	}
 
 	public boolean isLeftOk() {
