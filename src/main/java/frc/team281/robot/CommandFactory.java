@@ -21,15 +21,12 @@ import frc.team281.robot.commands.LifterHeightCommand;
  */
 public interface CommandFactory {
     
-    // Lifter Subsystem commands
     LifterRaiseCommand createLifterRaiseCommand();
     
     LifterLowerCommand createLifterLowerCommand();
     
-    // LifterStopCommand createLifterStopCommand();
     LifterHeightCommand createLifterHeightCommand(double heightInches);
     
-    // Grabber Subsystem commands
     GrabberLoadCommand createGrabberLoadCommand();
     
     GrabberShootCommand createGrabberShootCommand();
@@ -40,7 +37,6 @@ public interface CommandFactory {
     
     GrabberCloseCommand createGrabberCloseCommand();
     
-    // Wrist Subsystem commands
     WristPivotUpCommand createWristPivotUpCommand();
     
     WristPivotDownCommand createWristPivotDownCommand();

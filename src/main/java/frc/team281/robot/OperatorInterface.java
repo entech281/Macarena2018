@@ -49,13 +49,11 @@ public class OperatorInterface implements DriveInstructionSource {
         driveJoystick = new Joystick(RobotMap.DriveJoystick.PORT);
         controlPanel = new Joystick(RobotMap.ControlPanel.PORT);
         
-        // Lifter Subsystem
         lifterRaiseButton = new JoystickButton(driveJoystick, RobotMap.DriveJoystick.Buttons.LIFTER_RAISE);
         lifterRaiseButton.whenPressed(factory.createLifterRaiseCommand());
         lifterLowerButton = new JoystickButton(driveJoystick, RobotMap.DriveJoystick.Buttons.LIFTER_LOWER);
         lifterLowerButton.whenPressed(factory.createLifterLowerCommand());
         
-        // Lifter Heights 
         lifterScaleHighButton = new JoystickButton(driveJoystick, RobotMap.DriveJoystick.Buttons.LIFTER_SCALE_HIGH);
         lifterScaleHighButton.whenPressed(factory.createLifterHeightCommand(LifterHeights.SCALE_HIGH));
         lifterScaleMidButton = new JoystickButton(driveJoystick, RobotMap.DriveJoystick.Buttons.LIFTER_SCALE_MID);
@@ -67,7 +65,6 @@ public class OperatorInterface implements DriveInstructionSource {
         lifterGroundButton = new JoystickButton(driveJoystick, RobotMap.DriveJoystick.Buttons.LIFTER_SCALE_GROUND);
         lifterGroundButton.whenPressed(factory.createLifterHeightCommand(LifterHeights.GROUND));
         
-        // Grabber Subsystem
         grabberLoadButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.GRABBER_LOAD);
         grabberLoadButton.whenPressed(factory.createGrabberLoadCommand());
         grabberShootButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.GRABBER_SHOOT);

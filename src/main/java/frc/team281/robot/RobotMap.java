@@ -24,15 +24,10 @@ public class RobotMap {
     public static class DriveJoystick {
         public static final int PORT = 0;
         public static class Buttons {
-            // Move to Position command button
-            public static final int POSITION = 7;
             
-            // Lifter Subsystem manual controls
             public static final int LIFTER_RAISE = 5;
             public static final int LIFTER_LOWER = 3;
-            public static final int LIFTER_STOP = 1;
             
-            // Lifter Subsystem preset positions
             public static final int LIFTER_SCALE_HIGH = 8;
             public static final int LIFTER_SCALE_MID = 9;
             public static final int LIFTER_SCALE_LOW = 10;
@@ -44,7 +39,6 @@ public class RobotMap {
     public static class ControlPanel {
         public static final int PORT = 1;
         public static class Buttons {
-            // Grabber Subsystem buttons
             public static final int GRABBER_LOAD = 7;
             public static final int GRABBER_SHOOT = 8;
             public static final int GRABBER_STOP = 9;
