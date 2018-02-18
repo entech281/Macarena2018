@@ -29,6 +29,9 @@ public class Position {
 	}
 
 	public boolean isCloseTo(Position other, double tolerance) {
+	    if (other == null ){
+	        return false;
+	    }
 		// ideally use real distance, i'm lazy
 		return (Math.abs(this.getLeftInches() - other.getLeftInches()) < tolerance
 				&& Math.abs(this.getRightInches() - other.getRightInches()) < tolerance);
@@ -37,6 +40,7 @@ public class Position {
 	@Override
 	public String toString() {
 		//TODO: format nicer with 0.3f
-		return "L=" + leftInches + ",R=" + rightInches;
+	    return String.format("L=%.2f, R=%.2f", leftInches, rightInches);
+
 	}
 }

@@ -23,6 +23,39 @@ public class FourTalonEncoderChecker {
 		this.log = DataLoggerFactory.getLoggerFactory().createDataLogger(getClass().getSimpleName());
 	}
 	
+	//TODO: needs unit test	
+	public String friendlyStatus(){
+	    StringBuffer sb = new StringBuffer();
+	    if ( allOk() ){
+	        sb.append("OK::");
+	    }
+	    else {
+	        if ( shouldDisableAll() ){
+	            sb.append("CANT DRIVE:: ");
+	        }
+	        else{
+	            sb.append("IMPAIRED:: ");
+	        }
+	    }
+	    sb.append(String.format("LF: %s LR: %s RF: %s RR: %s", 
+	            convertBooleanToMotorStatus(shouldLeftFrontFollowLeftRear()),
+	            convertBooleanToMotorStatus(shouldLeftRearFollowLeftFront()),
+	            convertBooleanToMotorStatus(shouldRightFrontFollowRightRear()),
+	            convertBooleanToMotorStatus(shouldRightRearFollowRightFront())
+	      ));
+
+	    
+	    return sb.toString();
+	}
+	
+	protected String convertBooleanToMotorStatus(boolean status){
+	    if ( status ){
+	        return "[-]";
+	    }
+	    else{
+	        return "[+]";
+	    }
+	}
 	public void setMotorsWithBrokenEncodersToFollowers( ) {
 		
 		//set these directly on the talons for immediate results.
@@ -56,6 +89,7 @@ public class FourTalonEncoderChecker {
 		log.log("frontRightMode",talons.getFrontRight().getControlMode());
 		log.log("rearLeftMode",talons.getRearLeft().getControlMode());
 		log.log("rearRightMode",talons.getRearRight().getControlMode());
+		
 	}
 	
 	public boolean shouldLeftFrontFollowLeftRear() {
@@ -81,7 +115,7 @@ public class FourTalonEncoderChecker {
 	protected boolean checkPair(WPI_TalonSRX primary, WPI_TalonSRX secondary) {
 		int myCounts = primary.getSelectedSensorPosition(0);
 		int myPairCounts = secondary.getSelectedSensorPosition(0);
-		if ( myPairCounts > MIN_COUNTS_TO_CONSIDER && myCounts == 0) {
+		if ( Math.abs(myPairCounts) > MIN_COUNTS_TO_CONSIDER && myCounts == 0) {
 			return false;
 		}
 		else {

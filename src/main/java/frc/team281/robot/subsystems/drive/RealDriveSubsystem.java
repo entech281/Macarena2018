@@ -4,7 +4,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team281.robot.DriveInstructionSource;
 import frc.team281.robot.RobotMap;
 import frc.team281.robot.subsystems.NavXIntializer;
@@ -31,6 +30,9 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 	public static final int NAVX_CALIBRATION_LOOP_TIME_MS = 50;
 	public static final double ENCODER_TICKS_PER_INCH = 43.0;
 
+	public static final int POSITION_ENCODER_TOLERANCE = 20;
+	public static final double POSITION_TOLERANCE_INCHES = (double)POSITION_ENCODER_TOLERANCE/ ENCODER_TICKS_PER_INCH;
+	
 	//protected FourTalonGroup talons;
 	private AHRS navX;
 
@@ -85,11 +87,11 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 				.withCurrentLimits(35, 30, 200)
 				.coastInNeutral()
 				.withDirections(false, false)
-				.noMotorOutputLimits()
+				.limitMotorOutputs(1.0, 0.15)
 				.noMotorStartupRamping()
 				.usePositionControl()
-				.withGains(0.3,0.5, 0.0, 0.0)
-				.withMotionProfile(500, 600)
+				.withGains(0.3,0.7, 0.0, 0.0)
+				.withMotionProfile(800, 800,POSITION_ENCODER_TOLERANCE)
 				.build();
 
 		TalonSettings rightPositionSettings = TalonSettingsBuilder.inverted(leftPositionSettings);

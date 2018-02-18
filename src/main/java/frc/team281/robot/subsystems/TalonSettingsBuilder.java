@@ -76,7 +76,7 @@ public class TalonSettingsBuilder {
 		}
 
 		public interface ProfileSettings {
-			Finish withMotionProfile(int cruiseEncoderClicksPerSecond, int accelerationEncoderClicksPerSecond2);
+			Finish withMotionProfile(int cruiseEncoderClicksPerSecond, int accelerationEncoderClicksPerSecond2, int allowableError);
 		}
 
 		public interface Finish {
@@ -208,9 +208,10 @@ public class TalonSettingsBuilder {
 		}
 
 		@Override
-		public Finish withMotionProfile(int cruiseEncoderClicksPerSecond, int accelerationEncoderClicksPerSecond2) {
+		public Finish withMotionProfile(int cruiseEncoderClicksPerSecond, int accelerationEncoderClicksPerSecond2, int allowableError) {
 			settings.profile.accelerationEncoderClicksPerSecond2 = accelerationEncoderClicksPerSecond2;
 			settings.profile.cruiseVelocityEncoderClicksPerSecond = cruiseEncoderClicksPerSecond;
+			settings.profile.allowableClosedLoopError = allowableError;
 			return this;
 		}
 

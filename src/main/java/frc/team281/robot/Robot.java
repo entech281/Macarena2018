@@ -52,18 +52,17 @@ public class Robot extends IterativeRobot implements CommandFactory {
     @Override
     public void autonomousInit() {
         driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
-        PositionCalculator calculator = new PositionCalculator ();
-        DriveToPositionCommand move1 = new DriveToPositionCommand(driveSubsystem, calculator.goForward(10.0));
-        
+        DriveToPositionCommand move1 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.goForward(60.0));
+        DriveToPositionCommand move2 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.turnRight(90));
         //DriveToPositionCommand move2 = new DriveToPositionCommand(driveSubsystem, calculator.turnLeft(55));
         //DriveToPositionCommand move3 = new DriveToPositionCommand(driveSubsystem, calculator.goForward(108.));
         //DriveToPositionCommand move4 = new DriveToPositionCommand(driveSubsystem, calculator.turnRight(55));
         //DriveToPositionCommand move5 = new DriveToPositionCommand(driveSubsystem, calculator.goForward(44));
         //DriveToPositionCommand move6 = new DriveToPositionCommand(driveSubsystem, calculator.turnRight(90));
         //DriveToPositionCommand move7 = new DriveToPositionCommand(driveSubsystem, calculator.goForward(21));
-        //CommandGroup m_AutonomousCommand = new CommandGroup();
-        //  m_AutonomousCommand.addSequential(move1);
-            //m_AutonomousCommand.addSequential(move2);
+        CommandGroup m_AutonomousCommand = new CommandGroup();
+        m_AutonomousCommand.addSequential(move1);
+        m_AutonomousCommand.addSequential(move2);
             //m_AutonomousCommand.addSequential(move3);
             //m_AutonomousCommand.addSequential(move4);
             //m_AutonomousCommand.addSequential(move5);
@@ -71,7 +70,7 @@ public class Robot extends IterativeRobot implements CommandFactory {
             //m_AutonomousCommand.addSequential(move7);
         //  m_AutonomousCommand.start();
 
-        move1.start();
+        m_AutonomousCommand.start();
     }
 
 

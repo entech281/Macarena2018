@@ -27,7 +27,7 @@ public class TestTalonBuilder {
 	public void testMakingPositionController() {
 		TalonSettings settings = TalonSettingsBuilder.defaults().withPrettySafeCurrentLimits().coastInNeutral()
 				.defaultDirectionSettings().limitMotorOutputs(0.5, 0.01).noMotorStartupRamping().usePositionControl()
-				.withGains(1, 2, 3, 4).withMotionProfile(3200, 43200).build();
+				.withGains(1, 2, 3, 4).withMotionProfile(3200, 43200,100).build();
 
 	}
 
@@ -37,7 +37,7 @@ public class TestTalonBuilder {
 		int OTHER_ID_TO_FOLLOW = 2;
 		TalonSettings toFollow = TalonSettingsBuilder.defaults().withPrettySafeCurrentLimits().coastInNeutral()
 				.defaultDirectionSettings().limitMotorOutputs(0.5, 0.01).noMotorStartupRamping().usePositionControl()
-				.withGains(1, 2, 3, 4).withMotionProfile(3200, 43200).build();
+				.withGains(1, 2, 3, 4).withMotionProfile(3200, 43200,100).build();
 
 		TalonSettings followerSettings = TalonSettingsBuilder.follow(toFollow, OTHER_ID_TO_FOLLOW);
 
@@ -48,7 +48,7 @@ public class TestTalonBuilder {
 	public void testMakingAnInvertedCopyLeftVsRight() {
 		TalonSettings rightSide = TalonSettingsBuilder.defaults().withPrettySafeCurrentLimits().coastInNeutral()
 				.defaultDirectionSettings().limitMotorOutputs(0.5, 0.01).noMotorStartupRamping().usePositionControl()
-				.withGains(1, 2, 3, 4).withMotionProfile(3200, 43200).build();
+				.withGains(1, 2, 3, 4).withMotionProfile(3200, 43200,100).build();
 
 		TalonSettings leftSide = TalonSettingsBuilder.inverted(rightSide);
 

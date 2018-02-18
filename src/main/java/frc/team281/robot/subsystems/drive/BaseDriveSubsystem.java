@@ -43,14 +43,21 @@ public abstract class BaseDriveSubsystem extends BaseSubsystem {
 		
 	}
 	
+	
+	
 	public void runController(BaseDriveController newController) {
 	    if ( newController == null ){
 	        dataLogger.warn("Trying to run null controller!");
 	    }
-	    
+	    //TODO: clean up a lot of this mess by having a NullController rather than null reference
 		if (!newController.equals(currentController)) {
-			dataLogger.warn("Switching Controllers: " + currentController.getName() + "-->" + newController.getName());
-			currentController.deactivate();			
+		    String newControllerName = "<none>";
+		    
+			dataLogger.warn("Switching Controllers: " + 
+			        computeControllerName(currentController) + "-->" + computeControllerName(newController));
+			if ( currentController != null ){
+			    currentController.deactivate();
+			}						
 			newController.activate();
 			currentController = newController;
 		}
@@ -60,6 +67,14 @@ public abstract class BaseDriveSubsystem extends BaseSubsystem {
 
 	}
 
+	protected static String computeControllerName(BaseDriveController controller){
+	    if ( controller == null ){
+	        return "<none>";
+	    }
+	    else{
+	        return controller.getName();
+	    }
+	}
 	public PositionBuffer getPositionBuffer() {
 		return positionBuffer;
 	}

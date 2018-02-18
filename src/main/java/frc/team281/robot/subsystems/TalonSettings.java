@@ -97,7 +97,7 @@ public class TalonSettings implements Serializable {
 
 		talon.configMotionCruiseVelocity(this.profile.cruiseVelocityEncoderClicksPerSecond, TIMEOUT_MS);
 		talon.configMotionAcceleration(this.profile.accelerationEncoderClicksPerSecond2, TIMEOUT_MS);
-
+		talon.configAllowableClosedloopError(PID_SLOT, this.profile.allowableClosedLoopError, TIMEOUT_MS);
 		talon.set(this.controlMode, 0);
 	}
 
@@ -130,6 +130,7 @@ public class TalonSettings implements Serializable {
 		private static final long serialVersionUID = -9034830588710443069L;
 		public int cruiseVelocityEncoderClicksPerSecond = 3200;
 		public int accelerationEncoderClicksPerSecond2 = 1;
+		public int allowableClosedLoopError = 20;
 	}
 
 	public static class CurrentLimits implements Serializable {

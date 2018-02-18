@@ -28,13 +28,9 @@ public class PositionBuffer implements PositionSource {
 	}
 
 	@Override
-	public Position next() {
+	public void next() {
 		if ( hasNextPosition() ) {
-			return targetList.remove(0);
+			targetList.remove(0);
 		}
-		else {
-			return null;
-		}
-		
 	}
 }

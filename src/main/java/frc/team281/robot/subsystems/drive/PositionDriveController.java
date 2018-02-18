@@ -18,6 +18,7 @@ import frc.team281.robot.subsystems.PositionSource;
  */
 public class PositionDriveController extends BaseDriveController {
 
+    //TODO: this sshould be computed from the talon settings
 	public static final double TOLERANCE_INCHES = 1.0;
 
 	private FourTalonsWithSettings talons;
@@ -54,7 +55,7 @@ public class PositionDriveController extends BaseDriveController {
 		if (this.desiredPosition == null) {
 			return true;
 		}
-		return getCurrentPosition().isCloseTo(desiredPosition, TOLERANCE_INCHES);
+		return getCurrentPosition().isCloseTo(desiredPosition, RealDriveSubsystem.POSITION_TOLERANCE_INCHES);
 	}
 
 	public Position getCurrentPosition() {
@@ -63,7 +64,7 @@ public class PositionDriveController extends BaseDriveController {
 
 
 	public boolean hasCurrentCommand() {
-		return this.desiredPosition == null;
+		return this.desiredPosition != null;
 	}
 	public void setCurrentCommand(Position position) {
 		this.desiredPosition = position;
@@ -74,8 +75,11 @@ public class PositionDriveController extends BaseDriveController {
 	
 	@Override
 	public void periodic() {		
-		processPositionCommand();		
-		new FourTalonEncoderChecker(talons).setMotorsWithBrokenEncodersToFollowers();
+		processPositionCommand();
+		FourTalonEncoderChecker checker =  new FourTalonEncoderChecker(talons);
+		checker.setMotorsWithBrokenEncodersToFollowers();
+		
+		dataLogger.log("Motor Status:",checker.friendlyStatus());
 		displayControllerStatuses();
 	}
 
@@ -83,8 +87,9 @@ public class PositionDriveController extends BaseDriveController {
 		if ( hasCurrentCommand() ) {
 			Position current = getCurrentPosition();
 			Position command = getCurrentCommand();
-			if ( current.isCloseTo(command, TOLERANCE_INCHES)) {
-				positionSource.next();
+			if ( command.isCloseTo(current, TOLERANCE_INCHES)) {
+			    positionSource.next();
+				setCurrentCommand(null);
 			}			
 		}
 		else {

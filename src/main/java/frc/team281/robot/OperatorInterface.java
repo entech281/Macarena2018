@@ -30,12 +30,8 @@ public class OperatorInterface implements DriveInstructionSource {
     @Override
     public DriveInstruction getNextInstruction() {
         return new DriveInstruction(
-                driveJoystick.getY(),
-                driveJoystick.getX()
-                //adjustJoystickSoftness(RobotMap.JOYSTICK_Y_SOFTNESS, driveJoystick.getY()),
-                
-                //adjustJoystickSoftness(RobotMap.JOYSTICK_X_SOFTNESS, driveJoystick.getX())
-                
+                -(1.0)*driveJoystick.getX(),
+                driveJoystick.getY()
                 );
     }
 
