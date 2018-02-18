@@ -51,10 +51,12 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     @Override
     public void autonomousInit() {
+        driveSubsystem.setAuto();
+        //driveSubsystem.setMode(DriveMode.CALIBRATE);
         driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
+        PositionCalculator calculator = new PositionCalculator ();
+        DriveToPositionCommand move1 = new DriveToPositionCommand(driveSubsystem, new Position(10, 10));
         
-        //PositionCalculator calculator = new PositionCalculator ();
-        //DriveToPositionCommand move1 = new DriveToPositionCommand(driveSubsystem, new Position(60, 60));;
         //DriveToPositionCommand move2 = new DriveToPositionCommand(driveSubsystem, calculator.turnLeft(55));
         //DriveToPositionCommand move3 = new DriveToPositionCommand(driveSubsystem, calculator.goForward(108.));
         //DriveToPositionCommand move4 = new DriveToPositionCommand(driveSubsystem, calculator.turnRight(55));
@@ -71,7 +73,7 @@ public class Robot extends IterativeRobot implements CommandFactory {
             //m_AutonomousCommand.addSequential(move7);
         //  m_AutonomousCommand.start();
 
-        //move1.start();
+        move1.start();
     }
 
 
@@ -83,7 +85,6 @@ public class Robot extends IterativeRobot implements CommandFactory {
     @Override
     public void disabledInit() {
         driveSubsystem.setMode(DriveMode.DISABLED);
-
     }
 
     @Override
@@ -93,7 +94,8 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     @Override
     public void teleopInit() {
-        driveSubsystem.setMode(DriveMode.SPEED_DRIVE);
+        driveSubsystem.teleOp();
+        driveSubsystem.setMode(DriveMode.CALIBRATE);
     }
 
     @Override
@@ -103,7 +105,6 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     @Override
     public DriveToPositionCommand createPositionCommand() {
-        // TODO Auto-generated method stub
         return null;
     }
 }

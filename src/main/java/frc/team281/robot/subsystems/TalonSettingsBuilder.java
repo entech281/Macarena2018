@@ -157,7 +157,7 @@ public class TalonSettingsBuilder {
 			settings.outputLimits.maxMotorOutputBackward = -peakPercent;
 			settings.outputLimits.maxMotorOutputForward = peakPercent;
 			settings.outputLimits.minMotorOutputForward = minimumPercent;
-			settings.outputLimits.minMotorOutputBackward = minimumPercent;
+			settings.outputLimits.minMotorOutputBackward = -minimumPercent;
 			return this;
 		}
 

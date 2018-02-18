@@ -28,6 +28,7 @@ public class BasicArcadeDriveController extends BaseDriveController {
 		diffDrive = new DifferentialDrive(new SpeedControllerGroup(talons.getFrontLeft(), talons.getRearLeft()),
 											new SpeedControllerGroup(talons.getFrontRight(), talons.getRearRight()));
 		diffDrive.setSafetyEnabled(false);
+		
 	}
 
 	@Override

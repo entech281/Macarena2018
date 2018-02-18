@@ -53,7 +53,7 @@ public class FourDriveTalonCalibratorController extends BaseDriveController {
 		dataLogger.log("LeftRearMotorGood", checker.isLeftRearOk());
 		dataLogger.log("RightFrontMotorGood", checker.isRightFrontOk());
 		dataLogger.log("RightRearMotorGood", checker.isRightRearOk());
-		checker.adjustTalonSettingsToWorkAroundBrokenEncoders(originalTalons);
+		//checker.adjustTalonSettingsToWorkAroundBrokenEncoders(originalTalons);
 		
 	}
 
@@ -61,12 +61,9 @@ public class FourDriveTalonCalibratorController extends BaseDriveController {
 		if ( tester == null ) {
 			return false;
 		}
-		else if ( tester.isRunning() ) {
-			long currentTime = System.currentTimeMillis();
-			return currentTime > (startTimeMillis + this.calibrationTimeMs);			
-		}
 		else {
-			return false;
+            long currentTime = System.currentTimeMillis();
+            return currentTime > (startTimeMillis + this.calibrationTimeMs);    
 		}
 
 	}

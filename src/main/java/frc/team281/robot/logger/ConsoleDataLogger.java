@@ -28,7 +28,7 @@ public class ConsoleDataLogger extends DataLogger {
 
 	@Override
 	public void log(String key, Object value) {
-		printMessage("%s", key, value.toString());
+		printMessage("%s", key, ""+value);
 	}
 
 	@Override

@@ -56,31 +56,42 @@ public class TalonPositionControllerGroup {
 		int total = 0;
 		int count = 0;
 		Integer pos = frontLeft.getActualPosition();
-		if (pos != null) {
+		if (pos != null && pos > 0) {
 			total += pos;
 			count += 1;
 		}
 		pos = rearLeft.getActualPosition();
-		if (pos != null) {
+		if (pos != null && pos > 0) {
 			total += pos;
 			count += 1;
 		}
-		return total / count;
+		if ( count == 0){
+		    return 0;
+		}
+		else{
+		    return total / count;
+		}
+		
 	}
 
 	public int computeRightEncoderCounts() {
 		int total = 0;
 		int count = 0;
 		Integer pos = frontRight.getActualPosition();
-		if (pos != null || pos == 0 ) {
+		if (pos != null && pos > 0 ) {
 			total += pos;
 			count += 1;
 		}
 		pos = rearRight.getActualPosition();
-		if (pos != null || pos == 0 ) {
+		if (pos != null && pos > 0 ) {
 			total += pos;
 			count += 1;
 		}
-		return total / count;
+        if ( count == 0){
+            return 0;
+        }
+        else{
+            return total / count;
+        }
 	}
 }

@@ -50,13 +50,15 @@ public abstract class BaseDriveSubsystem extends BaseSubsystem {
 	}
 	
 	public void runController(BaseDriveController newController) {
-
+	    if ( newController == null ){
+	        dataLogger.warn("Trying to run null controller!");
+	    }
 		if (!newController.equals(currentController)) {
 			dataLogger.warn("Switching Controllers: " + currentController + "-->" + newController);
+			currentController = newController;
 			newController.initialize();
-
 		}
-		dataLogger.log("CurrentController", currentController);
+		dataLogger.log("CurrentController", currentController.getName());
 		newController.periodic();
 
 	}

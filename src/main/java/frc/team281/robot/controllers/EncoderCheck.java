@@ -1,5 +1,6 @@
 package frc.team281.robot.controllers;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.team281.robot.RobotMap;
 import frc.team281.robot.subsystems.TalonSettingsBuilder;
 import frc.team281.robot.subsystems.drive.FourTalonsWithSettings;
@@ -28,6 +29,7 @@ public class EncoderCheck {
 	
 	public void adjustTalonSettingsToWorkAroundBrokenEncoders(FourTalonsWithSettings originalTalons) {
 		if (shouldDisableAll()) {
+		    DriverStation.reportWarning("Disabling All Drives!", false);
 			originalTalons.disableAllSettings();
 		} else {
 			if (shouldLeftFrontFollowLeftRear()) {

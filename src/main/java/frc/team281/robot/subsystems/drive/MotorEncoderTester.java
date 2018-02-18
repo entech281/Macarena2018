@@ -15,7 +15,7 @@ public class MotorEncoderTester {
 	protected TalonSpeedController leftRearMotor;
 	protected TalonSpeedController rightFrontMotor;
 	protected TalonSpeedController rightRearMotor;
-	private double testSpeed = 0.2;
+	private double testSpeed = 0.1;
 	private boolean running = false;
 	
 	public boolean isRunning() {
