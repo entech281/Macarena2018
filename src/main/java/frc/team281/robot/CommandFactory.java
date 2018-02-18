@@ -1,6 +1,5 @@
 package frc.team281.robot;
 
-import frc.team281.robot.commands.JoystickDriveCommand;
 import frc.team281.robot.commands.DriveToPositionCommand;
 
 /**
@@ -12,8 +11,6 @@ import frc.team281.robot.commands.DriveToPositionCommand;
  *
  */
 public interface CommandFactory {
-
-    JoystickDriveCommand createDriveCommand();
 
     DriveToPositionCommand createPositionCommand();
 

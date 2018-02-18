@@ -1,7 +1,7 @@
 package frc.team281.robot.commands;
 
-import frc.team281.robot.subsystems.BaseDriveSubsystem;
 import frc.team281.robot.subsystems.Position;
+import frc.team281.robot.subsystems.drive.BaseDriveSubsystem;
 
 public class DriveToPositionCommand extends BaseCommand {
 
@@ -18,15 +18,12 @@ public class DriveToPositionCommand extends BaseCommand {
 
     @Override
     protected void initialize() {
-        driveSubsystem.drive(desiredPosition);
+        driveSubsystem.getPositionBuffer().addPosition(desiredPosition);
     }
 
     @Override
     protected boolean isFinished() {
-        Position currentPosition = driveSubsystem.getCurrentPosition();
-        dataLogger.log("PositionLeft", currentPosition.getLeftInches());
-        dataLogger.log("PositionRight", currentPosition.getRightInches());
-        return this.desiredPosition.isCloseTo(currentPosition, TOLERANCE);
+        return driveSubsystem.getPositionBuffer().isFinished();
     }
 
 }

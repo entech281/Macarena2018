@@ -6,24 +6,24 @@ import frc.team281.robot.subsystems.TalonSettings;
 
 public class TalonPositionController extends BaseTalonController {
 
-    private double desiredPosition = 0.0;
+	private double desiredPosition = 0.0;
 
-    public double getDesiredPosition() {
-        return desiredPosition;
-    }
+	public double getDesiredPosition() {
+		return desiredPosition;
+	}
 
-    /**
-     * When you call this, the talon will be put in the right mode for control
-     * 
-     * @param desiredPosition
-     */
-    public void setDesiredPosition(double desiredPosition) {
-        this.desiredPosition = desiredPosition;
-        this.resetMode(desiredPosition);
+	/**
+	 * When you call this, the talon will be put in the right mode for control
+	 * 
+	 * @param desiredPosition
+	 */
+	public void setDesiredPosition(double desiredPosition) {
+		this.desiredPosition = desiredPosition;
+		this.resetMode(desiredPosition);
 
-    }
+	}
 
-    public TalonPositionController(TalonSRX talon, TalonSettings settings) {
-        super(talon, settings);
-    }
+	public TalonPositionController(TalonSRX talon, TalonSettings settings) {
+		super(talon, settings);
+	}
 }

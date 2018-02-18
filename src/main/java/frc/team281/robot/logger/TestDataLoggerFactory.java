@@ -8,9 +8,9 @@ package frc.team281.robot.logger;
  */
 public class TestDataLoggerFactory extends DataLoggerFactory {
 
-    @Override
-    public DataLogger createDataLogger(String name) {
-        return new ConsoleDataLogger(name, new WpilibTimeSource());
-    }
+	@Override
+	public DataLogger createDataLogger(String name) {
+		return new ConsoleDataLogger(name, new WpilibTimeSource());
+	}
 
 }

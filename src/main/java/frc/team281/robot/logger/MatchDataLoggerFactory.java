@@ -9,9 +9,9 @@ package frc.team281.robot.logger;
  */
 public class MatchDataLoggerFactory extends DataLoggerFactory {
 
-    @Override
-    public DataLogger createDataLogger(String name) {
-        return new CompositeLogger(new SmartDashboardLogger(name), new ConsoleDataLogger(name, new WpilibTimeSource()));
-    }
+	@Override
+	public DataLogger createDataLogger(String name) {
+		return new CompositeLogger(new SmartDashboardLogger(name), new ConsoleDataLogger(name, new WpilibTimeSource()));
+	}
 
 }

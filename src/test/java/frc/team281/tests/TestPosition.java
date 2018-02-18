@@ -10,20 +10,20 @@ import frc.team281.robot.subsystems.Position;
 
 public class TestPosition {
 
-    @Test
-    public void testPositionCloseTo() {
+	@Test
+	public void testPositionCloseTo() {
 
-        Position x = new Position(0, 0);
-        Position y = new Position(18, 18);
+		Position x = new Position(0, 0);
+		Position y = new Position(18, 18);
 
-        assertFalse(x.isCloseTo(y, 0.001));
-        assertTrue(x.isCloseTo(y, 20.0));
-    }
+		assertFalse(x.isCloseTo(y, 0.001));
+		assertTrue(x.isCloseTo(y, 20.0));
+	}
 
-    @Test
-    public void testGetters() {
-        Position x = new Position(2.0, 3.0);
-        assertEquals(2.0, x.getLeftInches(), 0.001);
-        assertEquals(3.0, x.getRightInches(), 0.001);
-    }
+	@Test
+	public void testGetters() {
+		Position x = new Position(2.0, 3.0);
+		assertEquals(2.0, x.getLeftInches(), 0.001);
+		assertEquals(3.0, x.getRightInches(), 0.001);
+	}
 }

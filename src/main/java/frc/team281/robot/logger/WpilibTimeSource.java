@@ -10,19 +10,19 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class WpilibTimeSource implements TimeSource {
 
-    protected double startTime = Timer.getFPGATimestamp();
+	protected double startTime = Timer.getFPGATimestamp();
 
-    public void resetClock() {
-        startTime = Timer.getFPGATimestamp();
-    }
+	public void resetClock() {
+		startTime = Timer.getFPGATimestamp();
+	}
 
-    public double getElapsedSeconds() {
-        return getSystemTime() - startTime;
-    }
+	public double getElapsedSeconds() {
+		return getSystemTime() - startTime;
+	}
 
-    @Override
-    public double getSystemTime() {
-        return Timer.getFPGATimestamp();
-    }
+	@Override
+	public double getSystemTime() {
+		return Timer.getFPGATimestamp();
+	}
 
 }

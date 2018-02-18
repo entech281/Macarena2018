@@ -1,7 +1,9 @@
 package frc.team281.robot.logger;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team281.robot.subsystems.BaseSubsystem;
 
 /**
  * A datalogger that sends data to the smartDashboard. Dont' create them
@@ -12,44 +14,49 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class SmartDashboardLogger extends DataLogger {
 
-    public SmartDashboardLogger(String name) {
-        super(name);
-    }
+	public SmartDashboardLogger(String name) {
+		super(name);
+	}
 
-    @Override
-    public void log(String key, Object value) {
-        SmartDashboard.putString(computePath(key), value.toString());
-    }
+	@Override
+	public void log(String key, Object value) {
+		SmartDashboard.putString(computePath(key), value.toString());
+	}
 
-    @Override
-    public void log(String key, double value) {
-        SmartDashboard.putNumber(computePath(key), value);
-    }
+	@Override
+	public void log(String key, double value) {
+		SmartDashboard.putNumber(computePath(key), value);
+	}
 
-    @Override
-    public void log(String key, int value) {
-        SmartDashboard.putNumber(computePath(key), value);
-    }
+	@Override
+	public void log(String key, int value) {
+		SmartDashboard.putNumber(computePath(key), value);
+	}
 
-    @Override
-    public void log(String key, String value) {
-        SmartDashboard.putString(computePath(key), value);
-    }
+	@Override
+	public void log(String key, String value) {
+		SmartDashboard.putString(computePath(key), value);
+	}
 
-    @Override
-    public void log(String key, long value) {
-        SmartDashboard.putNumber(computePath(key), value);
-    }
+	@Override
+	public void log(String key, long value) {
+		SmartDashboard.putNumber(computePath(key), value);
+	}
 
-    @Override
-    public void log(String key, boolean value) {
-        SmartDashboard.putBoolean(computePath(key), value);
-    }
+	@Override
+	public void log(String key, boolean value) {
+		SmartDashboard.putBoolean(computePath(key), value);
+	}
 
-    @Override
-    public void warn(String message) {
-        DriverStation.reportWarning(message, true);
+	@Override
+	public void warn(String message) {
+		DriverStation.reportWarning(message, true);
 
-    }
+	}
+
+	@Override
+	public void log(BaseSubsystem subsystem) {
+		SmartDashboard.putData((Subsystem) subsystem);
+	}
 
 }

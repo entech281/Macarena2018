@@ -9,23 +9,23 @@ package frc.team281.robot.logger;
  *
  */
 public abstract class DataLoggerFactory {
-    public abstract DataLogger createDataLogger(String name);
+	public abstract DataLogger createDataLogger(String name);
 
-    private static DataLoggerFactory factory;
+	private static DataLoggerFactory factory;
 
-    public static void setLoggerFactory(DataLoggerFactory factory) {
-        DataLoggerFactory.factory = factory;
-    }
+	public static void setLoggerFactory(DataLoggerFactory factory) {
+		DataLoggerFactory.factory = factory;
+	}
 
-    public static DataLoggerFactory getLoggerFactory() {
-        return DataLoggerFactory.factory;
-    }
+	public static DataLoggerFactory getLoggerFactory() {
+		return DataLoggerFactory.factory;
+	}
 
-    public static void configureForTesting() {
-        setLoggerFactory(new TestDataLoggerFactory());
-    }
+	public static void configureForTesting() {
+		setLoggerFactory(new TestDataLoggerFactory());
+	}
 
-    public static void configureForMatch() {
-        setLoggerFactory(new MatchDataLoggerFactory());
-    }
+	public static void configureForMatch() {
+		setLoggerFactory(new MatchDataLoggerFactory());
+	}
 }
