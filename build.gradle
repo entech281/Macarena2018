@@ -65,7 +65,7 @@ task wrapper(type: Wrapper) {
 }
 
 findbugs{
-    ignoreFailures = true
+    ignoreFailures = false
     reportLevel = "high"
 }
 

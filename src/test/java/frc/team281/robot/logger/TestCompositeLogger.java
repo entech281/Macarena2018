@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import frc.team281.robot.subsystems.BaseSubsystem;
+
 public class TestCompositeLogger {
 
     @Test
@@ -66,6 +68,12 @@ class FakeDataLogger extends DataLogger {
 
     @Override
     public void warn(String message) {
+        counter++;
+
+    }
+
+    @Override
+    public void log(BaseSubsystem subsystem) {
         counter++;
 
     }

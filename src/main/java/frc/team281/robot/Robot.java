@@ -1,13 +1,25 @@
 
 package frc.team281.robot;
 
-import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import frc.team281.robot.commands.JoystickDriveCommand;
 import frc.team281.robot.commands.DriveToPositionCommand;
+import frc.team281.robot.commands.FollowPositionPathCommand;
+import frc.team281.robot.commands.GrabberCloseCommand;
+import frc.team281.robot.commands.GrabberLoadCommand;
+import frc.team281.robot.commands.GrabberOpenCommand;
+import frc.team281.robot.commands.GrabberShootCommand;
+import frc.team281.robot.commands.GrabberStopCommand;
+import frc.team281.robot.commands.LifterHeightCommand;
+import frc.team281.robot.commands.LifterLowerCommand;
+import frc.team281.robot.commands.LifterRaiseCommand;
+import frc.team281.robot.commands.WristPivotDownCommand;
+import frc.team281.robot.commands.WristPivotUpCommand;
 import frc.team281.robot.logger.DataLoggerFactory;
-import frc.team281.robot.subsystems.Position;
-import frc.team281.robot.subsystems.RealDriveSubsystem;
+import frc.team281.robot.subsystems.PositionCalculator;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.team281.robot.subsystems.drive.BaseDriveSubsystem.DriveMode;
+import frc.team281.robot.subsystems.drive.RealDriveSubsystem;
 
 /**
  * The robot, only used in the real match. Cannot be instantiated outside of the
@@ -21,7 +33,7 @@ import frc.team281.robot.subsystems.RealDriveSubsystem;
  * would be easy to move all of the subsystems out into another class, and have
  * that one implement CommandFactory
  */
-public class Robot extends TimedRobot implements CommandFactory {
+public class Robot extends IterativeRobot implements CommandFactory {
 
     private RealDriveSubsystem driveSubsystem;
     private OperatorInterface operatorInterface;
@@ -45,12 +57,38 @@ public class Robot extends TimedRobot implements CommandFactory {
 
     @Override
     public void autonomousInit() {
-        // m_AutonomousCommand.start();
+        driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
+        DriveToPositionCommand move1 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.goForward(60.0));
+        DriveToPositionCommand move2 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.turnLeft(90));
+        DriveToPositionCommand move3 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.goForward(140));
+        //DriveToPositionCommand move3 = new DriveToPositionCommand(driveSubsystem, calculator.goForward(108.));
+        //DriveToPositionCommand move4 = new DriveToPositionCommand(driveSubsystem, calculator.turnRight(55));
+        //DriveToPositionCommand move5 = new DriveToPositionCommand(driveSubsystem, calculator.goForward(44));
+        //DriveToPositionCommand move6 = new DriveToPositionCommand(driveSubsystem, calculator.turnRight(90));
+        //DriveToPositionCommand move7 = new DriveToPositionCommand(driveSubsystem, calculator.goForward(21));
+        CommandGroup m_AutonomousCommand = new CommandGroup();
+        m_AutonomousCommand.addSequential(move1);
+        m_AutonomousCommand.addSequential(move2);
+        m_AutonomousCommand.addSequential(move3);
+            //m_AutonomousCommand.addSequential(move4);
+            //m_AutonomousCommand.addSequential(move5);
+            //m_AutonomousCommand.addSequential(move6);
+            //m_AutonomousCommand.addSequential(move7);
+
+
+        //m_AutonomousCommand.start();
+        
+        FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
+                PositionCalculator.builder()
+                .forward(60)
+                .left(90)
+                .forward(40)
+                .build()
+        );
+        followPath.start();
     }
 
-    /**
-     * This function is called periodically during operator control
-     */
+
     @Override
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
@@ -58,14 +96,8 @@ public class Robot extends TimedRobot implements CommandFactory {
 
     @Override
     public void disabledInit() {
-
+        driveSubsystem.setMode(DriveMode.DISABLED);
     }
-
-    /**
-     * This function is called once each time the robot enters Disabled mode. You
-     * can use it to reset any subsystem information you want to clear when the
-     * robot is disabled.
-     */
 
     @Override
     public void disabledPeriodic() {
@@ -74,24 +106,12 @@ public class Robot extends TimedRobot implements CommandFactory {
 
     @Override
     public void teleopInit() {
+        driveSubsystem.setMode(DriveMode.SPEED_DRIVE);
     }
 
-    /**
-     * This function is called periodically during operator control
-     */
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-    }
-
-    @Override
-    public JoystickDriveCommand createDriveCommand() {
-        return new JoystickDriveCommand(this.driveSubsystem, operatorInterface);
-    }
-
-    @Override
-    public DriveToPositionCommand createPositionCommand() {
-        return new DriveToPositionCommand(this.driveSubsystem, new Position(120,120));
     }
 
     @Override
@@ -106,38 +126,8 @@ public class Robot extends TimedRobot implements CommandFactory {
         return null;
     }
 
-    // @Override
-    // public LifterStopCommand createLifterStopCommand() {
-        // TODO Auto-generated method stub
-    //     return null;
-    // }
-
     @Override
-    public LifterScaleHighCommand createLifterScaleHighCommand() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public LifterScaleMidCommand createLifterScaleMidCommand() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public LifterScaleLowCommand createLifterScaleLowCommand() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public LifterFenceCommand createLifterFenceCommand() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public LifterGroundCommand createLifterGroundCommand() {
+    public LifterHeightCommand createLifterHeightCommand(double heightInches) {
         // TODO Auto-generated method stub
         return null;
     }

@@ -1,29 +1,31 @@
 package frc.team281.robot.commands;
 
+import java.util.List;
+
 import frc.team281.robot.subsystems.Position;
 import frc.team281.robot.subsystems.drive.BaseDriveSubsystem;
 
-public class DriveToPositionCommand extends BaseCommand {
+public class FollowPositionPathCommand extends BaseCommand{
 
-    private Position desiredPosition;
     private BaseDriveSubsystem driveSubsystem;
 
-    public static final double TOLERANCE = 1.0;
-
-    public DriveToPositionCommand(BaseDriveSubsystem subsystem, Position position) {
+    protected List<Position> path;
+    public FollowPositionPathCommand(BaseDriveSubsystem subsystem, List<Position> path) {
         super(subsystem);
-        this.desiredPosition = position;
         this.driveSubsystem = subsystem;
+        this.path = path;
     }
 
     @Override
     protected void initialize() {
-        driveSubsystem.getPositionBuffer().addPosition(desiredPosition);
+        for (Position p: path){
+            driveSubsystem.getPositionBuffer().addPosition(p);
+        }
+        
     }
-
     @Override
     protected boolean isFinished() {
         return ! driveSubsystem.getPositionBuffer().hasNextPosition();
     }
-
+    
 }

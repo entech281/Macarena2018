@@ -14,15 +14,15 @@ import frc.team281.robot.RobotMap;
  */
 public class TestRobotMap {
 
-    public static void assertPositive(int value) {
-        assertTrue(value >= 0);
-    }
+	public static void assertPositive(int value) {
+		assertTrue(value >= 0);
+	}
 
-    @Test
-    public void testRobotMapItems() {
-        assertPositive(RobotMap.CAN.FRONT_LEFT_MOTOR);
-        assertPositive(RobotMap.CAN.FRONT_RIGHT_MOTOR);
-        assertPositive(RobotMap.CAN.REAR_LEFT_MOTOR);
-        assertPositive(RobotMap.CAN.REAR_RIGHT_MOTOR);
-    }
+	@Test
+	public void testRobotMapItems() {
+		assertPositive(RobotMap.CAN.FRONT_LEFT_MOTOR);
+		assertPositive(RobotMap.CAN.FRONT_RIGHT_MOTOR);
+		assertPositive(RobotMap.CAN.REAR_LEFT_MOTOR);
+		assertPositive(RobotMap.CAN.REAR_RIGHT_MOTOR);
+	}
 }
