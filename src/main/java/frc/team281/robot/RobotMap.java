@@ -12,24 +12,31 @@ package frc.team281.robot;
 public class RobotMap {
 
     public static class CAN {
+        // Drive subsystem
         public static final int FRONT_LEFT_MOTOR = 0;
         public static final int FRONT_RIGHT_MOTOR = 2;
         public static final int REAR_LEFT_MOTOR = 1;
         public static final int REAR_RIGHT_MOTOR = 3;
-        public static final int LIFTER_MOTOR_ONE = 4;
-        public static final int LIFTER_MOTOR_TWO = 5;
-
+        
+        public static class Lifter {
+            public static final int MOTOR_ONE = 4;
+            public static final int MOTOR_TWO = 5;  
+        }
+        
+        public static class Grabber {
+            public static final int MOTOR_LEFT = 6;
+            public static final int MOTOR_RIGHT = 7;
+        }
+        
         public static final int PC_MODULE = 10;
 
     }
 
     public static class DriveJoystick {
         public static final int PORT = 0;
-        public static class Buttons {
-            
+        public static class Buttons {   
             public static final int LIFTER_RAISE = 5;
             public static final int LIFTER_LOWER = 3;
-            
             public static final int LIFTER_SCALE_HIGH = 8;
             public static final int LIFTER_SCALE_MID = 9;
             public static final int LIFTER_SCALE_LOW = 10;

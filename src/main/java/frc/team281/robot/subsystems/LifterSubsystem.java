@@ -15,8 +15,8 @@ public class LifterSubsystem extends BaseSubsystem {
 
     @Override
     public void initialize() {
-        motorOne = new WPI_TalonSRX(RobotMap.CAN.LIFTER_MOTOR_ONE);
-        motorTwo = new WPI_TalonSRX(RobotMap.CAN.LIFTER_MOTOR_TWO);
+        motorOne = new WPI_TalonSRX(RobotMap.CAN.Lifter.MOTOR_ONE);
+        motorTwo = new WPI_TalonSRX(RobotMap.CAN.Lifter.MOTOR_TWO);
 
     }
 

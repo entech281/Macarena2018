@@ -2,6 +2,7 @@
 package frc.team281.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team281.robot.commands.DriveToPositionCommand;
 import frc.team281.robot.commands.FollowPositionPathCommand;
@@ -17,7 +18,6 @@ import frc.team281.robot.commands.WristPivotDownCommand;
 import frc.team281.robot.commands.WristPivotUpCommand;
 import frc.team281.robot.logger.DataLoggerFactory;
 import frc.team281.robot.subsystems.PositionCalculator;
-import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.team281.robot.subsystems.drive.BaseDriveSubsystem.DriveMode;
 import frc.team281.robot.subsystems.drive.RealDriveSubsystem;
 

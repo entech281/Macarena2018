@@ -1,13 +1,18 @@
 package frc.team281.tests;
 
+import static org.mockito.Matchers.anyDouble;
+import static org.mockito.Matchers.anyObject;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import org.junit.Test;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import frc.team281.robot.subsystems.drive.FourTalonsWithSettings;
 import frc.team281.robot.RobotMap;
 import frc.team281.robot.controllers.FourTalonEncoderChecker;
-import static org.mockito.Mockito.*;
+import frc.team281.robot.subsystems.drive.FourTalonsWithSettings;
 
 public class TestFourTalonEncoderChecker extends BaseTest{
 
