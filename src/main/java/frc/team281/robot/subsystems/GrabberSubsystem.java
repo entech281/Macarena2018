@@ -13,8 +13,8 @@ public class GrabberSubsystem extends BaseSubsystem {
     
     private DigitalInput limitSwitch;
     
-    private DoubleSolenoid leftSolenoid = new DoubleSolenoid(PCM.Grabber.LEFT_INSIDE, PCM.Grabber.LEFT_OUTSIDE);
-    private DoubleSolenoid rightSolenoid = new DoubleSolenoid(PCM.Grabber.RIGHT_INSIDE, PCM.Grabber.RIGHT_OUTSIDE);
+    private DoubleSolenoid leftSolenoid;
+    private DoubleSolenoid rightSolenoid;
     
     public GrabberSubsystem() {
         // TODO Auto-generated constructor stub
@@ -25,6 +25,29 @@ public class GrabberSubsystem extends BaseSubsystem {
         motorLeft = new WPI_TalonSRX(RobotMap.CAN.Grabber.MOTOR_LEFT);
         motorRight = new WPI_TalonSRX(RobotMap.CAN.Grabber.MOTOR_RIGHT);
 
+        leftSolenoid = new DoubleSolenoid(PCM.Grabber.LEFT_INSIDE, PCM.Grabber.LEFT_OUTSIDE);
+        rightSolenoid = new DoubleSolenoid(PCM.Grabber.RIGHT_INSIDE, PCM.Grabber.RIGHT_OUTSIDE);
+        
     }
 
+    public void load() {
+        
+    }
+    
+    public void shoot() {
+        
+    }
+    
+    public void stop() {
+        
+    }
+    
+    public void open() {
+        
+    }
+    
+    public void close() {
+        
+    }
+    
 }

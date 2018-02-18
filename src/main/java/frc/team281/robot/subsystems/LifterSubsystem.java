@@ -9,8 +9,6 @@ public class LifterSubsystem extends BaseSubsystem {
     private WPI_TalonSRX motorOne;
     private WPI_TalonSRX motorTwo;
     
-    //TODO; encoder
-    
     private DigitalInput limitSwitch;
     
     public LifterSubsystem() {
@@ -21,7 +19,11 @@ public class LifterSubsystem extends BaseSubsystem {
     public void initialize() {
         motorOne = new WPI_TalonSRX(RobotMap.CAN.Lifter.MOTOR_ONE);
         motorTwo = new WPI_TalonSRX(RobotMap.CAN.Lifter.MOTOR_TWO);
-
+        
     }
 
+    public void gotoHeight(double heightInches) {
+        
+    }
+    
 }

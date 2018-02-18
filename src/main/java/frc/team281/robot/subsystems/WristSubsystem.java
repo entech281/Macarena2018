@@ -6,8 +6,8 @@ import frc.team281.robot.RobotMap.PCM;
 
 public class WristSubsystem extends BaseSubsystem {
 
-    private Solenoid up = new Solenoid(PCM.Wrist.UP);
-    private Solenoid down = new Solenoid(PCM.Wrist.DOWN);
+    private Solenoid up;
+    private Solenoid down;
 
     private DigitalInput limitSwitch;
     
@@ -17,8 +17,17 @@ public class WristSubsystem extends BaseSubsystem {
 
     @Override
     public void initialize() {
-        // TODO Auto-generated method stub
+        up = new Solenoid(PCM.Wrist.UP);
+        down = new Solenoid(PCM.Wrist.DOWN);
 
     }
 
+    public void pivotUp() {
+        
+    }
+    
+    public void pivotDown() {
+        
+    }
+    
 }
