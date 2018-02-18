@@ -1,7 +1,7 @@
 package frc.team281.robot.subsystems;
 
 public interface PositionSource {
-	public Position getNextPosition();
-
-	public boolean isFinished();
+	public Position getCurrentPosition();
+	public boolean hasNextPosition();
+	public Position next();
 }

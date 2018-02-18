@@ -1,10 +1,21 @@
 package frc.team281.robot.subsystems.drive;
 
+
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import frc.team281.robot.controllers.FourTalonEncoderChecker;
 import frc.team281.robot.controllers.TalonPositionController;
 import frc.team281.robot.controllers.TalonPositionControllerGroup;
 import frc.team281.robot.subsystems.Position;
 import frc.team281.robot.subsystems.PositionSource;
 
+
+/**
+ * Drives to positions given by the position buffer.
+ * 
+ * @author dcowden
+ *
+ */
 public class PositionDriveController extends BaseDriveController {
 
 	public static final double TOLERANCE_INCHES = 1.0;
@@ -15,6 +26,7 @@ public class PositionDriveController extends BaseDriveController {
 	private Position desiredPosition;
 	private PositionSource positionSource;
 	private int updateCount = 0;
+
 	
 	public PositionDriveController(FourTalonsWithSettings talons, PositionSource positionSource,
 			EncoderInchesConverter encoderConverter) {
@@ -24,7 +36,7 @@ public class PositionDriveController extends BaseDriveController {
 	}
 
 	@Override
-	public void initialize() {
+	public void activate() {
 
 		talons.configureAll();
 		
@@ -35,7 +47,7 @@ public class PositionDriveController extends BaseDriveController {
 				new TalonPositionController(talons.getRearRight(), talons.getRearRightSettings()));
 
 		positionControllerGroup.resetPosition();
-		dataLogger.log("Initialized","true");
+
 	}
 
 	public boolean isFinished() {
@@ -46,51 +58,79 @@ public class PositionDriveController extends BaseDriveController {
 	}
 
 	public Position getCurrentPosition() {
-
-		int leftEncoderCount = positionControllerGroup.computeLeftEncoderCounts();
-		int rightEncoderCount = positionControllerGroup.computeRightEncoderCounts();
-
-		double leftInches = encoderConverter.toInches(leftEncoderCount);
-		double rightInches = encoderConverter.toInches(rightEncoderCount);
-
-		// use the average
-		return new Position(leftInches, rightInches);
-
+		return positionControllerGroup.getCurrentPosition(encoderConverter);
 	}
 
+
+	public boolean hasCurrentCommand() {
+		return this.desiredPosition == null;
+	}
+	public void setCurrentCommand(Position position) {
+		this.desiredPosition = position;
+	}
+	public Position getCurrentCommand() {
+		return this.desiredPosition;
+	}
+	
 	@Override
-	public void periodic() {
-	    dataLogger.warn(" Top Loop");
-		dataLogger.log("isFinished", isFinished());
-		dataLogger.log("desiredPosition", desiredPosition);
-		dataLogger.log("currentPosition", getCurrentPosition());
-		dataLogger.log("updateCount", updateCount++);
-		if (isFinished()) {
-			Position p = positionSource.getNextPosition();
-			dataLogger.log("nextPositon", p + "");
-			if (p != null) {
-				this.desiredPosition = p;
-				dataLogger.warn("Updated Position ok, desired=" + this.desiredPosition);
+	public void periodic() {		
+		processPositionCommand();		
+		new FourTalonEncoderChecker(talons).setMotorsWithBrokenEncodersToFollowers();
+		displayControllerStatuses();
+	}
+
+	protected void processPositionCommand() {
+		if ( hasCurrentCommand() ) {
+			Position current = getCurrentPosition();
+			Position command = getCurrentCommand();
+			if ( current.isCloseTo(command, TOLERANCE_INCHES)) {
+				positionSource.next();
+			}			
+		}
+		else {
+			if ( positionSource.hasNextPosition()) {
+				Position p = positionSource.getCurrentPosition();
+				setCurrentCommand(p);
 				int encoderLeft = encoderConverter.toCounts(p.getLeftInches());
 				int encoderRight = encoderConverter.toCounts(p.getRightInches());
 				positionControllerGroup.setDesiredPosition(encoderLeft, encoderRight, p.isRelative());
-				dataLogger.warn("Set Position ok");
-			} else {
-				dataLogger.warn("Next Position is Null. No additional Command Requested.");
 			}
-
+			else {
+				
+			}
+		}		
+		if ( hasCurrentCommand() ) {
+			dataLogger.log("commandPosition", getCurrentCommand());
 		}
-		dataLogger.warn("Got To Bottom of Loop");
-		dataLogger.log("frontLeftMode", talons.getFrontLeft().getControlMode() );
-		dataLogger.log("rearLeftMode", talons.getRearLeft().getControlMode() );
-        dataLogger.log("leftError", talons.getFrontLeft().getClosedLoopError(0) );
-        dataLogger.log("leftErroMsg", talons.getFrontLeft().getLastError() );
-        dataLogger.log("leftget", talons.getFrontLeft().get() );
-        dataLogger.log("leftpercent", talons.getFrontLeft().getMotorOutputPercent() );
-        dataLogger.log("leftvolts", talons.getFrontLeft().getMotorOutputVoltage() );
-        dataLogger.log("leftcurrent", talons.getFrontLeft().getOutputCurrent() );
-        dataLogger.log("leftpos", talons.getFrontLeft().getSelectedSensorPosition(0) );
-        dataLogger.log("leftvel", talons.getFrontLeft().getSelectedSensorVelocity(0) );
+		else {
+			dataLogger.log("commandPosition", "<IDLE>");
+		}		
+		dataLogger.log("currentPosition", getCurrentPosition());
+		dataLogger.log("updateCount", updateCount++);
+		
+	}
+	
+	protected void displayControllerStatuses() {
+		displayControllerStatus(talons.getFrontLeft(),"FrontLeft");
+		displayControllerStatus(talons.getFrontRight(),"FrontRight");
+		displayControllerStatus(talons.getRearLeft(),"RearLeft");
+		displayControllerStatus(talons.getRearRight(),"RearRight");
+	}
+	
+	protected void displayControllerStatus(WPI_TalonSRX talon, String name) {
+        dataLogger.log(name +"_error", talon.getClosedLoopError(0) );
+        dataLogger.log(name +"_errorMsg", talon.getLastError() );
+        dataLogger.log(name +"_get", talon.get() );
+        dataLogger.log(name +"_percent", talon.getMotorOutputPercent() );
+        dataLogger.log(name +"_tvolts", talon.getMotorOutputVoltage() );
+        dataLogger.log(name +"_current", talon.getOutputCurrent() );
+        dataLogger.log(name +"_pos", talon.getSelectedSensorPosition(0) );
+        dataLogger.log(name +"_vel", talon.getSelectedSensorVelocity(0) );		
 	}
 
+	@Override
+	public void deactivate() {
+		// TODO Auto-generated method stub		
+	}
+	
 }

@@ -26,12 +26,15 @@ public abstract class BaseDriveController {
 	/**
 	 * Called when the controller is enabled
 	 */
-	public abstract void initialize();
+	public abstract void activate();
 
 	/**
 	 * Called per loop
 	 */
 	public abstract void periodic();
+	
+	public abstract void deactivate();
+	
 
 	@Override
 	public int hashCode() {

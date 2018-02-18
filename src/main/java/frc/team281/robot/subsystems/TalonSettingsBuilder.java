@@ -31,10 +31,15 @@ public class TalonSettingsBuilder {
 		return settings.copy();
 	}
 
-	public static TalonSettings inverted(TalonSettings settings, boolean invertedSensor, boolean invertedDirection) {
+	public static TalonSettings withDirectionSettings(TalonSettings settings, boolean invertedSensor, boolean invertedDirection) {
 		TalonSettings s = settings.copy();
 		s.motorDirections.inverted = invertedDirection;
 		s.motorDirections.sensorPhase = invertedSensor;
+		return s;
+	}
+	public static TalonSettings inverted(TalonSettings settings) {
+		TalonSettings s = settings.copy();
+		s.motorDirections.inverted = ! settings.motorDirections.inverted;
 		return s;
 	}
 

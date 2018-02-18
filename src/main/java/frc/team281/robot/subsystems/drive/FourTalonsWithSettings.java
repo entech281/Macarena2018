@@ -23,15 +23,23 @@ public class FourTalonsWithSettings {
 	protected TalonSettings rearRightSettings;
 
 	
-	public FourTalonsWithSettings(WPI_TalonSRX frontLeft, WPI_TalonSRX rearLeft, WPI_TalonSRX frontRight,WPI_TalonSRX rearRight) {
+	public FourTalonsWithSettings(WPI_TalonSRX frontLeft, WPI_TalonSRX rearLeft, WPI_TalonSRX frontRight,WPI_TalonSRX rearRight,
+			TalonSettings leftSettings, TalonSettings rightSettings) {
 		this.frontLeft = frontLeft;
 		this.frontRight = frontRight;
 		this.rearLeft = rearLeft;
 		this.rearRight = rearRight;
+		applySettings(leftSettings, rightSettings);
 	}	
-
+	private FourTalonsWithSettings() {
+		
+	}
 	public FourTalonsWithSettings copy() {
-		FourTalonsWithSettings fg = new FourTalonsWithSettings(frontLeft, rearLeft, frontRight, rearRight);
+		FourTalonsWithSettings fg = new FourTalonsWithSettings();
+		fg.frontLeft = this.frontLeft;
+		fg.frontRight = this.frontRight;
+		fg.rearLeft = this.rearLeft;
+		fg.rearRight = this.rearRight;
 		fg.frontLeftSettings = this.frontLeftSettings.copy();
 		fg.frontRightSettings = this.frontRightSettings.copy();
 		fg.rearLeftSettings = this.rearLeftSettings.copy();

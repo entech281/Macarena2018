@@ -25,7 +25,6 @@ public class OperatorInterface implements DriveInstructionSource {
     public void initialize() {
         driveJoystick = new Joystick(RobotMap.JoystickPorts.JOYSTICK_1);
         positionButton = new JoystickButton(driveJoystick, RobotMap.JoystickButtons.POSITION);
-        positionButton.whenPressed(factory.createPositionCommand());
     }
 
     @Override

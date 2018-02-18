@@ -12,20 +12,29 @@ public class PositionBuffer implements PositionSource {
 	}
 
 	@Override
-	public Position getNextPosition() {
+	public Position getCurrentPosition() {
 	    if ( targetList.isEmpty() ){
 	        return null;
 	    }
 	    else{
-	        return targetList.remove(0);
+	        return targetList.get(0);
 	    }
 		
 	}
 
 	@Override
-	public boolean isFinished() {
-		return targetList.size() == 0;
-
+	public boolean hasNextPosition() {
+		return ! targetList.isEmpty();
 	}
 
+	@Override
+	public Position next() {
+		if ( hasNextPosition() ) {
+			return targetList.remove(0);
+		}
+		else {
+			return null;
+		}
+		
+	}
 }

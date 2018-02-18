@@ -23,13 +23,17 @@ public class EncoderCheck {
 		this.rightFrontCounts = rightFrontCounts;
 		this.rightRearCounts = rightRearCounts;
 		this.leftRearCounts = leftRearCounts;
-
 	}
 	
+	public EncoderCheck(FourTalonsWithSettings talons ) {
+		this(   talons.getRearLeft().getSelectedSensorPosition(0),
+				talons.getFrontLeft().getSelectedSensorPosition(0),
+				talons.getFrontRight().getSelectedSensorPosition(0),
+				talons.getRearRight().getSelectedSensorPosition(0) );
+	}
 	
 	public void adjustTalonSettingsToWorkAroundBrokenEncoders(FourTalonsWithSettings originalTalons) {
 		if (shouldDisableAll()) {
-		    DriverStation.reportWarning("Disabling All Drives!", false);
 			originalTalons.disableAllSettings();
 		} else {
 			if (shouldLeftFrontFollowLeftRear()) {

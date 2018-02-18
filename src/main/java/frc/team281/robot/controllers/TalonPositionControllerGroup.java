@@ -1,5 +1,8 @@
 package frc.team281.robot.controllers;
 
+import frc.team281.robot.subsystems.Position;
+import frc.team281.robot.subsystems.drive.EncoderInchesConverter;
+
 /**
  * Utilities for operating on a group of controllers
  * 
@@ -51,6 +54,15 @@ public class TalonPositionControllerGroup {
 		frontRight.setDesiredPosition(rightPosition);
 		rearRight.setDesiredPosition(rightPosition);
 	}
+	public Position getCurrentPosition(EncoderInchesConverter converter) {
+
+		double leftInches = converter.toInches(computeLeftEncoderCounts());
+		double rightInches = converter.toInches(computeRightEncoderCounts());
+
+		// use the average
+		return new Position(leftInches, rightInches);
+
+	}	
 
 	public int computeLeftEncoderCounts() {
 		int total = 0;

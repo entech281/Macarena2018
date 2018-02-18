@@ -1,6 +1,5 @@
 package frc.team281.robot;
 
-import frc.team281.robot.commands.DriveToPositionCommand;
 
 /**
  * An interface that creates commands. This is a seam that allows testing
@@ -12,6 +11,5 @@ import frc.team281.robot.commands.DriveToPositionCommand;
  */
 public interface CommandFactory {
 
-    DriveToPositionCommand createPositionCommand();
 
 }

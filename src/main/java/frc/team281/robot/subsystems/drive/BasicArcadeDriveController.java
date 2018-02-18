@@ -23,11 +23,11 @@ public class BasicArcadeDriveController extends BaseDriveController {
 	}
 
 	@Override
-	public void initialize() {
+	public void activate() {
 		talons.configureAll();
 		diffDrive = new DifferentialDrive(new SpeedControllerGroup(talons.getFrontLeft(), talons.getRearLeft()),
 											new SpeedControllerGroup(talons.getFrontRight(), talons.getRearRight()));
-		diffDrive.setSafetyEnabled(false);
+		diffDrive.setSafetyEnabled(true);
 		
 	}
 
@@ -36,6 +36,11 @@ public class BasicArcadeDriveController extends BaseDriveController {
 		DriveInstruction di = driveInstructionSource.getNextInstruction();
 		diffDrive.arcadeDrive(di.getForward(), di.getLateral());
 
+	}
+
+	@Override
+	public void deactivate() {
+		diffDrive.setSafetyEnabled(false);		
 	}
 
 }

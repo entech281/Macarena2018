@@ -50,7 +50,7 @@ public class TestTalonBuilder {
 				.defaultDirectionSettings().limitMotorOutputs(0.5, 0.01).noMotorStartupRamping().usePositionControl()
 				.withGains(1, 2, 3, 4).withMotionProfile(3200, 43200).build();
 
-		TalonSettings leftSide = TalonSettingsBuilder.inverted(rightSide, false, true);
+		TalonSettings leftSide = TalonSettingsBuilder.inverted(rightSide);
 
 	}
 }

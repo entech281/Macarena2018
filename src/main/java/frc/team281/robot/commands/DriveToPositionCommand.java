@@ -23,7 +23,7 @@ public class DriveToPositionCommand extends BaseCommand {
 
     @Override
     protected boolean isFinished() {
-        return driveSubsystem.getPositionBuffer().isFinished();
+        return ! driveSubsystem.getPositionBuffer().hasNextPosition();
     }
 
 }
