@@ -39,6 +39,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 	//private FourDriveTalonCalibratorController calibrator;
 	private BasicArcadeDriveController arcadeDrive;
 	private PositionDriveController positionDrive;
+	protected DoNothingDriveController doNothing = new DoNothingDriveController();
 	private DriveInstructionSource driveInstructionSource;
 	
 	private FourTalonsWithSettings speedModeTalons;
@@ -125,7 +126,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 		} else if (driveMode == DriveMode.SPEED_DRIVE) {
 			runController(arcadeDrive);
 		} else {
-			// do nothing
+			runController(doNothing);
 		}
 	}
 

@@ -21,7 +21,8 @@ public abstract class BaseDriveSubsystem extends BaseSubsystem {
 	}
 
 	protected DriveMode driveMode = DriveMode.DISABLED;
-	protected BaseDriveController currentController;
+	protected BaseDriveController currentController = new NullController();
+	
 	protected PositionBuffer positionBuffer = new PositionBuffer();
 	protected boolean calibrated = false;
 	
@@ -43,21 +44,15 @@ public abstract class BaseDriveSubsystem extends BaseSubsystem {
 		
 	}
 	
-	
-	
 	public void runController(BaseDriveController newController) {
 	    if ( newController == null ){
-	        dataLogger.warn("Trying to run null controller!");
+	        dataLogger.warn("Trying to run null controller! Use doNothing controller, never use null!");
+	        return;
 	    }
-	    //TODO: clean up a lot of this mess by having a NullController rather than null reference
-		if (!newController.equals(currentController)) {
-		    String newControllerName = "<none>";
-		    
-			dataLogger.warn("Switching Controllers: " + 
-			        computeControllerName(currentController) + "-->" + computeControllerName(newController));
-			if ( currentController != null ){
-			    currentController.deactivate();
-			}						
+
+	    if (!newController.equals(currentController)) {		    
+			dataLogger.warn("Switching Controllers: " +  currentController.getName() + "-->" + newController.getName());
+			currentController.deactivate();	
 			newController.activate();
 			currentController = newController;
 		}
@@ -66,15 +61,7 @@ public abstract class BaseDriveSubsystem extends BaseSubsystem {
 		newController.periodic();
 
 	}
-
-	protected static String computeControllerName(BaseDriveController controller){
-	    if ( controller == null ){
-	        return "<none>";
-	    }
-	    else{
-	        return controller.getName();
-	    }
-	}
+	
 	public PositionBuffer getPositionBuffer() {
 		return positionBuffer;
 	}
@@ -83,6 +70,22 @@ public abstract class BaseDriveSubsystem extends BaseSubsystem {
 	public void initialize() {
 		// TODO Auto-generated method stub
 
+	}
+	
+	private class NullController extends BaseDriveController{
+
+        @Override
+        public void activate() {  
+        }
+
+        @Override
+        public void periodic() {
+        }
+
+        @Override
+        public void deactivate() {
+        }
+	    
 	}
 
 }

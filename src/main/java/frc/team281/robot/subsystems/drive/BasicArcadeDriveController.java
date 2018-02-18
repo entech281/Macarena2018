@@ -32,6 +32,7 @@ public class BasicArcadeDriveController extends BaseDriveController {
 		right.setInverted(true);
 		
 		diffDrive = new DifferentialDrive(left,right);
+		diffDrive.setExpiration(100);
 		diffDrive.setSafetyEnabled(true);
 		
 	}

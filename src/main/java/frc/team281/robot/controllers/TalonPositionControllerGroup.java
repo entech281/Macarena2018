@@ -64,6 +64,7 @@ public class TalonPositionControllerGroup {
 
 	}	
 
+	//TODO: needs tests!
 	public int computeLeftEncoderCounts() {
 		int total = 0;
 		int count = 0;

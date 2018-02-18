@@ -13,7 +13,7 @@ public class FourTalonEncoderChecker {
 	
 	//if any single encoder on a side is this value, 
 	//and the other is not, then we'll consider an encoder broken
-	public static int MIN_COUNTS_TO_CONSIDER=20;
+	public static final int MIN_COUNTS_TO_CONSIDER=20;
 	
 	private DataLogger log;
 	private FourTalonsWithSettings talons;
