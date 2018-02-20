@@ -5,19 +5,25 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team281.robot.commands.DriveToPositionCommand;
-import frc.team281.robot.commands.FollowPositionPathCommand;
+
 import frc.team281.robot.commands.GrabberCloseCommand;
 import frc.team281.robot.commands.GrabberLoadCommand;
 import frc.team281.robot.commands.GrabberOpenCommand;
 import frc.team281.robot.commands.GrabberShootCommand;
 import frc.team281.robot.commands.GrabberStopCommand;
-import frc.team281.robot.commands.LifterHeightCommand;
+import frc.team281.robot.commands.LifterHomeCommand;
 import frc.team281.robot.commands.LifterLowerCommand;
 import frc.team281.robot.commands.LifterRaiseCommand;
 import frc.team281.robot.commands.WristPivotDownCommand;
 import frc.team281.robot.commands.WristPivotUpCommand;
 import frc.team281.robot.logger.DataLoggerFactory;
+import frc.team281.robot.subsystems.FakeGrabberSubsystem;
+import frc.team281.robot.subsystems.FakeLifterSubsystem;
+import frc.team281.robot.subsystems.FakeWristSubsystem;
+import frc.team281.robot.subsystems.GrabberSubsystem;
+import frc.team281.robot.subsystems.LifterSubsystem;
 import frc.team281.robot.subsystems.PositionCalculator;
+import frc.team281.robot.subsystems.WristSubsystem;
 import frc.team281.robot.subsystems.drive.BaseDriveSubsystem.DriveMode;
 import frc.team281.robot.subsystems.drive.RealDriveSubsystem;
 
@@ -37,7 +43,10 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     private RealDriveSubsystem driveSubsystem;
     private OperatorInterface operatorInterface;
-
+    private LifterSubsystem lifterSubsystem;
+    private GrabberSubsystem grabberSubsystem;
+    private WristSubsystem wristSubsystem;
+    
     /**
      * This function is run when the robot is first started up and should be used
      * for any initialization code.
@@ -50,9 +59,14 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
         operatorInterface = new OperatorInterface(this);
         driveSubsystem = new RealDriveSubsystem(operatorInterface);
-
+        lifterSubsystem = new FakeLifterSubsystem();
+        grabberSubsystem= new FakeGrabberSubsystem();
+        wristSubsystem = new FakeWristSubsystem();
         driveSubsystem.initialize();
         operatorInterface.initialize();
+        lifterSubsystem.initialize();
+        grabberSubsystem.initialize();
+        wristSubsystem.initialize();
     }
 
     @Override
@@ -124,12 +138,6 @@ public class Robot extends IterativeRobot implements CommandFactory {
     }
 
     @Override
-    public LifterHeightCommand createLifterHeightCommand(double heightInches) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     public GrabberLoadCommand createGrabberLoadCommand() {
         // TODO Auto-generated method stub
         return null;
@@ -167,6 +175,12 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     @Override
     public WristPivotDownCommand createWristPivotDownCommand() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public LifterHomeCommand createLifterHomeCommand() {
         // TODO Auto-generated method stub
         return null;
     }

@@ -22,11 +22,13 @@ public class WristSubsystem extends BaseSubsystem {
     }
 
     public void pivotUp() {
-        // trigger up solenoid
+        up.set(true);
+        down.set(false);
     }
     
     public void pivotDown() {
-        // trigger down solenoid
+        up.set(false);
+        down.set(true);
     }
     
 }
