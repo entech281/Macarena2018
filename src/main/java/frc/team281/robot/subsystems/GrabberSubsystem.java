@@ -39,7 +39,7 @@ public class GrabberSubsystem extends BaseSubsystem {
         
         TalonSettings leftMotorSettings = TalonSettingsBuilder
                 .defaults()
-                .withCurrentLimits(20, 15, 200)
+                .withCurrentLimits(10, 5, 200)
                 .brakeInNeutral()
                 .defaultDirectionSettings()
                 .noMotorOutputLimits()

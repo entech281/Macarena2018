@@ -5,13 +5,13 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team281.robot.commands.DriveToPositionCommand;
-import frc.team281.robot.commands.FollowPositionPathCommand;
+
 import frc.team281.robot.commands.GrabberCloseCommand;
 import frc.team281.robot.commands.GrabberLoadCommand;
 import frc.team281.robot.commands.GrabberOpenCommand;
 import frc.team281.robot.commands.GrabberShootCommand;
 import frc.team281.robot.commands.GrabberStopCommand;
-import frc.team281.robot.commands.LifterHeightCommand;
+import frc.team281.robot.commands.LifterHomeCommand;
 import frc.team281.robot.commands.LifterLowerCommand;
 import frc.team281.robot.commands.LifterRaiseCommand;
 import frc.team281.robot.commands.WristPivotDownCommand;
@@ -64,6 +64,9 @@ public class Robot extends IterativeRobot implements CommandFactory {
         wristSubsystem = new FakeWristSubsystem();
         driveSubsystem.initialize();
         operatorInterface.initialize();
+        lifterSubsystem.initialize();
+        grabberSubsystem.initialize();
+        wristSubsystem.initialize();
     }
 
     @Override
@@ -135,12 +138,6 @@ public class Robot extends IterativeRobot implements CommandFactory {
     }
 
     @Override
-    public LifterHeightCommand createLifterHeightCommand(double heightInches) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     public GrabberLoadCommand createGrabberLoadCommand() {
         // TODO Auto-generated method stub
         return null;
@@ -178,6 +175,12 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     @Override
     public WristPivotDownCommand createWristPivotDownCommand() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public LifterHomeCommand createLifterHomeCommand() {
         // TODO Auto-generated method stub
         return null;
     }
