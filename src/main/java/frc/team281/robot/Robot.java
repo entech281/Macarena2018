@@ -58,10 +58,10 @@ public class Robot extends IterativeRobot implements CommandFactory {
     @Override
     public void autonomousInit() {
         driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
-        DriveToPositionCommand move1 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.goForward(24.0));
-        DriveToPositionCommand move2 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.turnLeft(25.));
+        DriveToPositionCommand move1 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.goForward(22.0));
+        DriveToPositionCommand move2 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.turnLeft(10.));
         DriveToPositionCommand move3 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.goForward(111.));
-        //DriveToPositionCommand move4 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.turnRight(35.));
+        DriveToPositionCommand move4 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.turnRight(10.));
         //DriveToPositionCommand move5 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.goForward(45));
         //DriveToPositionCommand move6 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.turnRight(90));
         //DriveToPositionCommand move7 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.goForward(34));
@@ -69,19 +69,19 @@ public class Robot extends IterativeRobot implements CommandFactory {
         m_AutonomousCommand.addSequential(move1);
         m_AutonomousCommand.addSequential(move2);
         m_AutonomousCommand.addSequential(move3);
-        //m_AutonomousCommand.addSequential(move4);
+        m_AutonomousCommand.addSequential(move4);
         //m_AutonomousCommand.addSequential(move5);
         //m_AutonomousCommand.addSequential(move6);
         //m_AutonomousCommand.addSequential(move7);
         m_AutonomousCommand.start();
         
-        //FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
-        //        PositionCalculator.builder()
-        //        .forward(60)
-        //        .left(90)
-        //        .forward(40)
-        //        .build()
-        //);
+        FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
+                PositionCalculator.builder()
+                .forward(24)
+                .left(25)
+                .forward(111)
+                .build()
+        );
         //followPath.start();
     }
 
