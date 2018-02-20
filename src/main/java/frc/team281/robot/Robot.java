@@ -170,7 +170,7 @@ public class Robot extends IterativeRobot implements CommandFactory {
         return new WristPivotDownCommand(this.wristSubsystem);
     }
 
-    @Override 
+    @Override
     public LifterHomeCommand createLifterHomeCommand() {
         return new LifterHomeCommand(this.lifterSubsystem);
     }
