@@ -17,7 +17,13 @@ import frc.team281.robot.commands.LifterRaiseCommand;
 import frc.team281.robot.commands.WristPivotDownCommand;
 import frc.team281.robot.commands.WristPivotUpCommand;
 import frc.team281.robot.logger.DataLoggerFactory;
+import frc.team281.robot.subsystems.FakeGrabberSubsystem;
+import frc.team281.robot.subsystems.FakeLifterSubsystem;
+import frc.team281.robot.subsystems.FakeWristSubsystem;
+import frc.team281.robot.subsystems.GrabberSubsystem;
+import frc.team281.robot.subsystems.LifterSubsystem;
 import frc.team281.robot.subsystems.PositionCalculator;
+import frc.team281.robot.subsystems.WristSubsystem;
 import frc.team281.robot.subsystems.drive.BaseDriveSubsystem.DriveMode;
 import frc.team281.robot.subsystems.drive.RealDriveSubsystem;
 
@@ -37,7 +43,10 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     private RealDriveSubsystem driveSubsystem;
     private OperatorInterface operatorInterface;
-
+    private LifterSubsystem lifterSubsystem;
+    private GrabberSubsystem grabberSubsystem;
+    private WristSubsystem wristSubsystem;
+    
     /**
      * This function is run when the robot is first started up and should be used
      * for any initialization code.
@@ -50,7 +59,9 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
         operatorInterface = new OperatorInterface(this);
         driveSubsystem = new RealDriveSubsystem(operatorInterface);
-
+        lifterSubsystem = new FakeLifterSubsystem();
+        grabberSubsystem= new FakeGrabberSubsystem();
+        wristSubsystem = new FakeWristSubsystem();
         driveSubsystem.initialize();
         operatorInterface.initialize();
     }

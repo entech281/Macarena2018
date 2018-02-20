@@ -1,47 +1,51 @@
 package frc.team281.robot.subsystems;
 
+
+
 public class FakeGrabberSubsystem extends GrabberSubsystem {
 
+    protected int cubeIntakeCount = 0;
+    protected boolean cubeSwitchTouching = false;
+    public static final int TIME_TO_LOAD_CUBE_MILLIS=2000;
+    public static final int LOOP_TIME_MILLIS=20;
     @Override
     public void initialize() {
-        // TODO Auto-generated method stub
-        super.initialize();
     }
 
     @Override
     public boolean isCubeTouchingSwitch() {
-        // TODO Auto-generated method stub
-        return super.isCubeTouchingSwitch();
+        cubeIntakeCount += LOOP_TIME_MILLIS;
+        if (cubeIntakeCount > TIME_TO_LOAD_CUBE_MILLIS){
+            cubeSwitchTouching= true;
+        }
+        return cubeSwitchTouching;
     }
 
     @Override
     public void startLoading() {
-        // TODO Auto-generated method stub
-        super.startLoading();
+        dataLogger.log("MotorsRunning",true);
+        cubeSwitchTouching = false;
     }
 
     @Override
     public void startShooting() {
-        // TODO Auto-generated method stub
-        super.startShooting();
+        dataLogger.log("MotorsRunning",true);
+        cubeSwitchTouching = false;
     }
 
     @Override
     public void stopMotors() {
-        // TODO Auto-generated method stub
-        super.stopMotors();
+        dataLogger.log("MotorsRunning",false);
     }
 
     @Override
     public void open() {
-        // TODO Auto-generated method stub
-        super.open();
+        dataLogger.log("GrabberClosed",false);
     }
 
     @Override
     public void close() {
-        // TODO Auto-generated method stub
-        super.close();
+        dataLogger.log("GrabberClosed",true);
     }
 
 }
