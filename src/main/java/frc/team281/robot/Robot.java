@@ -96,7 +96,7 @@ public class Robot extends IterativeRobot implements CommandFactory {
                 .forward(111)
                 .build()
         );
-        //followPath.start();
+        followPath.start();
     }
 
 
