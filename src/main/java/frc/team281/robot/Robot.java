@@ -127,61 +127,51 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     @Override
     public LifterRaiseCommand createLifterRaiseCommand() {
-        // TODO Auto-generated method stub
-        return null;
+        return new LifterRaiseCommand(this.lifterSubsystem);
     }
 
     @Override
     public LifterLowerCommand createLifterLowerCommand() {
-        // TODO Auto-generated method stub
-        return null;
+        return new LifterLowerCommand(this.lifterSubsystem);
     }
 
     @Override
     public GrabberLoadCommand createGrabberLoadCommand() {
-        // TODO Auto-generated method stub
-        return null;
+        return new GrabberLoadCommand(this.grabberSubsystem);
     }
 
     @Override
     public GrabberShootCommand createGrabberShootCommand() {
-        // TODO Auto-generated method stub
-        return null;
+        return new GrabberShootCommand(this.grabberSubsystem);
     }
 
     @Override
     public GrabberStopCommand createGrabberStopCommand() {
-        // TODO Auto-generated method stub
-        return null;
+        return new GrabberStopCommand(this.grabberSubsystem);
     }
 
     @Override
     public GrabberOpenCommand createGrabberOpenCommand() {
-        // TODO Auto-generated method stub
-        return null;
+        return new GrabberOpenCommand(this.grabberSubsystem);
     }
 
     @Override
     public GrabberCloseCommand createGrabberCloseCommand() {
-        // TODO Auto-generated method stub
-        return null;
+        return new GrabberCloseCommand(this.grabberSubsystem);
     }
 
     @Override
     public WristPivotUpCommand createWristPivotUpCommand() {
-        // TODO Auto-generated method stub
-        return null;
+        return new WristPivotUpCommand(this.wristSubsystem);
     }
 
     @Override
     public WristPivotDownCommand createWristPivotDownCommand() {
-        // TODO Auto-generated method stub
-        return null;
+        return new WristPivotDownCommand(this.wristSubsystem);
     }
 
     @Override
     public LifterHomeCommand createLifterHomeCommand() {
-        // TODO Auto-generated method stub
-        return null;
+        return new LifterHomeCommand(this.lifterSubsystem);
     }
 }
