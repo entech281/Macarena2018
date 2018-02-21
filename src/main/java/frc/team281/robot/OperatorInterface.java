@@ -21,10 +21,6 @@ public class OperatorInterface implements DriveInstructionSource {
     
     private JoystickButton lifterRaiseButton;
     private JoystickButton lifterLowerButton; 
-    private JoystickButton lifterScaleHighButton;
-    private JoystickButton lifterScaleMidButton;
-    private JoystickButton lifterScaleLowButton;
-    private JoystickButton lifterFenceButton;
     private JoystickButton lifterGroundButton;  
     private JoystickButton grabberLoadButton;
     private JoystickButton grabberShootButton;
@@ -53,17 +49,9 @@ public class OperatorInterface implements DriveInstructionSource {
         lifterRaiseButton.whenPressed(factory.createLifterRaiseCommand());
         lifterLowerButton = new JoystickButton(driveJoystick, RobotMap.DriveJoystick.Buttons.LIFTER_LOWER);
         lifterLowerButton.whenPressed(factory.createLifterLowerCommand());
-        
-        lifterScaleHighButton = new JoystickButton(driveJoystick, RobotMap.DriveJoystick.Buttons.LIFTER_SCALE_HIGH);
-        lifterScaleHighButton.whenPressed(factory.createLifterHeightCommand(LifterHeights.SCALE_HIGH));
-        lifterScaleMidButton = new JoystickButton(driveJoystick, RobotMap.DriveJoystick.Buttons.LIFTER_SCALE_MID);
-        lifterScaleMidButton.whenPressed(factory.createLifterHeightCommand(LifterHeights.SCALE_MID));
-        lifterScaleLowButton = new JoystickButton(driveJoystick, RobotMap.DriveJoystick.Buttons.LIFTER_SCALE_LOW);
-        lifterScaleLowButton.whenPressed(factory.createLifterHeightCommand(LifterHeights.SCALE_LOW));
-        lifterFenceButton = new JoystickButton(driveJoystick, RobotMap.DriveJoystick.Buttons.LIFTER_SCALE_FENCE);
-        lifterFenceButton.whenPressed(factory.createLifterHeightCommand(LifterHeights.FENCE));
+
         lifterGroundButton = new JoystickButton(driveJoystick, RobotMap.DriveJoystick.Buttons.LIFTER_SCALE_GROUND);
-        lifterGroundButton.whenPressed(factory.createLifterHeightCommand(LifterHeights.GROUND));
+        lifterGroundButton.whenPressed(factory.createLifterHomeCommand());
         
         grabberLoadButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.GRABBER_LOAD);
         grabberLoadButton.whenPressed(factory.createGrabberLoadCommand());

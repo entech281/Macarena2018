@@ -8,6 +8,7 @@ public class FakeLifterSubsystem extends LifterSubsystem {
     protected double moveSpeed = 0.0;
     
     private FakeMotorStatus status = FakeMotorStatus.STOPPED;
+    
     public enum FakeMotorStatus{
         MOVING_UP,
         MOVING_DOWN,
@@ -35,28 +36,6 @@ public class FakeLifterSubsystem extends LifterSubsystem {
     @Override
     public boolean isLifterAtBottom() {
         return currentHeight <= 0;
-    }
-
-    @Override
-    public void setZeroPosition() {
-        currentHeight = 0;
-    }
-
-    @Override
-    public double getHeightInches() {
-        switch ( status){
-        case MOVING_DOWN:
-            currentHeight -= moveSpeed;
-        case MOVING_UP:
-            currentHeight += moveSpeed;
-        case STOPPED:
-            break;
-        default:
-            break;
-        
-        }
-        currentHeight = trimHeight(currentHeight);
-        return currentHeight;
     }
 
 }

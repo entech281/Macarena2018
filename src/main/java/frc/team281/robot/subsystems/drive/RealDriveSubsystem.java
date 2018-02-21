@@ -28,9 +28,9 @@ import frc.team281.robot.subsystems.TalonSettingsBuilder;
 public class RealDriveSubsystem extends BaseDriveSubsystem {
 
 	public static final int NAVX_CALIBRATION_LOOP_TIME_MS = 50;
-	public static final double ENCODER_TICKS_PER_INCH = 43.0;
+	public static final double ENCODER_TICKS_PER_INCH = 52.;
 
-	public static final int POSITION_ENCODER_TOLERANCE = 20;
+	public static final int POSITION_ENCODER_TOLERANCE = 25;
 	public static final double POSITION_TOLERANCE_INCHES = (double)POSITION_ENCODER_TOLERANCE/ ENCODER_TICKS_PER_INCH;
 	
 	//protected FourTalonGroup talons;
@@ -69,7 +69,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 				.withCurrentLimits(35, 30, 200)
 				.coastInNeutral()
 				.withDirections(false, false)
-				.limitMotorOutputs(1.0, 0.1)
+				.limitMotorOutputs(1.0, 0.2)
 				.noMotorStartupRamping()
 				.useSpeedControl()
 				.build();
@@ -88,15 +88,23 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 				.withCurrentLimits(35, 30, 200)
 				.coastInNeutral()
 				.withDirections(false, false)
+				.limitMotorOutputs(1.0, 0.25)
+				.noMotorStartupRamping()
+				.usePositionControl()
+				.withGains(0.3,5.0, 0.0, 0.0)
+				.withMotionProfile(150, 150,POSITION_ENCODER_TOLERANCE)
+				.build();
+
+		TalonSettings rightPositionSettings = TalonSettingsBuilder.defaults()
+				.withCurrentLimits(35, 30, 200)
+				.coastInNeutral()
+				.withDirections(false, true)
 				.limitMotorOutputs(1.0, 0.15)
 				.noMotorStartupRamping()
 				.usePositionControl()
-				.withGains(0.3,0.7, 0.0, 0.0)
-				.withMotionProfile(800, 800,POSITION_ENCODER_TOLERANCE)
+				.withGains(0.3,8.0, 0, 0.0)
+				.withMotionProfile(150, 150,POSITION_ENCODER_TOLERANCE)
 				.build();
-
-		TalonSettings rightPositionSettings = TalonSettingsBuilder.inverted(leftPositionSettings);
-
 		
 		positionModeTalons = new FourTalonsWithSettings(
                 frontLeftMotor,

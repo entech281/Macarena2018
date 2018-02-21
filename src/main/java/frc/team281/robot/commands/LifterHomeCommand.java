@@ -20,10 +20,7 @@ public class LifterHomeCommand extends BaseCommand {
 
     @Override
     protected void end() {
-        lifter.motorsOff();
-        if ( lifter.isLifterAtBottom()){
-            lifter.setZeroPosition();
-        }
+
     }
 
     @Override
