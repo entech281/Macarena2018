@@ -12,18 +12,18 @@ package frc.team281.robot;
 public class RobotMap {
 
     public static class CAN {
-        public static final int FRONT_LEFT_MOTOR = 0;
+        public static final int FRONT_LEFT_MOTOR = 1;
         public static final int FRONT_RIGHT_MOTOR = 2;
-        public static final int REAR_LEFT_MOTOR = 1;
+        public static final int REAR_LEFT_MOTOR = 4;
         public static final int REAR_RIGHT_MOTOR = 3;
         
         public static class Lifter {
-            public static final int MOTOR_ONE = 4;
-            public static final int MOTOR_TWO = 5;  
+            public static final int MOTOR_ONE = 5;
+            public static final int MOTOR_TWO = 6;  
         }
         
         public static class Grabber {
-            public static final int MOTOR_LEFT = 6;
+            public static final int MOTOR_LEFT = 8;
             public static final int MOTOR_RIGHT = 7;
         }
         

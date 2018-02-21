@@ -1,17 +1,19 @@
 package frc.team281.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.team281.robot.RobotMap;
 import frc.team281.robot.RobotMap.DigitalIO;
 import frc.team281.robot.RobotMap.PCM;
+import frc.team281.robot.controllers.TalonSpeedController;
 
 public class GrabberSubsystem extends BaseSubsystem {
     
-    private WPI_TalonSRX motorLeft;
-    private WPI_TalonSRX motorRight;
+    private WPI_TalonSRX leftMotor;
+    private WPI_TalonSRX rightMotor;
+    private TalonSpeedController leftMotorController;
+    private TalonSpeedController rightMotorController;
     
     public static final double LEFT_LOAD_PERCENT = 100;
     public static final double RIGHT_LOAD_PERCENT = 90;
@@ -27,13 +29,28 @@ public class GrabberSubsystem extends BaseSubsystem {
 
     @Override
     public void initialize() {
-        motorLeft = new WPI_TalonSRX(RobotMap.CAN.Grabber.MOTOR_LEFT);
-        motorRight = new WPI_TalonSRX(RobotMap.CAN.Grabber.MOTOR_RIGHT);
+        leftMotor = new WPI_TalonSRX(RobotMap.CAN.Grabber.MOTOR_LEFT);
+        rightMotor = new WPI_TalonSRX(RobotMap.CAN.Grabber.MOTOR_RIGHT);
 
         leftSolenoid = new DoubleSolenoid(PCM.Grabber.LEFT_INSIDE, PCM.Grabber.LEFT_OUTSIDE);
         rightSolenoid = new DoubleSolenoid(PCM.Grabber.RIGHT_INSIDE, PCM.Grabber.RIGHT_OUTSIDE);
         
         limitSwitch = new DigitalInput(DigitalIO.GRABBER_CUBE_LOADED);
+        
+        TalonSettings leftMotorSettings = TalonSettingsBuilder
+                .defaults()
+                .withCurrentLimits(10, 5, 200)
+                .brakeInNeutral()
+                .defaultDirectionSettings()
+                .noMotorOutputLimits()
+                .noMotorStartupRamping()
+                .useSpeedControl()
+                .build();
+        
+        TalonSettings rightMotorSettings = TalonSettingsBuilder.inverted(leftMotorSettings);
+        leftMotorController = new TalonSpeedController(leftMotor, leftMotorSettings);
+        rightMotorController = new TalonSpeedController(rightMotor, rightMotorSettings);        
+        
     }
 
     public boolean isCubeTouchingSwitch() {
@@ -42,19 +59,18 @@ public class GrabberSubsystem extends BaseSubsystem {
     
     public void startLoading() {
         // run the motors until the switch is tripped then stop the motors
-        motorLeft.set(ControlMode.PercentOutput, LEFT_LOAD_PERCENT);
-        motorRight.set(ControlMode.PercentOutput, RIGHT_LOAD_PERCENT);
+        leftMotorController.setDesiredSpeed(LEFT_LOAD_PERCENT);
+        rightMotorController.setDesiredSpeed(RIGHT_LOAD_PERCENT);        
     }
     
     public void startShooting() {
-        // run motors for N seconds, N is some constant
-        motorLeft.set(ControlMode.PercentOutput, SHOOT_PERCENT);
-        motorRight.set(ControlMode.PercentOutput, SHOOT_PERCENT);
+        leftMotorController.setDesiredSpeed(-LEFT_LOAD_PERCENT);
+        rightMotorController.setDesiredSpeed(-RIGHT_LOAD_PERCENT);  
     }
     
     public void stopMotors() {
-        motorLeft.set(ControlMode.Disabled, 0);
-        motorRight.set(ControlMode.Disabled, 0);
+        leftMotorController.setDesiredSpeed(0);
+        rightMotorController.setDesiredSpeed(0);  
     }
     
     public void solenoidsOff() {
