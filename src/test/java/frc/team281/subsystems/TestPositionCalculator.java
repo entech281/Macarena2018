@@ -64,4 +64,21 @@ public class TestPositionCalculator {
     	
     	assertEquals(4, positions.size());
     }
+    public void testListBuilderMirror() {
+        List<Position> a = PositionCalculator.builder()
+                .forward(20)
+                .left(30)
+                .forward(100)
+                .right(10)
+                .backward(20)
+                .build();
+        List<Position> b = PositionCalculator.builder()
+                .forward(20)
+                .right(30)
+                .forward(100)
+                .left(10)
+                .backward(20)
+                .build();
+        assertEquals(a,b);
+    }
 }

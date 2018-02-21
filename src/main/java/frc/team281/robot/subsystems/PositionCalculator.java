@@ -38,6 +38,7 @@ public class PositionCalculator {
     	BasicMoves left(double degrees);
     	BasicMoves forward(double inches);
     	BasicMoves backward(double inches);
+    	BasicMoves mirror();
     	List<Position> build();
     }
 
@@ -72,6 +73,23 @@ public class PositionCalculator {
 			commands.add(goForward(-inches));
 			return this;
 		}
+
+        @Override
+        public BasicMoves mirror() {
+            BasicMoves b = new Builder();
+            for(int i=0;i<commands.size();i++) {
+                if(commands.get(i).getLeftInches()>0 && commands.get(i).getRightInches()>0) {
+                    b.forward(commands.get(i).getLeftInches());
+                }else if(commands.get(i).getLeftInches()<0 && commands.get(i).getRightInches()<0) {
+                    b.backward(commands.get(i).getLeftInches());
+                }else if(commands.get(i).getLeftInches()<0 && commands.get(i).getRightInches()>0) {
+                    b.left(commands.get(i).getLeftInches());
+                }else {
+                    b.right(commands.get(i).getLeftInches());
+                }
+            }
+            return b;
+        }
     	    	
     }	
 	
