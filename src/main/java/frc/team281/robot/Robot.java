@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.team281.robot.commands.DriveToPositionCommand;
-
+import frc.team281.robot.commands.FollowPositionPathCommand;
 import frc.team281.robot.commands.GrabberCloseCommand;
 import frc.team281.robot.commands.GrabberLoadCommand;
 import frc.team281.robot.commands.GrabberOpenCommand;
@@ -99,7 +99,88 @@ public class Robot extends IterativeRobot implements CommandFactory {
         //followPath.start();
     }
 
-
+    public void robotStartingLeft() {
+        // if were in mid switch o right then pick auto b
+        // makeAutonomousA if switchleft then pick a then whats below 
+    }
+    
+    public void robotStartingMiddle() {
+        // if were in mid switch o right then pick auto b
+        // makeAutonomousA if switchleft then pick a then whats below  
+    }
+    
+    public void  robotStartingRight() {
+        // if were in mid switch o right then pick auto b
+        // makeAutonomousA if switchleft then pick a then whats below    
+    }
+    
+    public void autoPathA() {
+        FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
+                PositionCalculator.builder()
+                .forward(24)
+                .left(25)
+                .forward(111)
+                .right(35)
+                .build()
+        );
+        followPath.start();
+    }
+    
+    public void autoPathB() {
+        FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
+                PositionCalculator.builder()
+                .forward(24)
+                .left(25)
+                .forward(111)
+                .right(35)
+                .build()
+        );
+        followPath.start();   
+    }
+    
+    public void autoPathC() {
+        FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
+                PositionCalculator.builder()
+                .forward(24)
+                .left(25)
+                .forward(111)
+                .right(35)
+                .forward(84)
+                .right(45)
+                .forward(52)
+                .right(45)
+                .forward(110)
+                .right(90)
+                .forward(41)
+                .build()
+        );
+        followPath.start();    
+    }
+    
+    public void autoPathD() {
+        FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
+                PositionCalculator.builder()
+                .forward(24)
+                .left(25)
+                .forward(111)
+                .right(35)
+                .build()
+        );
+        followPath.start();   
+    }
+    
+    public void autoPathE() {
+        FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
+                PositionCalculator.builder()
+                .forward(24)
+                .left(25)
+                .forward(111)
+                .right(35)
+                .build()
+        );
+        followPath.start();   
+    }
+    
     @Override
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
