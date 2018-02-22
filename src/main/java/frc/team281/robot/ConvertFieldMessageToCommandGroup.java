@@ -20,9 +20,6 @@ public class ConvertFieldMessageToCommandGroup {
 		F;
 	}
 	
-	public int getANumber() {
-		return 3;
-	}
 	public WhichAutoCodeToRun convert(FieldMessage message) {
 		 
 		if(message.getPosition()==StartingPosition.LEFT) {
@@ -53,7 +50,8 @@ public class ConvertFieldMessageToCommandGroup {
 			else if(message.isOurSwitchOnTheLeft() == true && message.isOurScaleOnTheLeft() == false) {
 				return WhichAutoCodeToRun.D1;			
 				}
-			else {
+			}	
+			else if(message.getPosition()==StartingPosition.MIDDLE){
 				if(message.isOurSwitchOnTheLeft() == false) {
 					return WhichAutoCodeToRun.E;
 				}
@@ -61,8 +59,7 @@ public class ConvertFieldMessageToCommandGroup {
 					return WhichAutoCodeToRun.F;
 				}
 			}
-		}	
-		
+		return null;
 		
 	}
 }
