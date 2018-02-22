@@ -47,6 +47,9 @@ public class RobotMap {
     public static class ControlPanel {
         public static final int PORT = 1;
         public static class Buttons {
+            public static final int LIFTER_RAISE = 9;
+            public static final int LIFTER_LOWER =10;
+            public static final int LIFTER_STOP = 11;
             public static final int GRABBER_LOAD = 7;
             public static final int GRABBER_SHOOT = 8;
             public static final int GRABBER_STOP = 9;
