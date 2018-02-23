@@ -17,8 +17,8 @@ public class LifterRaiseCommand extends BaseCommand {
 
     @Override
     protected boolean isFinished() {
-        // TODO Auto-generated method stub
-        return false;
+        
+        return isTimedOut();
     }
 
 }

@@ -1,23 +1,22 @@
 package frc.team281.robot.commands;
 
 import frc.team281.robot.subsystems.BaseSubsystem;
+import frc.team281.robot.subsystems.WristSubsystem;
 
 public class WristPivotUpCommand extends BaseCommand {
-
+    WristSubsystem wrist=new WristSubsystem();
     public WristPivotUpCommand(BaseSubsystem subsystem) {
         super(subsystem);
-        // TODO Auto-generated constructor stub
     }
 
     public WristPivotUpCommand(BaseSubsystem subsystem, double timeOut) {
         super(subsystem, timeOut);
-        // TODO Auto-generated constructor stub
+        wrist.pivotUp();
     }
 
     @Override
     protected boolean isFinished() {
-        // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 
 }

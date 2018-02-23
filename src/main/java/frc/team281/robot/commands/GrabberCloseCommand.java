@@ -3,7 +3,7 @@ package frc.team281.robot.commands;
 import frc.team281.robot.subsystems.BaseSubsystem;
 import frc.team281.robot.subsystems.GrabberSubsystem;
 public class GrabberCloseCommand extends BaseCommand {
-    private GrabberSubsystem _grab = new GrabberSubsystem();
+    private GrabberSubsystem grab = new GrabberSubsystem();
     public GrabberCloseCommand(BaseSubsystem subsystem) {
         super(subsystem);
         setTimeout(2000);
@@ -14,7 +14,7 @@ public class GrabberCloseCommand extends BaseCommand {
     }
     @Override
     public void execute() {
-        _grab.close();
+        grab.close();
     }
 
     @Override
