@@ -1,23 +1,25 @@
 package frc.team281.robot.commands;
 
 import frc.team281.robot.subsystems.BaseSubsystem;
-
+import frc.team281.robot.subsystems.GrabberSubsystem;
 public class GrabberCloseCommand extends BaseCommand {
-
+    private GrabberSubsystem _grab = new GrabberSubsystem();
     public GrabberCloseCommand(BaseSubsystem subsystem) {
         super(subsystem);
-        // TODO Auto-generated constructor stub
+        setTimeout(2000);
     }
 
     public GrabberCloseCommand(BaseSubsystem subsystem, double timeOut) {
         super(subsystem, timeOut);
-        // TODO Auto-generated constructor stub
+    }
+    @Override
+    public void execute() {
+        _grab.close();
     }
 
     @Override
     protected boolean isFinished() {
-        // TODO Auto-generated method stub
-        return false;
+        return isTimedOut();
     }
 
 }
