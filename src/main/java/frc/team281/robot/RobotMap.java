@@ -67,6 +67,8 @@ public class RobotMap {
         public static final int LIFTER_AT_TOP = 5;//TODO 
         public static final int GRABBER_CUBE_LOADED = 1;
         public static final int WRIST_AT_BOTTOM = 2;
+        public static final int LEFT_SWITCH_POSITION = 3;
+        public static final int RIGHT_SWITCH_POSITION = 4;
     }
     
     public static class PCM {
