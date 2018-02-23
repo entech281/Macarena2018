@@ -21,7 +21,7 @@ public class GrabberLoadCommand extends BaseCommand {
     
     @Override
     public void execute() {
-        
+        grabber.startShooting();
     }
     
     @Override
