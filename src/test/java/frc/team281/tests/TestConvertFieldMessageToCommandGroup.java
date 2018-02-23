@@ -5,7 +5,7 @@ import org.junit.Test;
 import frc.team281.robot.ConvertFieldMessageToCommandGroup;
 import frc.team281.robot.FieldMessage;
 import frc.team281.robot.FieldMessage.StartingPosition;
-import frc.team281.robot.ConvertFieldMessageToCommandGroup.WhichAutoCodeToRun;
+import frc.team281.robot.WhichAutoCodeToRun;
 
 import static org.junit.Assert.assertEquals;
 

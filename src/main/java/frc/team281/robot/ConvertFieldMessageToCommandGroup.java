@@ -6,18 +6,6 @@ import frc.team281.robot.FieldMessage.StartingPosition;
 
 public class ConvertFieldMessageToCommandGroup {
 	
-	public enum WhichAutoCodeToRun{
-		A,
-		B,
-		C,
-		D,
-		A1,
-		B1,
-		C1,
-		D1,
-		E,
-		F;
-	}
 	
 	public WhichAutoCodeToRun convert(FieldMessage message) {
 		
