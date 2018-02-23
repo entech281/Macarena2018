@@ -1,22 +1,25 @@
 package frc.team281.robot.commands;
 
-import frc.team281.robot.subsystems.BaseSubsystem;
+
+import frc.team281.robot.subsystems.LifterSubsystem;
 
 public class LifterLowerCommand extends BaseCommand {
 
-    public LifterLowerCommand(BaseSubsystem subsystem) {
+    private LifterSubsystem lifter;
+    public LifterLowerCommand(LifterSubsystem subsystem) {
         super(subsystem);
-        // TODO Auto-generated constructor stub
+        this.lifter = subsystem;
     }
 
-    public LifterLowerCommand(BaseSubsystem subsystem, double timeOut) {
-        super(subsystem, timeOut);
-        // TODO Auto-generated constructor stub
+
+    @Override
+    protected void initialize() {
+        lifter.motorsUp(100);
     }
+
 
     @Override
     protected boolean isFinished() {
-        // TODO Auto-generated method stub
         return false;
     }
 

@@ -1,18 +1,19 @@
 package frc.team281.robot.commands;
 
+    
 import frc.team281.robot.subsystems.LifterSubsystem;
 
-public class LifterRaiseCommand extends BaseCommand {
+public class LifterStopCommand extends BaseCommand {
 
     private LifterSubsystem lifter;
-    public LifterRaiseCommand(LifterSubsystem subsystem) {
+    public LifterStopCommand(LifterSubsystem subsystem) {
         super(subsystem);
         this.lifter = subsystem;
     }
 
     @Override
     protected void initialize() {
-        lifter.motorsDown(100);
+        lifter.motorsOff();
     }
 
     @Override
@@ -20,5 +21,6 @@ public class LifterRaiseCommand extends BaseCommand {
         // TODO Auto-generated method stub
         return false;
     }
+
 
 }

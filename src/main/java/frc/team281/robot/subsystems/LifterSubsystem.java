@@ -65,9 +65,9 @@ public class LifterSubsystem extends BaseSubsystem {
 
     @Override
     public void periodic() {
-        if ( limitSwitch.get() ){
-            motorsOff();
-        }
+        //if ( limitSwitch.get() ){
+        //    motorsOff();
+        // }
     }
     
     public boolean isLifterAtBottom(){
