@@ -4,7 +4,7 @@ import frc.team281.robot.subsystems.BaseSubsystem;
 import frc.team281.robot.subsystems.GrabberSubsystem;
 
 public class GrabberShootCommand extends BaseCommand {
-    private GrabberSubsystem _grab = new GrabberSubsystem();
+    private GrabberSubsystem grab = new GrabberSubsystem();
     
     public GrabberShootCommand(BaseSubsystem subsystem) {
         super(subsystem);
@@ -16,7 +16,7 @@ public class GrabberShootCommand extends BaseCommand {
     }
     @Override
     public void execute() {
-        _grab.open();
+        grab.open();
     }
 
     @Override

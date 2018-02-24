@@ -1,6 +1,7 @@
 
 package frc.team281.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -27,6 +28,10 @@ import frc.team281.robot.subsystems.PositionCalculator;
 import frc.team281.robot.subsystems.WristSubsystem;
 import frc.team281.robot.subsystems.drive.BaseDriveSubsystem.DriveMode;
 import frc.team281.robot.subsystems.drive.RealDriveSubsystem;
+import frc.team281.robot.ConvertFieldMessageToCommandGroup;
+import frc.team281.robot.FieldMessage;
+import frc.team281.robot.FieldMessageGetter;
+
 
 /**
  * The robot, only used in the real match. Cannot be instantiated outside of the
@@ -47,6 +52,7 @@ public class Robot extends IterativeRobot implements CommandFactory {
     private LifterSubsystem lifterSubsystem;
     private GrabberSubsystem grabberSubsystem;
     private WristSubsystem wristSubsystem;
+    private WhichAutoCodeToRun whatAutoToRun;
     
     /**
      * This function is run when the robot is first started up and should be used
@@ -68,10 +74,17 @@ public class Robot extends IterativeRobot implements CommandFactory {
         lifterSubsystem.initialize();
         grabberSubsystem.initialize();
         wristSubsystem.initialize();
+        
+        String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
+        FieldMessage fieldMessage = new FieldMessageGetter().convertGameMessageToFieldMessage(gameMessage); 
+        whatAutoToRun = new ConvertFieldMessageToCommandGroup().convert(fieldMessage);
+        
     }
 
     @Override
     public void autonomousInit() {
+    		
+    		//TODO: santiago, create a command group given whatAutoToRun
         driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
         DriveToPositionCommand move1 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.goForward(22.0));
         DriveToPositionCommand move2 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.turnLeft(10.));
