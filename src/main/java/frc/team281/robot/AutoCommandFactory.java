@@ -21,13 +21,13 @@ public class AutoCommandFactory {
         this.grabberSubsystem = grabberSubsystem;
         this.wristSubsystem = wristSubsystem;
         this.driveSubsystem = driveSubsystem;
-       
     }
     
     public CommandGroup makeAutoCommand(WhichAutoCodeToRun whatAutoToRun) {
         
         switch (whatAutoToRun) {
         case A: whatAutoToRun = WhichAutoCodeToRun.A;
+            
             break;
             
         case B: whatAutoToRun = WhichAutoCodeToRun.B;
@@ -55,6 +55,9 @@ public class AutoCommandFactory {
                 .left(25)
                 .forward(111)
                 .right(35)
+                .forward(40)
+                .right(90)
+                .forward(42)
                 .build()
         );
         followPath.start();
@@ -67,6 +70,9 @@ public class AutoCommandFactory {
                 .left(25)
                 .forward(111)
                 .right(35)
+                .forward(74)
+                .right(20)
+                .forward(96)
                 .build()
         );
         followPath.start();   
@@ -95,9 +101,10 @@ public class AutoCommandFactory {
         FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
                 PositionCalculator.builder()
                 .forward(24)
-                .left(25)
-                .forward(111)
-                .right(35)
+                .left(42)
+                .forward(82)
+                .right(40)
+                .forward(45)
                 .build()
         );
         followPath.start();   
@@ -107,9 +114,14 @@ public class AutoCommandFactory {
         FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
                 PositionCalculator.builder()
                 .forward(24)
-                .left(25)
-                .forward(111)
+                .left(50)
+                .forward(114)
+                .right(70)
+                .forward(50)
                 .right(35)
+                .forward(74)
+                .right(20)
+                .forward(96)
                 .build()
         );
         followPath.start();   
