@@ -10,14 +10,18 @@ import frc.team281.robot.subsystems.drive.RealDriveSubsystem;
 
 public class AutoCommandFactory {
 
-    private RealDriveSubsystem driveSubsystem;
     private LifterSubsystem lifterSubsystem;
-    private OperatorInterface operatorInterface;
     private GrabberSubsystem grabberSubsystem;
     private WristSubsystem wristSubsystem;
+    private RealDriveSubsystem driveSubsystem;
     
-    public AutoCommandFactory() {
-        
+    public AutoCommandFactory(LifterSubsystem lifterSubsystem, GrabberSubsystem grabberSubsystem, 
+            WristSubsystem wristSubsystem, RealDriveSubsystem driveSubsystem) {
+        this.lifterSubsystem = lifterSubsystem;
+        this.grabberSubsystem = grabberSubsystem;
+        this.wristSubsystem = wristSubsystem;
+        this.driveSubsystem = driveSubsystem;
+       
     }
     
     public CommandGroup makeAutoCommand(WhichAutoCodeToRun whatAutoToRun) {
