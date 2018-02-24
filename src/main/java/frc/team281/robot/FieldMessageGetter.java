@@ -1,10 +1,8 @@
 package frc.team281.robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import frc.team281.robot.FieldMessage;
 import frc.team281.robot.FieldMessage.StartingPosition;
 import frc.team281.robot.RobotMap.DigitalIO;
-import edu.wpi.first.wpilibj.DigitalInput;
 
 
 

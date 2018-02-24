@@ -1,6 +1,5 @@
 package frc.team281.robot;
 
-import edu.wpi.first.wpilibj.command.Command;
 import frc.team281.robot.commands.GrabberCloseCommand;
 import frc.team281.robot.commands.GrabberLoadCommand;
 import frc.team281.robot.commands.GrabberOpenCommand;

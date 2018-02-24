@@ -1,13 +1,13 @@
 package frc.team281.tests;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 import frc.team281.robot.ConvertFieldMessageToCommandGroup;
 import frc.team281.robot.FieldMessage;
 import frc.team281.robot.FieldMessage.StartingPosition;
 import frc.team281.robot.WhichAutoCodeToRun;
-
-import static org.junit.Assert.assertEquals;
 
 public class TestConvertFieldMessageToCommandGroup {
 	private ConvertFieldMessageToCommandGroup converter = new ConvertFieldMessageToCommandGroup();

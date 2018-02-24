@@ -1,25 +1,25 @@
 package frc.team281.robot;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.team281.robot.commands.BaseCommand;
 import frc.team281.robot.commands.FollowPositionPathCommand;
-import frc.team281.robot.subsystems.PositionCalculator;
+import frc.team281.robot.commands.GrabberShootCommand;
+import frc.team281.robot.commands.LifterRaiseCommand;
 import frc.team281.robot.subsystems.GrabberSubsystem;
 import frc.team281.robot.subsystems.LifterSubsystem;
-import frc.team281.robot.subsystems.WristSubsystem;
+import frc.team281.robot.subsystems.PositionCalculator;
 import frc.team281.robot.subsystems.drive.RealDriveSubsystem;
 
 public class AutoCommandFactory {
 
     private LifterSubsystem lifterSubsystem;
     private GrabberSubsystem grabberSubsystem;
-    private WristSubsystem wristSubsystem;
     private RealDriveSubsystem driveSubsystem;
     
     public AutoCommandFactory(LifterSubsystem lifterSubsystem, GrabberSubsystem grabberSubsystem, 
-            WristSubsystem wristSubsystem, RealDriveSubsystem driveSubsystem) {
+            RealDriveSubsystem driveSubsystem) {
         this.lifterSubsystem = lifterSubsystem;
         this.grabberSubsystem = grabberSubsystem;
-        this.wristSubsystem = wristSubsystem;
         this.driveSubsystem = driveSubsystem;
     }
     
@@ -27,7 +27,7 @@ public class AutoCommandFactory {
         
         switch (whatAutoToRun) {
         case A: whatAutoToRun = WhichAutoCodeToRun.A;
-            
+            //return makeAutoCommand(auto);
             break;
             
         case B: whatAutoToRun = WhichAutoCodeToRun.B;
@@ -48,7 +48,15 @@ public class AutoCommandFactory {
         return null;
     }
     
-    public void autoPathA() {
+    protected CommandGroup makeAutoCommand(BaseCommand pathCommand) {
+       CommandGroup auto = new CommandGroup();
+           auto.addSequential(pathCommand);
+           auto.addSequential(new LifterRaiseCommand(lifterSubsystem));
+           auto.addSequential(new GrabberShootCommand(grabberSubsystem, 2000));
+       return auto;  
+    }
+    
+    public BaseCommand autoPathA() {
         FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
                 PositionCalculator.builder()
                 .forward(24)
@@ -60,10 +68,10 @@ public class AutoCommandFactory {
                 .forward(42)
                 .build()
         );
-        followPath.start();
+        return followPath;
     }
     
-    public void autoPathB() {
+    public BaseCommand autoPathB() {
         FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
                 PositionCalculator.builder()
                 .forward(24)
@@ -74,11 +82,11 @@ public class AutoCommandFactory {
                 .right(20)
                 .forward(96)
                 .build()
-        );
-        followPath.start();   
+        ); 
+        return followPath;
     }
     
-    public void autoPathC() {
+    public BaseCommand autoPathC() {
         FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
                 PositionCalculator.builder()
                 .forward(24)
@@ -94,10 +102,10 @@ public class AutoCommandFactory {
                 .forward(41)
                 .build()
         );
-        followPath.start();    
+        return followPath;
     }
     
-    public void autoPathD() {
+    public BaseCommand autoPathD() {
         FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
                 PositionCalculator.builder()
                 .forward(24)
@@ -106,11 +114,11 @@ public class AutoCommandFactory {
                 .right(40)
                 .forward(45)
                 .build()
-        );
-        followPath.start();   
+        ); 
+        return followPath;
     }
     
-    public void autoPathE() {
+    public BaseCommand autoPathE() {
         FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
                 PositionCalculator.builder()
                 .forward(24)
@@ -123,8 +131,8 @@ public class AutoCommandFactory {
                 .right(20)
                 .forward(96)
                 .build()
-        );
-        followPath.start();   
+        );  
+        return followPath;
     }
 
 }
