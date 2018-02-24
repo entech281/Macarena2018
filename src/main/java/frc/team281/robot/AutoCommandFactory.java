@@ -16,31 +16,29 @@ public class AutoCommandFactory {
     private GrabberSubsystem grabberSubsystem;
     private RealDriveSubsystem driveSubsystem;
     
-    public AutoCommandFactory(LifterSubsystem lifterSubsystem, GrabberSubsystem grabberSubsystem, 
-            RealDriveSubsystem driveSubsystem) {
+    public AutoCommandFactory(LifterSubsystem lifterSubsystem, GrabberSubsystem grabberSubsystem, RealDriveSubsystem driveSubsystem) {
         this.lifterSubsystem = lifterSubsystem;
         this.grabberSubsystem = grabberSubsystem;
         this.driveSubsystem = driveSubsystem;
     }
     
     public CommandGroup makeAutoCommand(WhichAutoCodeToRun whatAutoToRun) {
-        
+
         switch (whatAutoToRun) {
         case A: whatAutoToRun = WhichAutoCodeToRun.A;
-            //return makeAutoCommand(auto);
-            break;
+            return makeAutoProcedure(autoPathA());
             
         case B: whatAutoToRun = WhichAutoCodeToRun.B;
-            break; 
-            
+            return makeAutoProcedure(autoPathB());             
+             
         case C: whatAutoToRun = WhichAutoCodeToRun.C;
-            break;
+            return makeAutoProcedure(autoPathC());    
             
         case D: whatAutoToRun = WhichAutoCodeToRun.D; 
-            break;
+            return makeAutoProcedure(autoPathD());
             
         case E: whatAutoToRun = WhichAutoCodeToRun.E;
-            break;
+            return makeAutoProcedure(autoPathE());
             
         default:
             break;
@@ -48,9 +46,9 @@ public class AutoCommandFactory {
         return null;
     }
     
-    protected CommandGroup makeAutoCommand(BaseCommand pathCommand) {
+    protected CommandGroup makeAutoProcedure(BaseCommand followPath) {
        CommandGroup auto = new CommandGroup();
-           auto.addSequential(pathCommand);
+           auto.addSequential(followPath);
            auto.addSequential(new LifterRaiseCommand(lifterSubsystem));
            auto.addSequential(new GrabberShootCommand(grabberSubsystem, 2000));
        return auto;  
