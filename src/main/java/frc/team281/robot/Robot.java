@@ -84,7 +84,6 @@ public class Robot extends IterativeRobot implements CommandFactory {
     @Override
     public void autonomousInit() {
     		
-    		//TODO: santiago, create a command group given whatAutoToRun
         driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
         DriveToPositionCommand move1 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.goForward(22.0));
         DriveToPositionCommand move2 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.turnLeft(10.));
@@ -111,88 +110,6 @@ public class Robot extends IterativeRobot implements CommandFactory {
                 .build()
         );
         followPath.start();
-    }
-
-    public void robotStartingLeft() {
-        // if were in mid switch o right then pick auto b
-        // makeAutonomousA if switchleft then pick a then whats below 
-    }
-    
-    public void robotStartingMiddle() {
-        // if were in mid switch o right then pick auto b
-        // makeAutonomousA if switchleft then pick a then whats below  
-    }
-    
-    public void  robotStartingRight() {
-        // if were in mid switch o right then pick auto b
-        // makeAutonomousA if switchleft then pick a then whats below    
-    }
-    
-    public void autoPathA() {
-        FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
-                PositionCalculator.builder()
-                .forward(24)
-                .left(25)
-                .forward(111)
-                .right(35)
-                .build()
-        );
-        followPath.start();
-    }
-    
-    public void autoPathB() {
-        FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
-                PositionCalculator.builder()
-                .forward(24)
-                .left(25)
-                .forward(111)
-                .right(35)
-                .build()
-        );
-        followPath.start();   
-    }
-    
-    public void autoPathC() {
-        FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
-                PositionCalculator.builder()
-                .forward(24)
-                .left(25)
-                .forward(111)
-                .right(35)
-                .forward(84)
-                .right(45)
-                .forward(52)
-                .right(45)
-                .forward(110)
-                .right(90)
-                .forward(41)
-                .build()
-        );
-        followPath.start();    
-    }
-    
-    public void autoPathD() {
-        FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
-                PositionCalculator.builder()
-                .forward(24)
-                .left(25)
-                .forward(111)
-                .right(35)
-                .build()
-        );
-        followPath.start();   
-    }
-    
-    public void autoPathE() {
-        FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
-                PositionCalculator.builder()
-                .forward(24)
-                .left(25)
-                .forward(111)
-                .right(35)
-                .build()
-        );
-        followPath.start();   
     }
     
     @Override
