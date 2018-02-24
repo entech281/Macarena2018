@@ -72,7 +72,7 @@ public class GrabberSubsystem extends BaseSubsystem {
         rightMotorController.setDesiredSpeed(0);  
     }
     
-    public void solenoidsOff() {
+    public void solenoidOff() {
         Solenoid.set(DoubleSolenoid.Value.kOff);
     }
     
