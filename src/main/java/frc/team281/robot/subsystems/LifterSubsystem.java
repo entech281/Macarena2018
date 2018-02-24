@@ -31,8 +31,14 @@ public class LifterSubsystem extends BaseSubsystem {
         motorTwo = new WPI_TalonSRX(RobotMap.CAN.Lifter.MOTOR_TWO);
         bottomLimitSwitch = new DigitalInput(RobotMap.DigitalIO.LIFTER_AT_BOTTOM);
         topLimitSwitch = new DigitalInput(RobotMap.DigitalIO.LIFTER_AT_TOP);
-        TalonSettings motorOneSettings = TalonSettingsBuilder.defaults().withCurrentLimits(20, 15, 200).brakeInNeutral()
-                .defaultDirectionSettings().noMotorOutputLimits().noMotorStartupRamping().useSpeedControl().build();
+        TalonSettings motorOneSettings = TalonSettingsBuilder.defaults()
+                .withCurrentLimits(20, 15, 200)
+                .brakeInNeutral()
+                .defaultDirectionSettings()
+                .noMotorOutputLimits()
+                .noMotorStartupRamping()
+                .useSpeedControl()
+                .build();
 
         TalonSettings motorTwoSettings = TalonSettingsBuilder.inverted(motorOneSettings);
         motorOneController = new TalonSpeedController(motorOne, motorOneSettings);
