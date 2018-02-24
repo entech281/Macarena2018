@@ -1,6 +1,5 @@
 package frc.team281.robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.team281.robot.commands.FollowPositionPathCommand;
 import frc.team281.robot.subsystems.PositionCalculator;
@@ -16,33 +15,12 @@ public class AutoCommandFactory {
     private OperatorInterface operatorInterface;
     private GrabberSubsystem grabberSubsystem;
     private WristSubsystem wristSubsystem;
-    private WhichAutoCodeToRun whatAutoToRun;
     
     public AutoCommandFactory() {
         
-        lifterSubsystem = new LifterSubsystem();
-        grabberSubsystem= new GrabberSubsystem();
-        wristSubsystem = new WristSubsystem();
-        driveSubsystem = new RealDriveSubsystem(operatorInterface);
-        
-        driveSubsystem.initialize();
-        lifterSubsystem.initialize();
-        grabberSubsystem.initialize();
-        wristSubsystem.initialize();
-        
-        String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
-        FieldMessage fieldMessage = new FieldMessageGetter().convertGameMessageToFieldMessage(gameMessage); 
-        whatAutoToRun = new ConvertFieldMessageToCommandGroup().convert(fieldMessage);
-        
     }
     
-    public class MakeAutoCommand extends CommandGroup {
-        public MakeAutoCommand() {
-            
-        }
-    }
-    
-    public void baseAutoRoutine() {
+    public CommandGroup makeAutoCommand(WhichAutoCodeToRun whatAutoToRun) {
         
         switch (whatAutoToRun) {
         case A: whatAutoToRun = WhichAutoCodeToRun.A;
@@ -63,6 +41,7 @@ public class AutoCommandFactory {
         default:
             break;
         }
+        return null;
     }
     
     public void autoPathA() {
