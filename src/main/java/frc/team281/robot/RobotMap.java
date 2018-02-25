@@ -68,6 +68,9 @@ public class RobotMap {
         public static final int WRIST_AT_BOTTOM = 2;
         public static final int LEFT_SWITCH_POSITION = 3;
         public static final int RIGHT_SWITCH_POSITION = 4;
+        public static final int PREFER_SCALE = 5;
+        public static final int PREFER_SWITCH = 6;
+
     }
     
     public static class PCM {

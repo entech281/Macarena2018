@@ -11,10 +11,12 @@ public class FieldMessageGetter {
 	
 	private DigitalInput leftPositionSwitch;
 	private DigitalInput rightPositionSwitch;
+	private DigitalInput preferenceSwitch;
 	
 	public FieldMessageGetter() {
 		leftPositionSwitch = new DigitalInput(DigitalIO.LEFT_SWITCH_POSITION);
 		rightPositionSwitch = new DigitalInput(DigitalIO.RIGHT_SWITCH_POSITION);
+		preferenceSwitch = new DigitalInput(DigitalIO.PREFERENCE_SWITCH);
 	}
 	
     public boolean isRobotOnTheLeft() {
@@ -24,6 +26,7 @@ public class FieldMessageGetter {
     public boolean isRobotOnTheRight() {
         return rightPositionSwitch.get();
     }
+
 	
 	public FieldMessage convertGameMessageToFieldMessage(String gameMessage) {
 		FieldMessage message = new FieldMessage();
