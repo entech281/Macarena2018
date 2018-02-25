@@ -2,6 +2,7 @@ package frc.team281.robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team281.robot.FieldMessage.Override;
 import frc.team281.robot.FieldMessage.StartingPosition;
 import frc.team281.robot.RobotMap.DigitalIO;
 
@@ -26,6 +27,10 @@ public class FieldMessageGetter {
     
     public boolean isRobotOnTheRight() {
         return ! rightPositionSwitch.get();
+    }
+    
+    public boolean Override() {
+        return ! preferenceSwitch.get();
     }
 
 	
@@ -63,6 +68,13 @@ public class FieldMessageGetter {
 		
 		else {
 			message.setPosition(StartingPosition.MIDDLE);
+		}
+		
+		if ( Override()) {
+			message.setOverride(Override.YES);
+		}
+		else {
+			message.setOverride(Override.NO);
 		}
 		
 		return message;

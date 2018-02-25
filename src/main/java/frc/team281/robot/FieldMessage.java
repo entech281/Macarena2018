@@ -7,9 +7,9 @@ public class FieldMessage {
 		MIDDLE;
 	}
 	
-	public enum Preference{
-		SWITCH,
-		SCALE;
+	public enum Override{
+		YES,
+		NO;
 	}
 	
 	public boolean isOurSwitchOnTheLeft() {
@@ -43,11 +43,11 @@ public class FieldMessage {
 		this.position = position;
 	}
 		
-	private Preference preference = Preference.SCALE;
-	public Preference getPreference() {
-		return preference;
+	private Override override = Override.NO;
+	public Override getOverride() {
+		return override;
 	}
-	public void setPreference(Preference preference) {
-		this.preference = preference;	
+	public void setOverride(Override override) {
+		this.override = override;	
 	}
 }
