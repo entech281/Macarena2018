@@ -19,6 +19,7 @@ import frc.team281.robot.commands.WristPivotDownCommand;
 import frc.team281.robot.commands.WristPivotUpCommand;
 import frc.team281.robot.logger.DataLoggerFactory;
 import frc.team281.robot.subsystems.FakeGrabberSubsystem;
+import frc.team281.robot.subsystems.FakeLifterSubsystem;
 import frc.team281.robot.subsystems.FakeWristSubsystem;
 import frc.team281.robot.subsystems.GrabberSubsystem;
 import frc.team281.robot.subsystems.LifterSubsystem;
@@ -61,7 +62,7 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
         operatorInterface = new OperatorInterface(this);
         driveSubsystem = new RealDriveSubsystem(operatorInterface);
-        lifterSubsystem = new LifterSubsystem();
+        lifterSubsystem = new FakeLifterSubsystem();
         grabberSubsystem= new FakeGrabberSubsystem();
         wristSubsystem = new FakeWristSubsystem();
         driveSubsystem.initialize();
@@ -80,31 +81,10 @@ public class Robot extends IterativeRobot implements CommandFactory {
     public void autonomousInit() {
     		
         driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
-        DriveToPositionCommand move1 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.goForward(22.0));
-        DriveToPositionCommand move2 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.turnLeft(10.));
-        DriveToPositionCommand move3 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.goForward(111.));
-        DriveToPositionCommand move4 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.turnRight(10.));
-        //DriveToPositionCommand move5 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.goForward(45));
-        //DriveToPositionCommand move6 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.turnRight(90));
-        //DriveToPositionCommand move7 = new DriveToPositionCommand(driveSubsystem, PositionCalculator.goForward(34));
-        CommandGroup m_AutonomousCommand = new CommandGroup();
-        m_AutonomousCommand.addSequential(move1);
-        m_AutonomousCommand.addSequential(move2);
-        m_AutonomousCommand.addSequential(move3);
-        m_AutonomousCommand.addSequential(move4);
-        //m_AutonomousCommand.addSequential(move5);
-        //m_AutonomousCommand.addSequential(move6);
-        //m_AutonomousCommand.addSequential(move7);
-        m_AutonomousCommand.start();
-        
-        FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
-                PositionCalculator.builder()
-                .forward(24)
-                .left(25)
-                .forward(111)
-                .build()
-        );
-        followPath.start();
+
+        AutoCommandFactory af = new AutoCommandFactory(lifterSubsystem, grabberSubsystem, driveSubsystem);
+        CommandGroup autoCommand = af.makeAutoCommand(whatAutoToRun);
+        autoCommand.start();
     }
     
     @Override
