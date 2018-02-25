@@ -53,8 +53,8 @@ public class ConvertFieldMessageToCommandGroup {
 					return WhichAutoCodeToRun.E;
 				}
 				else {
-					convert = WhichAutoCodeToRun.F;
-					return WhichAutoCodeToRun.F;
+					convert = WhichAutoCodeToRun.E1;
+					return WhichAutoCodeToRun.E1;
 				}
 			}
 		return convert;
