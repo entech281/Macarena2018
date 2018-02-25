@@ -13,7 +13,6 @@ import frc.team281.robot.commands.GrabberStopCommand;
 import frc.team281.robot.commands.LifterHomeCommand;
 import frc.team281.robot.commands.LifterLowerCommand;
 import frc.team281.robot.commands.LifterRaiseCommand;
-import frc.team281.robot.commands.LifterStopCommand;
 import frc.team281.robot.commands.WristPivotDownCommand;
 import frc.team281.robot.commands.WristPivotUpCommand;
 import frc.team281.robot.logger.DataLoggerFactory;
@@ -52,8 +51,8 @@ public class Robot extends IterativeRobot implements CommandFactory {
      * This function is run when the robot is first started up and should be used
      * for any initialization code.
      */
-    @Override
-    public void robotInit() {
+    
+    public void s() {
 
         // create the objects for the real match
         DataLoggerFactory.configureForMatch();
@@ -160,8 +159,4 @@ public class Robot extends IterativeRobot implements CommandFactory {
         return new LifterHomeCommand(this.lifterSubsystem);
     }
 
-    @Override
-    public LifterStopCommand createLifterStopCommand() {
-        return new LifterStopCommand(this.lifterSubsystem);
-    }
 }

@@ -22,8 +22,8 @@ public class GrabberSubsystem extends BaseSubsystem {
     
     private DigitalInput limitSwitch;
     
-    private DoubleSolenoid leftSolenoid;
-    private DoubleSolenoid rightSolenoid;
+    private DoubleSolenoid Solenoid;
+
     
     public GrabberSubsystem() {
     }
@@ -33,8 +33,7 @@ public class GrabberSubsystem extends BaseSubsystem {
         leftMotor = new WPI_TalonSRX(RobotMap.CAN.Grabber.MOTOR_LEFT);
         rightMotor = new WPI_TalonSRX(RobotMap.CAN.Grabber.MOTOR_RIGHT);
 
-        leftSolenoid = new DoubleSolenoid(PCM.Grabber.LEFT_INSIDE, PCM.Grabber.LEFT_OUTSIDE);
-        rightSolenoid = new DoubleSolenoid(PCM.Grabber.RIGHT_INSIDE, PCM.Grabber.RIGHT_OUTSIDE);
+        Solenoid = new DoubleSolenoid(PCM.Grabber.INSIDE, PCM.Grabber.OUTSIDE);
         
         limitSwitch = new DigitalInput(DigitalIO.GRABBER_CUBE_LOADED);
         
@@ -74,19 +73,16 @@ public class GrabberSubsystem extends BaseSubsystem {
         rightMotorController.setDesiredSpeed(0);  
     }
     
-    public void solenoidsOff() {
-        leftSolenoid.set(DoubleSolenoid.Value.kOff);
-        rightSolenoid.set(DoubleSolenoid.Value.kOff);
+    public void solenoidOff() {
+        Solenoid.set(DoubleSolenoid.Value.kOff);
     }
     
     public void open() {
-        leftSolenoid.set(DoubleSolenoid.Value.kForward);
-        rightSolenoid.set(DoubleSolenoid.Value.kForward);
+        Solenoid.set(DoubleSolenoid.Value.kForward);
     }
     
     public void close() {
-        leftSolenoid.set(DoubleSolenoid.Value.kReverse);
-        rightSolenoid.set(DoubleSolenoid.Value.kReverse);
+        Solenoid.set(DoubleSolenoid.Value.kReverse);
     }
     
 }

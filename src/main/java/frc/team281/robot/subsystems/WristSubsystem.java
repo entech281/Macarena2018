@@ -30,5 +30,8 @@ public class WristSubsystem extends BaseSubsystem {
         up.set(false);
         down.set(true);
     }
+    public boolean wristAtBottom() {
+        return limitSwitch.get();
+    }
     
 }

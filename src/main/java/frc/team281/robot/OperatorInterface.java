@@ -21,7 +21,6 @@ public class OperatorInterface implements DriveInstructionSource {
     
     private JoystickButton lifterRaiseButton;
     private JoystickButton lifterLowerButton; 
-    private JoystickButton lifterStopButton; 
     private JoystickButton lifterGroundButton;  
     private JoystickButton grabberLoadButton;
     private JoystickButton grabberShootButton;
@@ -50,8 +49,6 @@ public class OperatorInterface implements DriveInstructionSource {
         lifterRaiseButton.whenPressed(factory.createLifterRaiseCommand());
         lifterRaiseButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.LIFTER_LOWER);
         lifterRaiseButton.whenPressed(factory.createLifterLowerCommand());
-        lifterStopButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.LIFTER_STOP);
-        lifterStopButton.whenPressed(factory.createLifterStopCommand());
         
         
         lifterRaiseButton.whenPressed(factory.createLifterRaiseCommand());
