@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team281.robot.commands.GrabberCloseCommand;
 import frc.team281.robot.commands.GrabberLoadCommand;
 import frc.team281.robot.commands.GrabberOpenCommand;
@@ -76,7 +77,7 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     @Override
     public void autonomousInit() {
-    		
+    		SmartDashboard.putString("Selected Auto", whatAutoToRun+"");
         driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
 
         AutoCommandFactory af = new AutoCommandFactory(lifterSubsystem, grabberSubsystem, driveSubsystem);
