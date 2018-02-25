@@ -1,6 +1,7 @@
 package frc.team281.robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team281.robot.FieldMessage.StartingPosition;
 import frc.team281.robot.RobotMap.DigitalIO;
 
@@ -20,15 +21,17 @@ public class FieldMessageGetter {
 	}
 	
     public boolean isRobotOnTheLeft() {
-        return leftPositionSwitch.get();
+        return ! leftPositionSwitch.get();
     }
     
     public boolean isRobotOnTheRight() {
-        return rightPositionSwitch.get();
+        return ! rightPositionSwitch.get();
     }
 
 	
 	public FieldMessage convertGameMessageToFieldMessage(String gameMessage) {
+	    SmartDashboard.putBoolean("RobotLeftSwitch", leftPositionSwitch.get());
+	    SmartDashboard.putBoolean("RobotRightSwitch", rightPositionSwitch.get());
 		FieldMessage message = new FieldMessage();
 		if(gameMessage.charAt(0) == 'L') {
 			message.setOurSwitchOnTheLeft(true); 
