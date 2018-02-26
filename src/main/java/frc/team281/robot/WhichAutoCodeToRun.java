@@ -5,10 +5,12 @@ public enum WhichAutoCodeToRun{
 	B,
 	C,
 	D,
+	E,
+	F,
 	A1,
 	B1,
 	C1,
 	D1,
-	E,
-	F;
+	E1,
+	F1;
 }

@@ -1,8 +1,11 @@
 package frc.team281.subsystems;
 
 import static org.junit.Assert.assertEquals;
+
 import java.util.List;
+
 import org.junit.Test;
+
 import frc.team281.robot.subsystems.Position;
 import frc.team281.robot.subsystems.PositionCalculator;
 

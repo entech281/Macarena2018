@@ -7,6 +7,11 @@ public class FieldMessage {
 		MIDDLE;
 	}
 	
+	public enum Override{
+		YES,
+		NO;
+	}
+	
 	public boolean isOurSwitchOnTheLeft() {
 		return ourSwitchOnTheLeft;
 	}
@@ -25,15 +30,24 @@ public class FieldMessage {
 	public void setTheirSwitchOnTheLeft(boolean theirSwitchOnTheLeft) {
 		this.theirSwitchOnTheLeft = theirSwitchOnTheLeft;
 	}
+	
 	private boolean ourSwitchOnTheLeft;
 	private boolean ourScaleOnTheLeft;
 	private boolean theirSwitchOnTheLeft;
+	
 	private StartingPosition position = StartingPosition.MIDDLE;
-	//switch on robot... class needs to know where we are
 	public StartingPosition getPosition() {
 		return position;
 	}
 	public void setPosition(StartingPosition position) {
 		this.position = position;
+	}
+		
+	private Override override = Override.NO;
+	public Override getOverride() {
+		return override;
+	}
+	public void setOverride(Override override) {
+		this.override = override;	
 	}
 }
