@@ -64,7 +64,7 @@ public class RobotMap {
 
     public static class DigitalIO {
         public static final int LIFTER_AT_BOTTOM = 0;
-        public static final int LIFTER_AT_TOP = 1
+        public static final int LIFTER_AT_TOP = 1;
         public static final int GRABBER_CUBE_LOADED = 2;
         public static final int LEFT_SWITCH_POSITION = 3;
         public static final int RIGHT_SWITCH_POSITION = 4;
