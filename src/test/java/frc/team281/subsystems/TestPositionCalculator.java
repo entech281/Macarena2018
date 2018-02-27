@@ -1,6 +1,7 @@
 package frc.team281.subsystems;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -74,9 +75,10 @@ public class TestPositionCalculator {
     
     public void testFollowPositionCommandMirror() {
         List<Position> aList = PositionCalculator.builder().forward(20).left(30).build();
-        List<Position> bList = PositionCalculator.builder().forward(20).right(30).build();
+        List<Position> bList = PositionCalculator.mirror(PositionCalculator.builder().forward(20).right(30).build());
         FollowPositionPathCommand a = new FollowPositionPathCommand(null, aList);
         FollowPositionPathCommand b = new FollowPositionPathCommand(null, bList);
         assertEquals(a,b);
+        assertTrue(a!=b);
     }
 }
