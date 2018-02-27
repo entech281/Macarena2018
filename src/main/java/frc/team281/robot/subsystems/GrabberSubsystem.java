@@ -54,13 +54,18 @@ public class GrabberSubsystem extends BaseSubsystem {
     }
 
     public boolean isCubeTouchingSwitch() {
-        return limitSwitch.get();
+        return ! limitSwitch.get();
     }
     
     public void startLoading() {
-        // run the motors until the switch is tripped then stop the motors
-        leftMotorController.setDesiredSpeed(LEFT_LOAD_PERCENT);
-        rightMotorController.setDesiredSpeed(RIGHT_LOAD_PERCENT);        
+        if ( isCubeTouchingSwitch() ){
+            dataLogger.warn("Cannot Load-- already at limit");
+        }
+        else{
+            leftMotorController.setDesiredSpeed(LEFT_LOAD_PERCENT);
+            rightMotorController.setDesiredSpeed(RIGHT_LOAD_PERCENT);              
+        }
+      
     }
     
     public void startShooting() {
@@ -68,6 +73,14 @@ public class GrabberSubsystem extends BaseSubsystem {
         rightMotorController.setDesiredSpeed(-RIGHT_LOAD_PERCENT);  
     }
     
+    @Override
+    public void periodic() {
+        dataLogger.log("IsCubeLoaded",isCubeTouchingSwitch());
+        if ( isCubeTouchingSwitch() ){
+            stopMotors();
+        }
+    }
+
     public void stopMotors() {
         leftMotorController.setDesiredSpeed(0);
         rightMotorController.setDesiredSpeed(0);  
