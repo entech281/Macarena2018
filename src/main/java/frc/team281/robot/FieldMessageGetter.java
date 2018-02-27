@@ -37,6 +37,7 @@ public class FieldMessageGetter {
 	public FieldMessage convertGameMessageToFieldMessage(String gameMessage) {
 	    SmartDashboard.putBoolean("RobotLeftSwitch", leftPositionSwitch.get());
 	    SmartDashboard.putBoolean("RobotRightSwitch", rightPositionSwitch.get());
+	    SmartDashboard.putBoolean("Overide", preferenceSwitch.get());
 		FieldMessage message = new FieldMessage();
 		if(gameMessage.charAt(0) == 'L') {
 			message.setOurSwitchOnTheLeft(true); 

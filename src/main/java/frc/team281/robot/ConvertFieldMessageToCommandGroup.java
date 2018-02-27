@@ -102,12 +102,12 @@ public class ConvertFieldMessageToCommandGroup {
 			}	
 			else if(message.getPosition()==StartingPosition.MIDDLE){
 				if(message.isOurSwitchOnTheLeft() == false) {
-					convert = WhichAutoCodeToRun.D1;
-					return WhichAutoCodeToRun.D1;
+					convert = WhichAutoCodeToRun.E1;
+					return WhichAutoCodeToRun.E1;
 				}
 				else {
-					convert = WhichAutoCodeToRun.D;
-					return WhichAutoCodeToRun.D;
+					convert = WhichAutoCodeToRun.E;
+					return WhichAutoCodeToRun.E;
 
 				}
 			}
