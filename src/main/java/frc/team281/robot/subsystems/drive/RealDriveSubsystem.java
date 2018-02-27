@@ -120,6 +120,13 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 		
 	}
 
+	public void setupNewDriveSource(DriveInstructionSource newSource) {
+		arcadeDrive.setDriveInstructionSource(newSource);
+	}
+	public void restoreOriginalDriveSource() {
+		arcadeDrive.setDriveInstructionSource(this.driveInstructionSource);
+	}
+	
 	@Override
 	public void periodic() {
 		dataLogger.log("DriveMode", driveMode + "");
