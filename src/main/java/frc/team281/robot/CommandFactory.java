@@ -40,7 +40,4 @@ public interface CommandFactory {
     WristPivotUpCommand createWristPivotUpCommand();
     
     WristPivotDownCommand createWristPivotDownCommand();
-
-    void s();
-
 }
