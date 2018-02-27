@@ -52,7 +52,8 @@ public class Robot extends IterativeRobot implements CommandFactory {
      * for any initialization code.
      */
     
-    public void s() {
+    @Override
+    public void robotInit() {
 
         // create the objects for the real match
         DataLoggerFactory.configureForMatch();
