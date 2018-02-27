@@ -7,9 +7,8 @@ import frc.team281.robot.subsystems.drive.BaseDriveSubsystem;
 
 public class FollowPositionPathCommand extends BaseCommand{
 
-    private BaseDriveSubsystem driveSubsystem;
-
-    protected List<Position> path;
+    public BaseDriveSubsystem driveSubsystem;
+    public List<Position> path;
     public FollowPositionPathCommand(BaseDriveSubsystem subsystem, List<Position> path) {
         super(subsystem);
         this.driveSubsystem = subsystem;
