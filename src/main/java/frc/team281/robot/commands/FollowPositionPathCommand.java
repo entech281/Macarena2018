@@ -3,6 +3,7 @@ package frc.team281.robot.commands;
 import java.util.List;
 
 import frc.team281.robot.subsystems.Position;
+import frc.team281.robot.subsystems.PositionCalculator;
 import frc.team281.robot.subsystems.drive.BaseDriveSubsystem;
 
 public class FollowPositionPathCommand extends BaseCommand{
@@ -38,7 +39,9 @@ public class FollowPositionPathCommand extends BaseCommand{
         this.driveSubsystem = subsystem;
         this.path = path;
     }
-
+    public FollowPositionPathCommand mirror() {
+        return new FollowPositionPathCommand(this.driveSubsystem,PositionCalculator.mirror(this.path));
+    }
     @Override
     protected void initialize() {
         for (Position p: path){
