@@ -14,6 +14,14 @@ import frc.team281.robot.DriveInstructionSource;
 public class BasicArcadeDriveController extends BaseDriveController {
 
 	private DriveInstructionSource driveInstructionSource;
+	public DriveInstructionSource getDriveInstructionSource() {
+		return driveInstructionSource;
+	}
+
+	public void setDriveInstructionSource(DriveInstructionSource driveInstructionSource) {
+		this.driveInstructionSource = driveInstructionSource;
+	}
+
 	private DifferentialDrive diffDrive;
 	private FourTalonsWithSettings talons;
 
