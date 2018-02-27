@@ -69,14 +69,14 @@ public class Robot extends IterativeRobot implements CommandFactory {
         grabberSubsystem.initialize();
         wristSubsystem.initialize();
         
-        String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
-        FieldMessage fieldMessage = new FieldMessageGetter().convertGameMessageToFieldMessage(gameMessage); 
-        whatAutoToRun = new ConvertFieldMessageToCommandGroup().convert(fieldMessage);
-        
     }
 
     @Override
     public void autonomousInit() {
+    	 	 	String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
+         FieldMessage fieldMessage = new FieldMessageGetter().convertGameMessageToFieldMessage(gameMessage); 
+         whatAutoToRun = new ConvertFieldMessageToCommandGroup().convert(fieldMessage);
+         
     		SmartDashboard.putString("Selected Auto", whatAutoToRun+"");
         driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
 
