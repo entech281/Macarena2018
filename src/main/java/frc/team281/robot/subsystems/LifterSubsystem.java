@@ -32,6 +32,7 @@ public class LifterSubsystem extends BaseSubsystem {
         motorTwo = new WPI_TalonSRX(RobotMap.CAN.Lifter.MOTOR_TWO);
         bottomLimitSwitch = new DigitalInput(RobotMap.DigitalIO.LIFTER_AT_BOTTOM);
         topLimitSwitch = new DigitalInput(RobotMap.DigitalIO.LIFTER_AT_TOP);
+        
         TalonSettings motorOneSettings = TalonSettingsBuilder.defaults()
                 .withCurrentLimits(20, 15, 200)
                 .brakeInNeutral()
@@ -48,14 +49,25 @@ public class LifterSubsystem extends BaseSubsystem {
     }
 
     public void motorsUp(double speedPercent) {
-        motorOneController.setDesiredSpeed(speedPercent);
-        motorTwoController.setDesiredSpeed(-speedPercent);
-
+        if ( ! isAtLimit() ){
+            dataLogger.warn("Cannot Move-- at Limits");
+            motorOneController.setDesiredSpeed(speedPercent);
+            motorTwoController.setDesiredSpeed(-speedPercent);
+        }
+        else{
+            motorsOff();
+        }
     }
 
     public void motorsDown(double speedPercent) {
-        motorOneController.setDesiredSpeed(-speedPercent);
-        motorTwoController.setDesiredSpeed(speedPercent);
+        if ( ! isAtLimit() ){
+            dataLogger.warn("Cannot Move-- at Limits");
+            motorOneController.setDesiredSpeed(-speedPercent);
+            motorTwoController.setDesiredSpeed(speedPercent);
+        }
+        else{
+            motorsOff();
+        }
     }
 
     public void motorsOff() {
@@ -65,16 +77,22 @@ public class LifterSubsystem extends BaseSubsystem {
 
     @Override
     public void periodic() {
-        // if ( limitSwitch.get() ){
-        // motorsOff();
-        // }
+        dataLogger.log("UpperLimit",isLifterAtTop());
+        dataLogger.log("LowerLimit",isLifterAtBottom());
+        if ( isAtLimit() ){            
+            motorsOff();
+        }
     }
 
+    public boolean isAtLimit(){
+        return isLifterAtBottom() || isLifterAtTop();
+    }
+    
     public boolean isLifterAtBottom() {
-        return bottomLimitSwitch.get();
+        return ! bottomLimitSwitch.get();
     }
 
     public boolean isLifterAtTop() {
-        return topLimitSwitch.get();
+        return ! topLimitSwitch.get();
     }
 }
