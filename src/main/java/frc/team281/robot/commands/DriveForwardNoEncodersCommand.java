@@ -32,6 +32,7 @@ public class DriveForwardNoEncodersCommand extends BaseCommand {
 	@Override
 	protected void end() {
 		drive.restoreOriginalDriveSource();
+		drive.stop();
 	}
 
 	@Override

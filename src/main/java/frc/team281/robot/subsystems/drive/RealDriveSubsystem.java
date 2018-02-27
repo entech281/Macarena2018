@@ -127,6 +127,13 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 		arcadeDrive.setDriveInstructionSource(this.driveInstructionSource);
 	}
 	
+	public void stop(){
+	    frontLeftMotor.set(0.0);
+	    rearLeftMotor.set(0.0);
+        frontRightMotor.set(0.0);
+        rearRightMotor.set(0.0);    
+	}
+	
 	@Override
 	public void periodic() {
 		dataLogger.log("DriveMode", driveMode + "");
