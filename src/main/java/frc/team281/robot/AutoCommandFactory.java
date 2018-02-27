@@ -40,6 +40,9 @@ public class AutoCommandFactory {
         case E: whatAutoToRun = WhichAutoCodeToRun.E;
             return makeAutoProcedure(autoPathE());
             
+        case F: whatAutoToRun = WhichAutoCodeToRun.F;
+            return makeAutoProcedure(autoPathF());
+            
         default:
             break;
         }
@@ -132,5 +135,23 @@ public class AutoCommandFactory {
         );  
         return followPath;
     }
-
+    
+    public BaseCommand autoPathF() {
+        FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
+                PositionCalculator.builder()
+                .forward(24)
+                .left(25)
+                .forward(111)
+                .right(35)
+                .forward(84)
+                .right(45)
+                .forward(52)
+                .right(45)
+                .forward(130)
+                .left(90)
+                .forward(41)
+                .build()
+        );
+        return followPath;
+    }
 }
