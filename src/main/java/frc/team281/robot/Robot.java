@@ -12,6 +12,7 @@ import frc.team281.robot.commands.GrabberOpenCommand;
 import frc.team281.robot.commands.GrabberShootCommand;
 import frc.team281.robot.commands.GrabberStopCommand;
 import frc.team281.robot.commands.LifterHomeCommand;
+import frc.team281.robot.commands.LifterTopCommand;
 import frc.team281.robot.commands.LifterLowerCommand;
 import frc.team281.robot.commands.LifterRaiseCommand;
 import frc.team281.robot.commands.WristPivotDownCommand;
@@ -169,6 +170,11 @@ public class Robot extends IterativeRobot implements CommandFactory {
     @Override
     public LifterHomeCommand createLifterHomeCommand() {
         return new LifterHomeCommand(this.lifterSubsystem);
+    }
+
+    @Override
+    public LifterTopCommand createLifterTopCommand() {
+        return new LifterTopCommand(this.lifterSubsystem);
     }
 
 }
