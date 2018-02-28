@@ -1,5 +1,6 @@
 package frc.team281.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -51,6 +52,7 @@ public class Robot extends IterativeRobot implements CommandFactory {
     private WristSubsystem wristSubsystem;
     private WhichAutoCodeToRun whatAutoToRun;
     private DriveForwardNoEncodersCommand DFNEC;
+    private Compressor compressor;
     
     DigitalInput leftPositionSwitch = new DigitalInput(DigitalIO.LEFT_SWITCH_POSITION);
     DigitalInput rightPositionSwitch = new DigitalInput(DigitalIO.RIGHT_SWITCH_POSITION);
@@ -63,8 +65,7 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     @Override
     public void robotInit() {
-        //if ( 1 == 1)
-        //    throw new RuntimeException("THIS IS NEW CODE");
+
         // create the objects for the real match
         DataLoggerFactory.configureForMatch();
 
@@ -78,6 +79,8 @@ public class Robot extends IterativeRobot implements CommandFactory {
         lifterSubsystem.initialize();
         grabberSubsystem.initialize();
         wristSubsystem.initialize();
+        compressor = new Compressor(RobotMap.CAN.PC_MODULE);
+        compressor.start();
         DFNEC = new DriveForwardNoEncodersCommand(driveSubsystem, 2, .75);
         
     }

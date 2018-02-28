@@ -49,10 +49,12 @@ public class OperatorInterface implements DriveInstructionSource {
         lifterRaiseButton.whileHeld(factory.createLifterRaiseCommand());
         lifterLowerButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.LIFTER_LOWER);
         lifterLowerButton.whileHeld(factory.createLifterLowerCommand());
+        
 
         lifterGroundButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.LIFTER_TO_GROUND);
         lifterGroundButton.whenPressed(factory.createLifterHomeCommand());
         lifterTopButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.LIFTER_TO_TOP);
+        lifterTopButton.whenPressed(factory.createLifterTopCommand());
         lifterGroundButton.whenPressed(factory.createLifterTopCommand());
 
         wristUpButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.WRIST_UP);
@@ -61,9 +63,12 @@ public class OperatorInterface implements DriveInstructionSource {
 
         grabberLoadButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.GRABBER_LOAD);
         grabberLoadButton.whenPressed(factory.createGrabberLoadCommand());
+        grabberLoadButton.whenReleased(factory.createGrabberStopCommand());
+        
         grabberShootButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.GRABBER_SHOOT);
         grabberShootButton.whenPressed(factory.createGrabberShootCommand());
-
+        grabberShootButton.whenReleased(factory.createGrabberStopCommand());
+        
         grabberOpenButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.GRABBER_OPEN);
         grabberOpenButton.whenPressed(factory.createGrabberOpenCommand());
         grabberOpenButton.whenReleased(factory.createGrabberCloseCommand());

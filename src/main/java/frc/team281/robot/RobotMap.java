@@ -68,13 +68,13 @@ public class RobotMap {
     
     public static class PCM {
         public static class Grabber {
-            public static final int OUTSIDE = 1;
+            public static final int OUTSIDE = 2;
             public static final int INSIDE = 3;
         }
         
         public static class Wrist {
-            public static final int UP = 5;
-            public static final int DOWN = 6;
+            public static final int UP = 1;
+            public static final int DOWN = 0;
         }
     }
     

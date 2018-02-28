@@ -8,11 +8,11 @@ import frc.team281.robot.subsystems.drive.RealDriveSubsystem;
 public class DriveForwardNoEncodersCommand extends BaseCommand {
 
 	private RealDriveSubsystem drive;
-	private double driveFowardSpeed = 0.0;
+	private double driveForwardSpeed = 0.0;
 	public DriveForwardNoEncodersCommand(RealDriveSubsystem drive, long driveTimeMilliSeconds,double driveFowardSpeed) {
 		super(drive,driveTimeMilliSeconds);
 		this.drive = drive;
-		this.driveFowardSpeed = driveFowardSpeed;
+		this.driveForwardSpeed = driveFowardSpeed;
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class DriveForwardNoEncodersCommand extends BaseCommand {
 
 			@Override
 			public DriveInstruction getNextInstruction() {
-				return new DriveInstruction(driveFowardSpeed, 0.0);
+				return new DriveInstruction( 0.0, driveForwardSpeed);
 			}
 			
 		};

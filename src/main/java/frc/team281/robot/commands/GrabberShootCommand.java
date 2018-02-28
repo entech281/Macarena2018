@@ -17,7 +17,8 @@ public class GrabberShootCommand extends BaseCommand {
     }
     @Override
     public void execute() {
-        grab.open();
+        grab.startShooting();
+        
     }
 
     @Override
