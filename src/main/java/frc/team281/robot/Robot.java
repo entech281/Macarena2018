@@ -1,5 +1,6 @@
 package frc.team281.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -24,6 +25,8 @@ import frc.team281.robot.subsystems.LifterSubsystem;
 import frc.team281.robot.subsystems.WristSubsystem;
 import frc.team281.robot.subsystems.drive.BaseDriveSubsystem.DriveMode;
 import frc.team281.robot.subsystems.drive.RealDriveSubsystem;
+import frc.team281.robot.RobotMap.DigitalIO;
+import frc.team281.robot.commands.DriveForwardNoEncodersCommand;
 
 
 /**
@@ -46,6 +49,11 @@ public class Robot extends IterativeRobot implements CommandFactory {
     private GrabberSubsystem grabberSubsystem;
     private WristSubsystem wristSubsystem;
     private WhichAutoCodeToRun whatAutoToRun;
+    private DriveForwardNoEncodersCommand DFNEC;
+    
+    DigitalInput leftPositionSwitch = new DigitalInput(DigitalIO.LEFT_SWITCH_POSITION);
+    DigitalInput rightPositionSwitch = new DigitalInput(DigitalIO.RIGHT_SWITCH_POSITION);
+    DigitalInput preferenceSwitch = new DigitalInput(DigitalIO.PREFERENCE_SWITCH);
     
     /**
      * This function is run when the robot is first started up and should be used
@@ -68,13 +76,14 @@ public class Robot extends IterativeRobot implements CommandFactory {
         lifterSubsystem.initialize();
         grabberSubsystem.initialize();
         wristSubsystem.initialize();
+        DFNEC = new DriveForwardNoEncodersCommand(driveSubsystem, 2, .75);
         
     }
 
     @Override
     public void autonomousInit() {
     	 	 	String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
-         FieldMessage fieldMessage = new FieldMessageGetter().convertGameMessageToFieldMessage(gameMessage); 
+         FieldMessage fieldMessage = new FieldMessageGetter(leftPositionSwitch.get(), rightPositionSwitch.get(), preferenceSwitch.get()).convertGameMessageToFieldMessage(gameMessage); 
          whatAutoToRun = new ConvertFieldMessageToCommandGroup().convert(fieldMessage);
          
     		SmartDashboard.putString("Selected Auto", whatAutoToRun+"");
@@ -82,7 +91,9 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
         AutoCommandFactory af = new AutoCommandFactory(lifterSubsystem, grabberSubsystem, driveSubsystem);
         CommandGroup autoCommand = af.makeAutoCommand(whatAutoToRun);
-        autoCommand.start();
+        DFNEC.start();
+        //autoCommand.start();
+       
     }
     
     @Override

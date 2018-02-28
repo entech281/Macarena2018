@@ -11,33 +11,34 @@ import frc.team281.robot.RobotMap.DigitalIO;
 
 public class FieldMessageGetter {
 	
-	private DigitalInput leftPositionSwitch;
-	private DigitalInput rightPositionSwitch;
-	private DigitalInput preferenceSwitch;
+	boolean leftSwitchValue = false;
+	boolean rightSwitchValue = false;
+	boolean preferenceSwitchValue = false;
 	
-	public FieldMessageGetter() {
-		leftPositionSwitch = new DigitalInput(DigitalIO.LEFT_SWITCH_POSITION);
-		rightPositionSwitch = new DigitalInput(DigitalIO.RIGHT_SWITCH_POSITION);
-		preferenceSwitch = new DigitalInput(DigitalIO.PREFERENCE_SWITCH);
+	
+	public FieldMessageGetter(boolean leftSwitchValue, boolean rightSwitchValue, boolean preferenceSwitchValue) {
+		this.leftSwitchValue = leftSwitchValue;
+		this.rightSwitchValue = rightSwitchValue;
+		this.preferenceSwitchValue = preferenceSwitchValue;
 	}
 	
     public boolean isRobotOnTheLeft() {
-        return ! leftPositionSwitch.get();
+        return ! leftSwitchValue; 
     }
     
     public boolean isRobotOnTheRight() {
-        return ! rightPositionSwitch.get();
+        return ! rightSwitchValue; 
     }
     
     public boolean Override() {
-        return ! preferenceSwitch.get();
+        return ! preferenceSwitchValue; 
     }
 
 	
 	public FieldMessage convertGameMessageToFieldMessage(String gameMessage) {
-	    SmartDashboard.putBoolean("RobotLeftSwitch", leftPositionSwitch.get());
-	    SmartDashboard.putBoolean("RobotRightSwitch", rightPositionSwitch.get());
-	    SmartDashboard.putBoolean("Overide", preferenceSwitch.get());
+	    SmartDashboard.putBoolean("RobotLeftSwitch", isRobotOnTheLeft());
+	    SmartDashboard.putBoolean("RobotRightSwitch", isRobotOnTheRight());
+	    SmartDashboard.putBoolean("Overide", ! Override());
 		FieldMessage message = new FieldMessage();
 		if(gameMessage.charAt(0) == 'L') {
 			message.setOurSwitchOnTheLeft(true); 
