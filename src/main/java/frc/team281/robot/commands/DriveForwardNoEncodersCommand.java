@@ -22,7 +22,10 @@ public class DriveForwardNoEncodersCommand extends BaseCommand {
 
 			@Override
 			public DriveInstruction getNextInstruction() {
-				return new DriveInstruction( 0.0, driveForwardSpeed);
+			    
+			    //TODO: this is bad and wrong. why is lateral forward and forward lateral, 
+			    //and why does this have to be negative?
+				return new DriveInstruction( 0.0, -driveForwardSpeed);
 			}
 			
 		};
