@@ -63,15 +63,16 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     @Override
     public void robotInit() {
-
+        //if ( 1 == 1)
+        //    throw new RuntimeException("THIS IS NEW CODE");
         // create the objects for the real match
         DataLoggerFactory.configureForMatch();
 
         operatorInterface = new OperatorInterface(this);
         driveSubsystem = new RealDriveSubsystem(operatorInterface);
-        lifterSubsystem = new FakeLifterSubsystem();
-        grabberSubsystem= new FakeGrabberSubsystem();
-        wristSubsystem = new FakeWristSubsystem();
+        lifterSubsystem = new LifterSubsystem();
+        grabberSubsystem= new GrabberSubsystem();
+        wristSubsystem = new WristSubsystem();
         driveSubsystem.initialize();
         operatorInterface.initialize();
         lifterSubsystem.initialize();

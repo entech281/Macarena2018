@@ -4,10 +4,13 @@ package frc.team281.robot.subsystems;
 
 public class FakeGrabberSubsystem extends GrabberSubsystem {
 
+
+
     protected int cubeIntakeCount = 0;
     protected boolean cubeSwitchTouching = false;
     public static final int TIME_TO_LOAD_CUBE_MILLIS=2000;
     public static final int LOOP_TIME_MILLIS=20;
+    
     @Override
     public void initialize() {
     }

@@ -26,10 +26,12 @@ public class GrabberSubsystem extends BaseSubsystem {
 
     
     public GrabberSubsystem() {
+        
     }
 
     @Override
     public void initialize() {
+        dataLogger.warn("Grabber Subsystem Init");
         leftMotor = new WPI_TalonSRX(RobotMap.CAN.Grabber.MOTOR_LEFT);
         rightMotor = new WPI_TalonSRX(RobotMap.CAN.Grabber.MOTOR_RIGHT);
 
@@ -50,7 +52,7 @@ public class GrabberSubsystem extends BaseSubsystem {
         TalonSettings rightMotorSettings = TalonSettingsBuilder.inverted(leftMotorSettings);
         leftMotorController = new TalonSpeedController(leftMotor, leftMotorSettings);
         rightMotorController = new TalonSpeedController(rightMotor, rightMotorSettings);        
-        
+        dataLogger.warn("Grabber Subsystem Init Finished");
     }
 
     public boolean isCubeTouchingSwitch() {

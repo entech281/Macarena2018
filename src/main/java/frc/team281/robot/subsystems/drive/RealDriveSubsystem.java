@@ -57,7 +57,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 	@Override
 	public void initialize() {
 
-		this.navX = new NavXIntializer(SerialPort.Port.kMXP,NAVX_CALIBRATION_LOOP_TIME_MS).getCalibratedNavX();	
+		//this.navX = new NavXIntializer(SerialPort.Port.kMXP,NAVX_CALIBRATION_LOOP_TIME_MS).getCalibratedNavX();	
 		
 
 		frontLeftMotor = new WPI_TalonSRX(RobotMap.CAN.FRONT_LEFT_MOTOR);
