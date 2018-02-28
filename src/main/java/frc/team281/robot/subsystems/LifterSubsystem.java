@@ -50,22 +50,24 @@ public class LifterSubsystem extends BaseSubsystem {
 
     public void motorsUp(double speedPercent) {
         if ( ! isAtLimit() ){
-            dataLogger.warn("Cannot Move-- at Limits");
+            
             motorOneController.setDesiredSpeed(speedPercent);
             motorTwoController.setDesiredSpeed(-speedPercent);
         }
         else{
+            dataLogger.warn("Cannot Move-- at Limits");
             motorsOff();
         }
     }
 
     public void motorsDown(double speedPercent) {
         if ( ! isAtLimit() ){
-            dataLogger.warn("Cannot Move-- at Limits");
+            
             motorOneController.setDesiredSpeed(-speedPercent);
             motorTwoController.setDesiredSpeed(speedPercent);
         }
         else{
+            dataLogger.warn("Cannot Move-- at Limits");
             motorsOff();
         }
     }
