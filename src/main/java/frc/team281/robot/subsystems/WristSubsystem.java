@@ -13,6 +13,7 @@ public class WristSubsystem extends BaseSubsystem {
 
     private boolean wristUp;
 
+    
     public WristSubsystem() {
     }
 
