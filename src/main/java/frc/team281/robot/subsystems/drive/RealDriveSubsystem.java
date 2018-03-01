@@ -3,10 +3,8 @@ package frc.team281.robot.subsystems.drive;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.SerialPort;
 import frc.team281.robot.DriveInstructionSource;
 import frc.team281.robot.RobotMap;
-import frc.team281.robot.subsystems.NavXIntializer;
 import frc.team281.robot.subsystems.TalonSettings;
 import frc.team281.robot.subsystems.TalonSettingsBuilder;
 
