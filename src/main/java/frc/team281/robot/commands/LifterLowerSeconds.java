@@ -18,6 +18,10 @@ public class LifterLowerSeconds extends BaseCommand {
         lifter.motorsUp(100);
     }
 
+    @Override
+	protected void end() {
+    	lifter.motorsOff();
+	}    
 
     @Override
     protected boolean isFinished() {
