@@ -122,15 +122,7 @@ public class AutoCommandFactory {
     public BaseCommand autoPathE() {
         FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
                 PositionCalculator.builder()
-                .forward(24)
-                .left(50)
-                .forward(114)
-                .right(70)
-                .forward(50)
-                .right(35)
-                .forward(74)
-                .right(20)
-                .forward(96)
+                .forward(138)
                 .build()
         );  
         return followPath;
@@ -139,17 +131,7 @@ public class AutoCommandFactory {
     public BaseCommand autoPathF() {
         FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
                 PositionCalculator.builder()
-                .forward(24)
-                .left(25)
-                .forward(111)
-                .right(35)
-                .forward(84)
-                .right(45)
-                .forward(52)
-                .right(45)
-                .forward(130)
-                .left(90)
-                .forward(41)
+                .forward(138)
                 .build()
         );
         return followPath;

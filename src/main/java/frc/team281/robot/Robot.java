@@ -93,8 +93,8 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
         AutoCommandFactory af = new AutoCommandFactory(lifterSubsystem, grabberSubsystem, driveSubsystem);
         CommandGroup autoCommand = af.makeAutoCommand(whatAutoToRun);
-        DFNEC.start();
-        //autoCommand.start();
+        //DFNEC.start();
+        autoCommand.start();
        
     }
     
