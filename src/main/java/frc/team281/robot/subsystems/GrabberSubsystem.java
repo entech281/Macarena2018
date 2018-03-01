@@ -16,6 +16,7 @@ public class GrabberSubsystem extends BaseSubsystem {
     private TalonSpeedController leftMotorController;
     private TalonSpeedController rightMotorController;
     
+    public static final double MOTOR_CONFIG=1;
     public static final double LEFT_LOAD_PERCENT = 100;
     public static final double RIGHT_LOAD_PERCENT = 90;
     public static final double SHOOT_PERCENT = 100;
@@ -64,15 +65,15 @@ public class GrabberSubsystem extends BaseSubsystem {
             dataLogger.warn("Cannot Load-- already at limit");
         }
         else{
-            leftMotorController.setDesiredSpeed(-LEFT_LOAD_PERCENT);
-            rightMotorController.setDesiredSpeed(-RIGHT_LOAD_PERCENT);              
+            leftMotorController.setDesiredSpeed(-MOTOR_CONFIG*LEFT_LOAD_PERCENT);
+            rightMotorController.setDesiredSpeed(-MOTOR_CONFIG*RIGHT_LOAD_PERCENT);              
         }
       
     }
     
     public void startShooting() {
-        leftMotorController.setDesiredSpeed(LEFT_LOAD_PERCENT);
-        rightMotorController.setDesiredSpeed(RIGHT_LOAD_PERCENT);  
+        leftMotorController.setDesiredSpeed(MOTOR_CONFIG*LEFT_LOAD_PERCENT);
+        rightMotorController.setDesiredSpeed(MOTOR_CONFIG*RIGHT_LOAD_PERCENT);  
     }
     
     @Override
