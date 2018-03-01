@@ -44,13 +44,22 @@ public class GrabberSubsystem extends BaseSubsystem {
                 .defaults()
                 .withCurrentLimits(10, 5, 200)
                 .brakeInNeutral()
-                .defaultDirectionSettings()
+                .withDirections(false, false)
                 .noMotorOutputLimits()
                 .noMotorStartupRamping()
                 .useSpeedControl()
                 .build();
         
-        TalonSettings rightMotorSettings = TalonSettingsBuilder.inverted(leftMotorSettings);
+        TalonSettings rightMotorSettings = TalonSettingsBuilder
+                .defaults()
+                .withCurrentLimits(10, 5, 200)
+                .brakeInNeutral()
+                .withDirections(false, true)
+                .noMotorOutputLimits()
+                .noMotorStartupRamping()
+                .useSpeedControl()
+                .build();        
+        
         leftMotorController = new TalonSpeedController(leftMotor, leftMotorSettings);
         rightMotorController = new TalonSpeedController(rightMotor, rightMotorSettings);        
         dataLogger.warn("Grabber Subsystem Init Finished");
@@ -65,15 +74,15 @@ public class GrabberSubsystem extends BaseSubsystem {
             dataLogger.warn("Cannot Load-- already at limit");
         }
         else{
-            leftMotorController.setDesiredSpeed(-MOTOR_CONFIG*LEFT_LOAD_PERCENT);
-            rightMotorController.setDesiredSpeed(-MOTOR_CONFIG*RIGHT_LOAD_PERCENT);              
+            leftMotorController.setDesiredSpeed(MOTOR_CONFIG*LEFT_LOAD_PERCENT);
+            rightMotorController.setDesiredSpeed(MOTOR_CONFIG*RIGHT_LOAD_PERCENT);              
         }
       
     }
     
     public void startShooting() {
-        leftMotorController.setDesiredSpeed(MOTOR_CONFIG*LEFT_LOAD_PERCENT);
-        rightMotorController.setDesiredSpeed(MOTOR_CONFIG*RIGHT_LOAD_PERCENT);  
+        leftMotorController.setDesiredSpeed(SHOOT_PERCENT);
+        rightMotorController.setDesiredSpeed(SHOOT_PERCENT);  
     }
     
     @Override
@@ -94,11 +103,11 @@ public class GrabberSubsystem extends BaseSubsystem {
     }
     
     public void open() {
-        solenoid.set(DoubleSolenoid.Value.kReverse);
+        solenoid.set(DoubleSolenoid.Value.kForward);
     }
     
     public void close() {
-        solenoid.set(DoubleSolenoid.Value.kForward);
+        solenoid.set(DoubleSolenoid.Value.kReverse);
     }
     
 }
