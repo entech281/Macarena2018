@@ -79,7 +79,7 @@ public class Robot extends IterativeRobot implements CommandFactory {
         wristSubsystem.initialize();
         compressor = new Compressor(RobotMap.CAN.PC_MODULE);
         compressor.start();
-        DFNEC = new DriveForwardNoEncodersCommand(driveSubsystem, 2.0, .75);
+        DFNEC = new DriveForwardNoEncodersCommand(driveSubsystem, 1.6, .75);
         
     }
 
