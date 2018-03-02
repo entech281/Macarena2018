@@ -4,7 +4,7 @@ import frc.team281.robot.subsystems.LifterSubsystem;
 
 public class LifterTopCommand extends BaseCommand {
 
-	public static final int TIMEOUT_SECS = 10;
+	public static final int TIMEOUT_SECS = 5;
 
 	private LifterSubsystem lifter;
 

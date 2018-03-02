@@ -13,8 +13,8 @@ public class LifterSubsystem extends BaseSubsystem {
     private TalonSpeedController motorOneController;
     private TalonSpeedController motorTwoController;
 
-    public static final double UP_SPEED_PERCENT = 100;
-    public static final double DOWN_SPEED_PERCENT = 50;
+    public static final double UP_SPEED_PERCENT = 0.5;
+    public static final double DOWN_SPEED_PERCENT = 0.3;
 
     public static final double MIN_HEIGHT_INCHES = 1.0;
     public static final double MAX_HEIGHT_INCHES = 100;
@@ -56,8 +56,8 @@ public class LifterSubsystem extends BaseSubsystem {
     public void motorsUp(double speedPercent) {
         if ( ! isLifterAtTop() ){
             
-            motorOneController.setDesiredSpeed(-speedPercent);
-            motorTwoController.setDesiredSpeed(-speedPercent);
+            motorOneController.setDesiredSpeed(speedPercent);
+            motorTwoController.setDesiredSpeed(speedPercent);
             movingUp = true;
         }
         else{
@@ -69,8 +69,8 @@ public class LifterSubsystem extends BaseSubsystem {
     public void motorsDown(double speedPercent) {
         if ( ! isLifterAtBottom() ){
             
-            motorOneController.setDesiredSpeed(speedPercent);
-            motorTwoController.setDesiredSpeed(speedPercent);
+            motorOneController.setDesiredSpeed(-speedPercent);
+            motorTwoController.setDesiredSpeed(-speedPercent);
             movingDown = true;
         }
         else{

@@ -26,6 +26,7 @@ public class GrabberSubsystem extends BaseSubsystem {
     
     private DoubleSolenoid solenoid;
     private boolean isLoading = false;
+    private boolean isShooting = false;
 
     
     public GrabberSubsystem() {
@@ -93,6 +94,7 @@ public class GrabberSubsystem extends BaseSubsystem {
     }
     
     public void startShooting() {
+    	isShooting = true;
         leftMotorController.setDesiredSpeed(-SHOOT_PERCENT);
         rightMotorController.setDesiredSpeed(-SHOOT_PERCENT);  
     }
@@ -103,13 +105,21 @@ public class GrabberSubsystem extends BaseSubsystem {
         dataLogger.log("LeftMotorMode", leftMotorController.getTalon().getControlMode()+"");
         dataLogger.log("RightMotorMode", rightMotorController.getTalon().getControlMode()+"");
         
-        if ( isCubeTouchingSwitch() && isLoading ){
-            stopMotors();
+        if (isShooting) {
+        	startShooting();
+        }
+        if (isLoading) {
+            if ( isCubeTouchingSwitch() ){
+                stopMotors();
+            } else {
+            	startLoading();
+            }
         }
     }
 
     public void stopMotors() {
     	isLoading = false;
+    	isShooting = false;
         leftMotorController.setDesiredSpeed(0);
         rightMotorController.setDesiredSpeed(0);  
     }

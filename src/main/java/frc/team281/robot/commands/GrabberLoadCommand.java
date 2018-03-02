@@ -30,7 +30,7 @@ public class GrabberLoadCommand extends BaseCommand {
     
     @Override
     public void end() {
-        grabber.stopMotors();
+        // grabber.stopMotors();
     }
     
     @Override
