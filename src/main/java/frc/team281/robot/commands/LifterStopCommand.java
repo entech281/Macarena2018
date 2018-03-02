@@ -26,5 +26,8 @@ public class LifterStopCommand extends BaseCommand {
         return true;
     }
 
-
+    @Override
+    protected void interrupted() {
+        lifter.motorsOff();
+    }
 }

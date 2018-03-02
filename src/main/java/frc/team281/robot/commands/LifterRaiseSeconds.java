@@ -27,4 +27,8 @@ public class LifterRaiseSeconds extends BaseCommand {
         return isTimedOut();
     }
 
+    @Override
+    protected void interrupted() {
+        end();
+    }
 }

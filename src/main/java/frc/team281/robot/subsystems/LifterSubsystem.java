@@ -56,7 +56,7 @@ public class LifterSubsystem extends BaseSubsystem {
     public void motorsUp(double speedPercent) {
         if ( ! isLifterAtTop() ){
             
-            motorOneController.setDesiredSpeed(-speedPercent);
+            motorOneController.setDesiredSpeed(speedPercent);
             motorTwoController.setDesiredSpeed(speedPercent);
             movingUp = true;
         }
@@ -69,7 +69,7 @@ public class LifterSubsystem extends BaseSubsystem {
     public void motorsDown(double speedPercent) {
         if ( ! isLifterAtBottom() ){
             
-            motorOneController.setDesiredSpeed(-speedPercent);
+            motorOneController.setDesiredSpeed(speedPercent);
             motorTwoController.setDesiredSpeed(speedPercent);
             movingDown = true;
         }
