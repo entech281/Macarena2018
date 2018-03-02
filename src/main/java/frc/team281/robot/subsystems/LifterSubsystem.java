@@ -13,8 +13,9 @@ public class LifterSubsystem extends BaseSubsystem {
     private TalonSpeedController motorOneController;
     private TalonSpeedController motorTwoController;
 
-    public static final double UP_SPEED_PERCENT = 0.5;
-    public static final double DOWN_SPEED_PERCENT = 0.3;
+    public static final double CURRENT_STOP_FACTOR = 1.22;
+    public static final double UP_SPEED_PERCENT = 0.65;
+    public static final double DOWN_SPEED_PERCENT = 0.5;
 
     public static final double MIN_HEIGHT_INCHES = 1.0;
     public static final double MAX_HEIGHT_INCHES = 100;
@@ -23,6 +24,9 @@ public class LifterSubsystem extends BaseSubsystem {
     private DigitalInput topLimitSwitch;
     private boolean movingUp = false;
     private boolean movingDown = false;
+    
+    private double upMotorCurrentBaseline;
+    private boolean truelyAtTop = false; 
     
     public LifterSubsystem() {
 
@@ -72,6 +76,7 @@ public class LifterSubsystem extends BaseSubsystem {
             motorOneController.setDesiredSpeed(-speedPercent);
             motorTwoController.setDesiredSpeed(-speedPercent);
             movingDown = true;
+            truelyAtTop = isTopLimitSwitchPressed();
         }
         else{
             dataLogger.warn("Cannot Move-- at Limits");
@@ -91,6 +96,9 @@ public class LifterSubsystem extends BaseSubsystem {
         dataLogger.log("UpperLimit",isLifterAtTop());
         dataLogger.log("LowerLimit",isLifterAtBottom());
         
+        if (movingUp && ( ! isTopLimitSwitchPressed() )) {
+        	upMotorCurrentBaseline = getAverageMotorCurrent();
+        }
         if ( movingUp && isLifterAtTop()) {
         	motorsOff();
         }
@@ -108,6 +116,19 @@ public class LifterSubsystem extends BaseSubsystem {
     }
 
     public boolean isLifterAtTop() {
+        // SAFETY return ! topLimitSwitch.get();
+    	if (movingUp && isTopLimitSwitchPressed() &&
+    			(getAverageMotorCurrent() > CURRENT_STOP_FACTOR*upMotorCurrentBaseline)) {
+    		truelyAtTop = true;
+    	}
+    	return truelyAtTop;
+    }
+    
+    private boolean isTopLimitSwitchPressed() {
         return ! topLimitSwitch.get();
+    }
+    private double getAverageMotorCurrent() {
+    	return 0.5*(motorOne.getOutputCurrent() + 
+    			    motorTwo.getOutputCurrent()   );
     }
 }
