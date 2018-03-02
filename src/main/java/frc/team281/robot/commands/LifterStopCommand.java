@@ -17,6 +17,11 @@ public class LifterStopCommand extends BaseCommand {
     }
 
     @Override
+	protected void execute() {
+    	lifter.motorsOff();
+	}
+
+	@Override
     protected boolean isFinished() {
         return true;
     }

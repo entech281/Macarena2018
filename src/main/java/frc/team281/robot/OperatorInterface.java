@@ -1,7 +1,8 @@
 package frc.team281.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.team281.robot.commands.LifterStopCommand;;
 
 /**
  * Reads the hardware that interfaces with real users, and issues commands to a
@@ -47,15 +48,19 @@ public class OperatorInterface implements DriveInstructionSource {
         
         lifterRaiseButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.LIFTER_RAISE);
         lifterRaiseButton.whileHeld(factory.createLifterRaiseCommand());
+        lifterRaiseButton.whenReleased(factory.createLifterStopCommand());
+
+        
         lifterLowerButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.LIFTER_LOWER);
         lifterLowerButton.whileHeld(factory.createLifterLowerCommand());
-        
+        lifterLowerButton.whenReleased(factory.createLifterStopCommand());        
 
         lifterGroundButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.LIFTER_TO_GROUND);
         lifterGroundButton.whenPressed(factory.createLifterHomeCommand());
+
+        
         lifterTopButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.LIFTER_TO_TOP);
         lifterTopButton.whenPressed(factory.createLifterTopCommand());
-        lifterGroundButton.whenPressed(factory.createLifterTopCommand());
 
         wristUpButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.WRIST_UP);
         wristUpButton.whenPressed(factory.createWristPivotUpCommand());
