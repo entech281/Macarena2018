@@ -1,5 +1,6 @@
 package frc.team281.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -24,6 +25,7 @@ public class GrabberSubsystem extends BaseSubsystem {
     private DigitalInput limitSwitch;
     
     private DoubleSolenoid solenoid;
+    private boolean isLoading = false;
 
     
     public GrabberSubsystem() {
@@ -60,8 +62,16 @@ public class GrabberSubsystem extends BaseSubsystem {
                 .useSpeedControl()
                 .build();        
         
+        
         leftMotorController = new TalonSpeedController(leftMotor, leftMotorSettings);
-        rightMotorController = new TalonSpeedController(rightMotor, rightMotorSettings);        
+        rightMotorController = new TalonSpeedController(rightMotor, rightMotorSettings);
+        
+        leftMotorController.configure();
+        rightMotorController.configure();
+        
+        //leftMotorController.getTalon().set(ControlMode.PercentOutput, 0.0);
+        //rightMotorController.getTalon().set(ControlMode.PercentOutput, 0.0);
+        
         dataLogger.warn("Grabber Subsystem Init Finished");
     }
 
@@ -72,28 +82,34 @@ public class GrabberSubsystem extends BaseSubsystem {
     public void startLoading() {
         if ( isCubeTouchingSwitch() ){
             dataLogger.warn("Cannot Load-- already at limit");
+            stopMotors();
         }
         else{
-            leftMotorController.setDesiredSpeed(MOTOR_CONFIG*LEFT_LOAD_PERCENT);
-            rightMotorController.setDesiredSpeed(MOTOR_CONFIG*RIGHT_LOAD_PERCENT);              
+        	isLoading = true;
+            leftMotorController.setDesiredSpeed(LEFT_LOAD_PERCENT);
+            rightMotorController.setDesiredSpeed(RIGHT_LOAD_PERCENT);              
         }
       
     }
     
     public void startShooting() {
-        leftMotorController.setDesiredSpeed(SHOOT_PERCENT);
-        rightMotorController.setDesiredSpeed(SHOOT_PERCENT);  
+        leftMotorController.setDesiredSpeed(-SHOOT_PERCENT);
+        rightMotorController.setDesiredSpeed(-SHOOT_PERCENT);  
     }
     
     @Override
     public void periodic() {
         dataLogger.log("IsCubeLoaded",isCubeTouchingSwitch());
-        if ( isCubeTouchingSwitch() ){
+        dataLogger.log("LeftMotorMode", leftMotorController.getTalon().getControlMode()+"");
+        dataLogger.log("RightMotorMode", rightMotorController.getTalon().getControlMode()+"");
+        
+        if ( isCubeTouchingSwitch() && isLoading ){
             stopMotors();
         }
     }
 
     public void stopMotors() {
+    	isLoading = false;
         leftMotorController.setDesiredSpeed(0);
         rightMotorController.setDesiredSpeed(0);  
     }

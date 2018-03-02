@@ -14,13 +14,20 @@ public class LifterLowerCommand extends BaseCommand {
 
     @Override
     protected void initialize() {
-        lifter.motorsUp(100);
+        lifter.motorsUp(LifterSubsystem.DOWN_SPEED_PERCENT);
     }
 
+	@Override
+	protected void end() {
+	}
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return true;
     }
+
+	@Override
+	protected void interrupted() {
+	}
 
 }

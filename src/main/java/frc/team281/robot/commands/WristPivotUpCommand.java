@@ -12,9 +12,12 @@ public class WristPivotUpCommand extends BaseCommand {
 
     public WristPivotUpCommand(BaseSubsystem subsystem, double timeOut) {
         super(subsystem, timeOut);
+    }
+    
+    public void execute() {
         wrist.pivotUp();
     }
-
+    
     @Override
     protected boolean isFinished() {
         return true;

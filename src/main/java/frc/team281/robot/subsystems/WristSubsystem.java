@@ -37,14 +37,14 @@ public class WristSubsystem extends BaseSubsystem {
 
     public void pivotUp() {
         wristUp = true;
-        up.set(true);
-        down.set(true);
+        up.set(false);
+        down.set(false);
     }
     
     public void pivotDown() {
         wristUp = false;
-        up.set(false);
-        down.set(false);
+        up.set(true);
+        down.set(true);
     }
     
 }

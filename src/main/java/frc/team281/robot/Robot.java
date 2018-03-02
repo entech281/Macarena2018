@@ -16,6 +16,7 @@ import frc.team281.robot.commands.LifterHomeCommand;
 import frc.team281.robot.commands.LifterTopCommand;
 import frc.team281.robot.commands.LifterLowerCommand;
 import frc.team281.robot.commands.LifterRaiseCommand;
+import frc.team281.robot.commands.LifterStopCommand;
 import frc.team281.robot.commands.WristPivotDownCommand;
 import frc.team281.robot.commands.WristPivotUpCommand;
 import frc.team281.robot.logger.DataLoggerFactory;
@@ -78,7 +79,7 @@ public class Robot extends IterativeRobot implements CommandFactory {
         wristSubsystem.initialize();
         compressor = new Compressor(RobotMap.CAN.PC_MODULE);
         compressor.start();
-        DFNEC = new DriveForwardNoEncodersCommand(driveSubsystem, 2, .75);
+        DFNEC = new DriveForwardNoEncodersCommand(driveSubsystem, 3, .75);
         
     }
 
@@ -93,8 +94,8 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
         AutoCommandFactory af = new AutoCommandFactory(lifterSubsystem, grabberSubsystem, driveSubsystem);
         CommandGroup autoCommand = af.makeAutoCommand(whatAutoToRun);
-        //DFNEC.start();
-        autoCommand.start();
+        DFNEC.start();
+        //autoCommand.start();
        
     }
     
@@ -178,4 +179,7 @@ public class Robot extends IterativeRobot implements CommandFactory {
         return new LifterTopCommand(this.lifterSubsystem);
     }
 
+    public LifterStopCommand createLifterStopCommand() {
+    	return new LifterStopCommand(this.lifterSubsystem);
+    }
 }

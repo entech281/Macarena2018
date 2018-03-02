@@ -35,7 +35,7 @@ public class AutoCommandFactory {
             return makeAutoProcedure(autoPathC());    
             
         case D: whatAutoToRun = WhichAutoCodeToRun.D; 
-            return makeAutoProcedure(autoPathD());
+            return makeAutoProcedure(autoPathE());
             
         case E: whatAutoToRun = WhichAutoCodeToRun.E;
             return makeAutoProcedure(autoPathE());

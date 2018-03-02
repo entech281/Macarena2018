@@ -13,14 +13,29 @@ public class GrabberCloseCommand extends BaseCommand {
     public GrabberCloseCommand(BaseSubsystem subsystem, double timeOut) {
         super(subsystem, timeOut);
     }
+
+    @Override
+    protected void initialize() {
+        grab.close();
+    }
+
     @Override
     public void execute() {
         grab.close();
     }
 
     @Override
+    protected void end() {
+    }
+
+    @Override
     protected boolean isFinished() {
-        return isTimedOut();
+        return true;
+    }
+
+    @Override
+    protected void interrupted() {
+        end();
     }
 
 }

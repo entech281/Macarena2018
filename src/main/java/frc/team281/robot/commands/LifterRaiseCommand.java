@@ -12,13 +12,20 @@ public class LifterRaiseCommand extends BaseCommand {
 
     @Override
     protected void initialize() {
-        lifter.motorsDown(100);
+        lifter.motorsDown(LifterSubsystem.UP_SPEED_PERCENT);
     }
 
+	@Override
+	protected void end() {
+	}
+
     @Override
-    protected boolean isFinished() {
-        
-        return isTimedOut();
+    protected boolean isFinished() {        
+        return true;
     }
+
+	@Override
+	protected void interrupted() {
+	}
 
 }
