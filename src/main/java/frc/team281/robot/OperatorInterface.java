@@ -67,11 +67,11 @@ public class OperatorInterface implements DriveInstructionSource {
         wristUpButton.whenReleased(factory.createWristPivotDownCommand());
 
         grabberLoadButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.GRABBER_LOAD);
-        grabberLoadButton.whilePressed(factory.createGrabberLoadCommand());
+        grabberLoadButton.whenPressed(factory.createGrabberLoadCommand());
         grabberLoadButton.whenReleased(factory.createGrabberStopCommand());
         
         grabberShootButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.GRABBER_SHOOT);
-        grabberShootButton.whilePressed(factory.createGrabberShootCommand());
+        grabberShootButton.whenPressed(factory.createGrabberShootCommand());
         grabberShootButton.whenReleased(factory.createGrabberStopCommand());
         
         grabberOpenButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.GRABBER_OPEN);
