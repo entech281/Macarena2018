@@ -13,12 +13,27 @@ public class GrabberOpenCommand extends BaseCommand {
         super(subsystem, timeOut);
     }
     @Override
+    protected void initialize() {
+        grab.open();
+    }
+
+    @Override
     public void execute() {
         grab.open();
     }
+
+    @Override
+    protected void end() {
+    }
+
     @Override
     protected boolean isFinished() {
         return true;
+    }
+
+    @Override
+    protected void interrupted() {
+        end();
     }
 
 }
