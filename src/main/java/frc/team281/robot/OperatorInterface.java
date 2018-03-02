@@ -28,6 +28,8 @@ public class OperatorInterface implements DriveInstructionSource {
     private JoystickButton grabberShootButton;
     private JoystickButton grabberOpenButton;
     private JoystickButton wristUpButton;
+    private JoystickButton grabberShootAndOpenButton;
+    private JoystickButton grabberCloseAndIntakeButton;
     
     public static class LifterHeights {
         public static final double SCALE_HIGH = 100;
@@ -77,7 +79,12 @@ public class OperatorInterface implements DriveInstructionSource {
         grabberOpenButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.GRABBER_OPEN);
         grabberOpenButton.whenPressed(factory.createGrabberOpenCommand());
         grabberOpenButton.whenReleased(factory.createGrabberCloseCommand());
-
+        
+        grabberShootAndOpenButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.GRABBER_SHOOT_AND_OPEN);
+        grabberShootAndOpenButton.whenPressed(factory.createCloseAndIntakeCommand());
+        
+        grabberCloseAndIntakeButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.GRABBER_LOAD_AND_CLOSE);
+        grabberShootAndOpenButton.whenPressed(factory.createPushOutCubeAndOpenCommand());
     }
 
     @Override

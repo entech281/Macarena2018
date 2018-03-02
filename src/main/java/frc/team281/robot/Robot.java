@@ -14,6 +14,7 @@ import frc.team281.robot.commands.GrabberShootCommand;
 import frc.team281.robot.commands.GrabberStopCommand;
 import frc.team281.robot.commands.LifterHomeCommand;
 import frc.team281.robot.commands.LifterTopCommand;
+import frc.team281.robot.commands.PushOutCubeAndOpenCommand;
 import frc.team281.robot.commands.LifterLowerCommand;
 import frc.team281.robot.commands.LifterRaiseCommand;
 import frc.team281.robot.commands.LifterStopCommand;
@@ -26,6 +27,7 @@ import frc.team281.robot.subsystems.WristSubsystem;
 import frc.team281.robot.subsystems.drive.BaseDriveSubsystem.DriveMode;
 import frc.team281.robot.subsystems.drive.RealDriveSubsystem;
 import frc.team281.robot.RobotMap.DigitalIO;
+import frc.team281.robot.commands.CloseAndIntakeCommand;
 import frc.team281.robot.commands.DriveForwardNoEncodersCommand;
 
 
@@ -181,5 +183,15 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     public LifterStopCommand createLifterStopCommand() {
     	return new LifterStopCommand(this.lifterSubsystem);
+    }
+
+    @Override
+    public CloseAndIntakeCommand createCloseAndIntakeCommand() {
+        return new CloseAndIntakeCommand(this.grabberSubsystem);
+    }
+
+    @Override
+    public PushOutCubeAndOpenCommand createPushOutCubeAndOpenCommand() {
+        return new PushOutCubeAndOpenCommand(this.grabberSubsystem);
     }
 }
