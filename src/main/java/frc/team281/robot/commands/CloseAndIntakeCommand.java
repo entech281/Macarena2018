@@ -9,7 +9,7 @@ public class CloseAndIntakeCommand extends BaseCommand{
         super(subsystem);
         requires(subsystem);
         this.grab=(GrabberSubsystem) subsystem;
-        setTimeout(3000);
+        setTimeout(5);
     }
     public void inititialize() {
         grab.close();
