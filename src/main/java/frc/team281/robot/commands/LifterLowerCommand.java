@@ -19,7 +19,6 @@ public class LifterLowerCommand extends BaseCommand {
 
 	@Override
 	protected void end() {
-		lifter.motorsOff();
 	}
 
     @Override
@@ -29,7 +28,6 @@ public class LifterLowerCommand extends BaseCommand {
 
 	@Override
 	protected void interrupted() {
-		end();
 	}
 
 }
