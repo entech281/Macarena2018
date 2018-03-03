@@ -19,6 +19,7 @@ import frc.team281.robot.commands.LifterRaiseCommand;
 import frc.team281.robot.commands.LifterStopCommand;
 import frc.team281.robot.commands.WristPivotDownCommand;
 import frc.team281.robot.commands.WristPivotUpCommand;
+import frc.team281.robot.commands.LifterRaiseSeconds;
 import frc.team281.robot.logger.DataLoggerFactory;
 import frc.team281.robot.subsystems.GrabberSubsystem;
 import frc.team281.robot.subsystems.LifterSubsystem;
@@ -50,6 +51,7 @@ public class Robot extends IterativeRobot implements CommandFactory {
     private WristSubsystem wristSubsystem;
     private WhichAutoCodeToRun whatAutoToRun;
     private DriveForwardNoEncodersCommand DFNEC;
+    private CommandGroup DRAR;
     private Compressor compressor;
     
     DigitalInput leftPositionSwitch = new DigitalInput(DigitalIO.LEFT_SWITCH_POSITION);
@@ -79,6 +81,10 @@ public class Robot extends IterativeRobot implements CommandFactory {
         wristSubsystem.initialize();
         compressor = new Compressor(RobotMap.CAN.PC_MODULE);
         compressor.start();
+        DRAR = new CommandGroup();
+        DRAR.addParallel(new WristPivotDownCommand(wristSubsystem));
+        DRAR.addParallel(new LifterRaiseSeconds(lifterSubsystem,0.2));
+        DRAR.addSequential(new DriveForwardNoEncodersCommand(driveSubsystem, 1.6, .75));
         DFNEC = new DriveForwardNoEncodersCommand(driveSubsystem, 1.6, .75);
         
     }
@@ -94,7 +100,8 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
         AutoCommandFactory af = new AutoCommandFactory(lifterSubsystem, grabberSubsystem, wristSubsystem, driveSubsystem);
         CommandGroup autoCommand = af.makeAutoCommand(whatAutoToRun);
-        DFNEC.start();
+        // DFNEC.start();
+        DRAR.start();
         //autoCommand.start();
        
     }
