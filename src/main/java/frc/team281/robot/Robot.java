@@ -92,7 +92,7 @@ public class Robot extends IterativeRobot implements CommandFactory {
     		SmartDashboard.putString("Selected Auto", whatAutoToRun+"");
         driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
 
-        AutoCommandFactory af = new AutoCommandFactory(lifterSubsystem, grabberSubsystem, driveSubsystem);
+        AutoCommandFactory af = new AutoCommandFactory(lifterSubsystem, grabberSubsystem, wristSubsystem, driveSubsystem);
         CommandGroup autoCommand = af.makeAutoCommand(whatAutoToRun);
         DFNEC.start();
         //autoCommand.start();

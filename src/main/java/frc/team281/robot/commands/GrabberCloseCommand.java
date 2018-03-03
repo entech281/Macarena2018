@@ -7,7 +7,7 @@ public class GrabberCloseCommand extends BaseCommand {
     public GrabberCloseCommand(BaseSubsystem subsystem) {
         super(subsystem);
         grab = (GrabberSubsystem)subsystem;
-        setTimeout(2000);
+        setTimeout(2);
     }
 
     public GrabberCloseCommand(BaseSubsystem subsystem, double timeOut) {
