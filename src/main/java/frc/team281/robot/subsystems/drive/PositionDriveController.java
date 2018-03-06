@@ -18,7 +18,7 @@ import frc.team281.robot.subsystems.PositionSource;
  */
 public class PositionDriveController extends BaseDriveController {
 
-    //TODO: this sshould be computed from the talon settings
+    //TODO: this should be computed from the talon settings
 	public static final double TOLERANCE_INCHES = 1.0;
 
 	private FourTalonsWithSettings talons;

@@ -17,7 +17,7 @@ public class TestPosition {
 		Position y = new Position(18, 18);
 
 		assertFalse(x.isCloseTo(y, 0.001));
-		assertTrue(x.isCloseTo(y, 20.0));
+		assertTrue(x.isCloseTo(y, 26.0));
 	}
 
 	@Test

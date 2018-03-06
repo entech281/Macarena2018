@@ -33,8 +33,8 @@ public class Position {
 	        return false;
 	    }
 		
-		return Math.sqrt((Math.pow(this.getLeftInches() - other.getLeftInches(),2)
-				+ Math.pow(this.getRightInches() - other.getRightInches(),2))) < tolerance;
+		return Math.sqrt(Math.pow(this.getLeftInches() - other.getLeftInches(),2)
+				+ Math.pow(this.getRightInches() - other.getRightInches(),2)) < tolerance;
 	}
 
 	@Override
