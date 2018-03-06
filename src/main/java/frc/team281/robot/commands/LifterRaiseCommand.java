@@ -12,7 +12,7 @@ public class LifterRaiseCommand extends BaseCommand {
 
     @Override
     protected void initialize() {
-        lifter.motorsDown(LifterSubsystem.UP_SPEED_PERCENT);
+        lifter.motorsUp(LifterSubsystem.UP_SPEED_PERCENT);
     }
 
 	@Override

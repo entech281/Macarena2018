@@ -4,8 +4,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.team281.robot.commands.BaseCommand;
 import frc.team281.robot.commands.FollowPositionPathCommand;
 import frc.team281.robot.commands.GrabberShootCommand;
+import frc.team281.robot.commands.WristPivotDownCommand;
 import frc.team281.robot.commands.LifterRaiseCommand;
+import frc.team281.robot.commands.LifterRaiseSeconds;
 import frc.team281.robot.subsystems.GrabberSubsystem;
+import frc.team281.robot.subsystems.WristSubsystem;
 import frc.team281.robot.subsystems.LifterSubsystem;
 import frc.team281.robot.subsystems.PositionCalculator;
 import frc.team281.robot.subsystems.drive.RealDriveSubsystem;
@@ -14,11 +17,14 @@ public class AutoCommandFactory {
 
     private LifterSubsystem lifterSubsystem;
     private GrabberSubsystem grabberSubsystem;
+    private WristSubsystem wristSubsystem;
     private RealDriveSubsystem driveSubsystem;
     
-    public AutoCommandFactory(LifterSubsystem lifterSubsystem, GrabberSubsystem grabberSubsystem, RealDriveSubsystem driveSubsystem) {
+    public AutoCommandFactory(LifterSubsystem lifterSubsystem, GrabberSubsystem grabberSubsystem,
+                              WristSubsystem wristSubsystem, RealDriveSubsystem driveSubsystem) {
         this.lifterSubsystem = lifterSubsystem;
         this.grabberSubsystem = grabberSubsystem;
+        this.wristSubsystem = wristSubsystem;
         this.driveSubsystem = driveSubsystem;
     }
     
@@ -29,12 +35,12 @@ public class AutoCommandFactory {
             return makeAutoProcedure(autoPathA());
             
         case B: whatAutoToRun = WhichAutoCodeToRun.B;
-            return makeAutoProcedure(autoPathB());             
+            return makeAutoProcedure(autoPathB());
              
         case C: whatAutoToRun = WhichAutoCodeToRun.C;
-            return makeAutoProcedure(autoPathC());    
+            return makeAutoProcedure(autoPathC());
             
-        case D: whatAutoToRun = WhichAutoCodeToRun.D; 
+        case D: whatAutoToRun = WhichAutoCodeToRun.D;
             return makeAutoProcedure(autoPathE());
             
         case E: whatAutoToRun = WhichAutoCodeToRun.E;
@@ -51,10 +57,11 @@ public class AutoCommandFactory {
     
     protected CommandGroup makeAutoProcedure(BaseCommand followPath) {
        CommandGroup auto = new CommandGroup();
+           auto.addParallel(new WristPivotDownCommand(wristSubsystem));
+           auto.addParallel(new LifterRaiseSeconds(lifterSubsystem,0.25));
            auto.addSequential(followPath);
-           auto.addSequential(new LifterRaiseCommand(lifterSubsystem));
-           auto.addSequential(new GrabberShootCommand(grabberSubsystem, 2000));
-       return auto;  
+           auto.addSequential(new GrabberShootCommand(grabberSubsystem, 2));
+       return auto;
     }
     
     public BaseCommand autoPathA() {

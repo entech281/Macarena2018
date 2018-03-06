@@ -9,8 +9,8 @@ public class DriveForwardNoEncodersCommand extends BaseCommand {
 
 	private RealDriveSubsystem drive;
 	private double driveForwardSpeed = 0.0;
-	public DriveForwardNoEncodersCommand(RealDriveSubsystem drive, long driveTimeMilliSeconds,double driveFowardSpeed) {
-		super(drive,driveTimeMilliSeconds);
+	public DriveForwardNoEncodersCommand(RealDriveSubsystem drive, double driveTimeSeconds,double driveFowardSpeed) {
+		super(drive,driveTimeSeconds);
 		this.drive = drive;
 		this.driveForwardSpeed = driveFowardSpeed;
 	}
