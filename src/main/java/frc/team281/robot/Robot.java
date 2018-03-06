@@ -28,6 +28,7 @@ import frc.team281.robot.subsystems.drive.BaseDriveSubsystem.DriveMode;
 import frc.team281.robot.subsystems.drive.RealDriveSubsystem;
 import frc.team281.robot.RobotMap.DigitalIO;
 import frc.team281.robot.commands.DriveForwardNoEncodersCommand;
+import frc.team281.robot.commands.TurnRightNoEncodersCommand;
 
 
 /**
@@ -82,9 +83,14 @@ public class Robot extends IterativeRobot implements CommandFactory {
         compressor = new Compressor(RobotMap.CAN.PC_MODULE);
         compressor.start();
         DRAR = new CommandGroup();
-        DRAR.addParallel(new WristPivotDownCommand(wristSubsystem));
-        DRAR.addParallel(new LifterRaiseSeconds(lifterSubsystem,0.2));
+        DRAR.addSequential(new LifterRaiseSeconds(lifterSubsystem,0.4));
         DRAR.addSequential(new DriveForwardNoEncodersCommand(driveSubsystem, 1.6, .75));
+        if (!leftPositionSwitch.get()) {
+            DRAR.addSequential(new TurnRightNoEncodersCommand(driveSubsystem, 0.5, 0.4));
+        } else if (!rightPositionSwitch.get()) {
+            DRAR.addSequential(new TurnRightNoEncodersCommand(driveSubsystem, 0.5, -0.4));        	
+        }
+        DRAR.addSequential(new WristPivotDownCommand(wristSubsystem));
         DFNEC = new DriveForwardNoEncodersCommand(driveSubsystem, 1.6, .75);
         
     }

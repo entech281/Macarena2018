@@ -15,7 +15,7 @@ public class LifterLowerSeconds extends BaseCommand {
 
     @Override
     protected void initialize() {
-        lifter.motorsUp(LifterSubsystem.DOWN_SPEED_PERCENT);
+        lifter.motorsDown(LifterSubsystem.DOWN_SPEED_PERCENT);
     }
 
     @Override
