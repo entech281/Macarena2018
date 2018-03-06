@@ -20,7 +20,7 @@ public class LifterLowerSeconds extends BaseCommand {
 
     @Override
 	protected void end() {
-    	lifter.motorsOff();
+    	    lifter.motorsOff();
 	}    
 
     @Override

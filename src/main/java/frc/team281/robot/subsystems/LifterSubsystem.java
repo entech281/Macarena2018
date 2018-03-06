@@ -97,13 +97,13 @@ public class LifterSubsystem extends BaseSubsystem {
         dataLogger.log("LowerLimit",isLifterAtBottom());
         
         if (movingUp && ( ! isTopLimitSwitchPressed() )) {
-        	upMotorCurrentBaseline = getAverageMotorCurrent();
+        	    upMotorCurrentBaseline = getAverageMotorCurrent();
         }
         if ( movingUp && isLifterAtTop()) {
-        	motorsOff();
+        	    motorsOff();
         }
         if ( movingDown && isLifterAtBottom( )) {
-        	motorsOff();
+        	    motorsOff();
         }
     }
 

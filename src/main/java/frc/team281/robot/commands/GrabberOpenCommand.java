@@ -19,7 +19,6 @@ public class GrabberOpenCommand extends BaseCommand {
 
     @Override
     public void execute() {
-        grab.open();
     }
 
     @Override

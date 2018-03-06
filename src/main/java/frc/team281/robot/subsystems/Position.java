@@ -32,9 +32,9 @@ public class Position {
 	    if (other == null ){
 	        return false;
 	    }
-		// ideally use real distance, i'm lazy
-		return (Math.abs(this.getLeftInches() - other.getLeftInches()) < tolerance
-				&& Math.abs(this.getRightInches() - other.getRightInches()) < tolerance);
+		
+		return Math.sqrt((Math.pow(this.getLeftInches() - other.getLeftInches(),2)
+				+ Math.pow(this.getRightInches() - other.getRightInches(),2))) < tolerance;
 	}
 
 	@Override

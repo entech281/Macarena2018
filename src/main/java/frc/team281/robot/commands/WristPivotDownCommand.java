@@ -7,14 +7,13 @@ public class WristPivotDownCommand extends BaseCommand {
     WristSubsystem wrist;
     public WristPivotDownCommand(BaseSubsystem subsystem) {
         super(subsystem);
-        this.wrist = (WristSubsystem)subsystem;
-        
+        this.wrist = (WristSubsystem) subsystem;
     }
 
     public WristPivotDownCommand(BaseSubsystem subsystem, double timeOut) {
         super(subsystem, timeOut);
     }
-    public void execute() {
+    public void initialize() {
         wrist.pivotDown();
     }
     @Override

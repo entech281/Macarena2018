@@ -8,7 +8,6 @@ public class GrabberStopCommand extends BaseCommand {
     public GrabberStopCommand(BaseSubsystem subsystem) {
         super(subsystem);
         grab = (GrabberSubsystem)subsystem;
-        setTimeout(20);
     }
 
     public GrabberStopCommand(BaseSubsystem subsystem, double timeOut) {
@@ -18,17 +17,16 @@ public class GrabberStopCommand extends BaseCommand {
     
     @Override
     protected void initialize() {
-
-    }
-
-    @Override
-    protected void execute() {
         grab.stopMotors();
     }
 
     @Override
+    protected void execute() {
+    }
+
+    @Override
     protected boolean isFinished() {
-        return isTimedOut();
+        return true;
     }
 
 }

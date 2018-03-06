@@ -18,12 +18,14 @@ public class GrabberShootCommand extends BaseCommand {
     @Override
     public void execute() {
         grab.startShooting();
-        
     }
 
     @Override
     protected boolean isFinished() {
         return isTimedOut();
     }
-
+    
+    public void end() {
+        grab.stopMotors();
+    }
 }
