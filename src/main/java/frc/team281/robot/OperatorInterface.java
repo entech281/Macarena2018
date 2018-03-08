@@ -21,8 +21,8 @@ public class OperatorInterface implements DriveInstructionSource {
     private CommandFactory factory;
     
     private JoystickButton lifterRaiseButton;
-    private JoystickButton lifterLowerButton; 
-    private JoystickButton lifterGroundButton;  
+    private JoystickButton lifterLowerButton;
+    private JoystickButton lifterGroundButton;
     private JoystickButton lifterTopButton;
     private JoystickButton grabberLoadButton;
     private JoystickButton grabberShootButton;
@@ -53,7 +53,7 @@ public class OperatorInterface implements DriveInstructionSource {
         
         lifterLowerButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.LIFTER_LOWER);
         lifterLowerButton.whileHeld(factory.createLifterLowerCommand());
-        lifterLowerButton.whenReleased(factory.createLifterStopCommand());        
+        lifterLowerButton.whenReleased(factory.createLifterStopCommand());
 
         lifterGroundButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.LIFTER_TO_GROUND);
         lifterGroundButton.whenPressed(factory.createLifterHomeCommand());
@@ -82,10 +82,17 @@ public class OperatorInterface implements DriveInstructionSource {
 
     @Override
     public DriveInstruction getNextInstruction() {
-        return new DriveInstruction(
-                -(1.0)*driveJoystick.getX(),
-                driveJoystick.getY()
-                );
+        double x;
+
+        if (driveJoystick.getTrigger()) {
+            // TODO: verify the sign on twist
+            x = -driveJoystick.getTwist();
+        } else {
+            x = -driveJoystick.getX();
+        }
+        double y = driveJoystick.getY();
+
+        return new DriveInstruction( x , y );
     }
 
     public static double adjustJoystickSoftness(double softnessFactor, double rawValue) {
