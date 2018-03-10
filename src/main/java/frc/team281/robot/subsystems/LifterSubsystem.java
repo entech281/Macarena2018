@@ -13,15 +13,21 @@ public class LifterSubsystem extends BaseSubsystem {
     private TalonSpeedController motorOneController;
     private TalonSpeedController motorTwoController;
 
-    public static final double FULL_SPEED_PERCENT = 100;
-    public static final double HOMING_SPEED_PERCENT = 20;
+    public static final double CURRENT_STOP_FACTOR = 1.15;
+    public static final double UP_SPEED_PERCENT = 0.7;
+    public static final double DOWN_SPEED_PERCENT = 0.4;
 
     public static final double MIN_HEIGHT_INCHES = 1.0;
     public static final double MAX_HEIGHT_INCHES = 100;
 
     private DigitalInput bottomLimitSwitch;
     private DigitalInput topLimitSwitch;
-
+    private boolean movingUp = false;
+    private boolean movingDown = false;
+    
+    private double upMotorCurrentBaseline;
+    private boolean truelyAtTop = false; 
+    
     public LifterSubsystem() {
 
     }
@@ -33,39 +39,47 @@ public class LifterSubsystem extends BaseSubsystem {
         bottomLimitSwitch = new DigitalInput(RobotMap.DigitalIO.LIFTER_AT_BOTTOM);
         topLimitSwitch = new DigitalInput(RobotMap.DigitalIO.LIFTER_AT_TOP);
         
-        TalonSettings motorOneSettings = TalonSettingsBuilder.defaults()
+        TalonSettings motorSettings = TalonSettingsBuilder.defaults()
                 .withCurrentLimits(20, 15, 200)
                 .brakeInNeutral()
-                .defaultDirectionSettings()
+                .withDirections(false, false)
                 .noMotorOutputLimits()
                 .noMotorStartupRamping()
                 .useSpeedControl()
                 .build();
-
-        TalonSettings motorTwoSettings = TalonSettingsBuilder.inverted(motorOneSettings);
-        motorOneController = new TalonSpeedController(motorOne, motorOneSettings);
-        motorTwoController = new TalonSpeedController(motorTwo, motorTwoSettings);
-
+     
+        
+        //TalonSettings motorTwoSettings = TalonSettingsBuilder.inverted(motorOneSettings);
+        motorOneController = new TalonSpeedController(motorOne, motorSettings);
+        motorTwoController = new TalonSpeedController(motorTwo, motorSettings);
+        
+        motorOneController.configure();
+        motorTwoController.configure();
     }
 
     public void motorsUp(double speedPercent) {
-        if ( ! isAtLimit() ){
-            dataLogger.warn("Cannot Move-- at Limits");
+        if ( ! isLifterAtTop() ){
+            
             motorOneController.setDesiredSpeed(speedPercent);
-            motorTwoController.setDesiredSpeed(-speedPercent);
+            motorTwoController.setDesiredSpeed(speedPercent);
+            movingUp = true;
         }
         else{
+            dataLogger.warn("Cannot Move-- at Limits");
             motorsOff();
         }
     }
 
     public void motorsDown(double speedPercent) {
-        if ( ! isAtLimit() ){
-            dataLogger.warn("Cannot Move-- at Limits");
+        if ( ! isLifterAtBottom() ){
+            
             motorOneController.setDesiredSpeed(-speedPercent);
-            motorTwoController.setDesiredSpeed(speedPercent);
+            motorTwoController.setDesiredSpeed(-speedPercent);
+            movingDown = true;
+            truelyAtTop = isTopLimitSwitchPressed();
         }
         else{
+            dataLogger.warn("Cannot Move-- at Limits");
             motorsOff();
         }
     }
@@ -73,14 +87,23 @@ public class LifterSubsystem extends BaseSubsystem {
     public void motorsOff() {
         motorOneController.setDesiredSpeed(0);
         motorTwoController.setDesiredSpeed(0);
+        movingDown = false;
+        movingUp = false;
     }
 
     @Override
     public void periodic() {
         dataLogger.log("UpperLimit",isLifterAtTop());
         dataLogger.log("LowerLimit",isLifterAtBottom());
-        if ( isAtLimit() ){            
-            motorsOff();
+        
+        if (movingUp && ( ! isTopLimitSwitchPressed() )) {
+        	upMotorCurrentBaseline = getAverageMotorCurrent();
+        }
+        if ( movingUp && isLifterAtTop()) {
+        	motorsOff();
+        }
+        if ( movingDown && isLifterAtBottom( )) {
+        	motorsOff();
         }
     }
 
@@ -93,6 +116,19 @@ public class LifterSubsystem extends BaseSubsystem {
     }
 
     public boolean isLifterAtTop() {
+        // SAFETY return ! topLimitSwitch.get();
+    	if (movingUp && isTopLimitSwitchPressed() &&
+    			(getAverageMotorCurrent() > CURRENT_STOP_FACTOR*upMotorCurrentBaseline)) {
+    		truelyAtTop = true;
+    	}
+    	return truelyAtTop;
+    }
+    
+    private boolean isTopLimitSwitchPressed() {
         return ! topLimitSwitch.get();
+    }
+    private double getAverageMotorCurrent() {
+    	return 0.5*(motorOne.getOutputCurrent() + 
+    			    motorTwo.getOutputCurrent()   );
     }
 }

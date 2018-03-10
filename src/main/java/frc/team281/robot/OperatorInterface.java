@@ -1,7 +1,8 @@
 package frc.team281.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.team281.robot.commands.LifterStopCommand;;
 
 /**
  * Reads the hardware that interfaces with real users, and issues commands to a
@@ -20,13 +21,13 @@ public class OperatorInterface implements DriveInstructionSource {
     private CommandFactory factory;
     
     private JoystickButton lifterRaiseButton;
-    private JoystickButton lifterLowerButton; 
-    private JoystickButton lifterGroundButton;  
+    private JoystickButton lifterLowerButton;
+    private JoystickButton lifterGroundButton;
+    private JoystickButton lifterTopButton;
     private JoystickButton grabberLoadButton;
     private JoystickButton grabberShootButton;
-    private JoystickButton grabberStopButton;
     private JoystickButton grabberOpenButton;
-    private JoystickButton grabberCloseButton;
+    private JoystickButton wristUpButton;
     
     public static class LifterHeights {
         public static final double SCALE_HIGH = 100;
@@ -46,37 +47,52 @@ public class OperatorInterface implements DriveInstructionSource {
         controlPanel = new Joystick(RobotMap.ControlPanel.PORT);
         
         lifterRaiseButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.LIFTER_RAISE);
-        lifterRaiseButton.whenPressed(factory.createLifterRaiseCommand());
-        lifterRaiseButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.LIFTER_LOWER);
-        lifterRaiseButton.whenPressed(factory.createLifterLowerCommand());
-        
-        
-        lifterRaiseButton.whenPressed(factory.createLifterRaiseCommand());
-        lifterLowerButton = new JoystickButton(driveJoystick, RobotMap.DriveJoystick.Buttons.LIFTER_LOWER);
-        lifterLowerButton.whenPressed(factory.createLifterLowerCommand());
+        lifterRaiseButton.whileHeld(factory.createLifterRaiseCommand());
+        lifterRaiseButton.whenReleased(factory.createLifterStopCommand());
 
-        lifterGroundButton = new JoystickButton(driveJoystick, RobotMap.DriveJoystick.Buttons.LIFTER_SCALE_GROUND);
-        lifterGroundButton.whenPressed(factory.createLifterHomeCommand());
         
+        lifterLowerButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.LIFTER_LOWER);
+        lifterLowerButton.whileHeld(factory.createLifterLowerCommand());
+        lifterLowerButton.whenReleased(factory.createLifterStopCommand());
+
+        lifterGroundButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.LIFTER_TO_GROUND);
+        lifterGroundButton.whenPressed(factory.createLifterHomeCommand());
+
+        
+        lifterTopButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.LIFTER_TO_TOP);
+        lifterTopButton.whenPressed(factory.createLifterTopCommand());
+
+        wristUpButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.WRIST_UP);
+        wristUpButton.whenPressed(factory.createWristPivotUpCommand());
+        wristUpButton.whenReleased(factory.createWristPivotDownCommand());
+
         grabberLoadButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.GRABBER_LOAD);
         grabberLoadButton.whenPressed(factory.createGrabberLoadCommand());
+        grabberLoadButton.whenReleased(factory.createGrabberStopCommand());
+        
         grabberShootButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.GRABBER_SHOOT);
         grabberShootButton.whenPressed(factory.createGrabberShootCommand());
-        grabberStopButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.GRABBER_STOP);
-        grabberStopButton.whenPressed(factory.createGrabberStopCommand());
+        grabberShootButton.whenReleased(factory.createGrabberStopCommand());
+        
         grabberOpenButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.GRABBER_OPEN);
         grabberOpenButton.whenPressed(factory.createGrabberOpenCommand());
-        grabberCloseButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.GRABBER_CLOSE);
-        grabberCloseButton.whenPressed(factory.createGrabberCloseCommand()); 
+        grabberOpenButton.whenReleased(factory.createGrabberCloseCommand());
 
     }
 
     @Override
     public DriveInstruction getNextInstruction() {
-        return new DriveInstruction(
-                -(1.0)*driveJoystick.getX(),
-                driveJoystick.getY()
-                );
+        double x;
+
+        if (driveJoystick.getTrigger()) {
+            // TODO: verify the sign on twist
+            x = -driveJoystick.getTwist();
+        } else {
+            x = -driveJoystick.getX();
+        }
+        double y = driveJoystick.getY();
+
+        return new DriveInstruction( x , y );
     }
 
     public static double adjustJoystickSoftness(double softnessFactor, double rawValue) {

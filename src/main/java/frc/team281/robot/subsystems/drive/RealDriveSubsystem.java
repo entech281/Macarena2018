@@ -3,10 +3,8 @@ package frc.team281.robot.subsystems.drive;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.SerialPort;
 import frc.team281.robot.DriveInstructionSource;
 import frc.team281.robot.RobotMap;
-import frc.team281.robot.subsystems.NavXIntializer;
 import frc.team281.robot.subsystems.TalonSettings;
 import frc.team281.robot.subsystems.TalonSettingsBuilder;
 
@@ -57,7 +55,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 	@Override
 	public void initialize() {
 
-		this.navX = new NavXIntializer(SerialPort.Port.kMXP,NAVX_CALIBRATION_LOOP_TIME_MS).getCalibratedNavX();	
+		//this.navX = new NavXIntializer(SerialPort.Port.kMXP,NAVX_CALIBRATION_LOOP_TIME_MS).getCalibratedNavX();	
 		
 
 		frontLeftMotor = new WPI_TalonSRX(RobotMap.CAN.FRONT_LEFT_MOTOR);

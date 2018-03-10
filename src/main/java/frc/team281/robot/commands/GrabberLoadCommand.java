@@ -16,12 +16,11 @@ public class GrabberLoadCommand extends BaseCommand {
     @Override
     public void initialize() {
         grabber.startLoading();
-        grabber.close();
     }
     
     @Override
     public void execute() {
-        grabber.startShooting();
+        
     }
     
     @Override
@@ -31,7 +30,7 @@ public class GrabberLoadCommand extends BaseCommand {
     
     @Override
     public void end() {
-        grabber.stopMotors();
+        // grabber.stopMotors();
     }
     
     @Override
