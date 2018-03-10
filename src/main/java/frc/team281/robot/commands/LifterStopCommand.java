@@ -18,7 +18,7 @@ public class LifterStopCommand extends BaseCommand {
 
     @Override
 	protected void execute() {
-    	lifter.motorsOff();
+        lifter.motorsOff();
 	}
 
 	@Override

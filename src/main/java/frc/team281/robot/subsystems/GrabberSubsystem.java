@@ -106,7 +106,7 @@ public class GrabberSubsystem extends BaseSubsystem {
         dataLogger.log("RightMotorMode", rightMotorController.getTalon().getControlMode()+"");
         
         if (isShooting) {
-        	startShooting();
+            startShooting();
         }
         if (isLoading) {
             if ( isCubeTouchingSwitch() ){
@@ -118,8 +118,8 @@ public class GrabberSubsystem extends BaseSubsystem {
     }
 
     public void stopMotors() {
-    	isLoading = false;
-    	isShooting = false;
+    	    isLoading = false;
+    	    isShooting = false;
         leftMotorController.setDesiredSpeed(0);
         rightMotorController.setDesiredSpeed(0);  
     }
