@@ -29,7 +29,7 @@ public class LifterSubsystem extends BaseSubsystem {
     private boolean truelyAtTop = false; 
     
     public LifterSubsystem() {
-
+        super();
     }
 
     @Override

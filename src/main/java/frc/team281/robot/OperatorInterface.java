@@ -85,6 +85,7 @@ public class OperatorInterface implements DriveInstructionSource {
         
         grabberCloseAndIntakeButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.GRABBER_LOAD_AND_CLOSE);
         grabberShootAndOpenButton.whenPressed(factory.createPushOutCubeAndOpenCommand());
+        
     }
 
     @Override
@@ -103,7 +104,7 @@ public class OperatorInterface implements DriveInstructionSource {
     }
 
     public static double adjustJoystickSoftness(double softnessFactor, double rawValue) {
-        boolean isNegative=(rawValue<0)?true:false;
+        boolean isNegative=(rawValue<0);
         double adjusted = (isNegative? Math.pow(-rawValue, softnessFactor):Math.pow(rawValue, softnessFactor));
         return isNegative?-adjusted:adjusted;
     }

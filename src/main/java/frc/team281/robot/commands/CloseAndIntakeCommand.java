@@ -11,10 +11,12 @@ public class CloseAndIntakeCommand extends BaseCommand{
         this.grab=(GrabberSubsystem) subsystem;
         setTimeout(5);
     }
-    public void inititialize() {
+    @Override
+    public void initialize() {
         grab.close();
         grab.startLoading();
     }
+    @Override
     public void end() {
         grab.stopMotors();
     }

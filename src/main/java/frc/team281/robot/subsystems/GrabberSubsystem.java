@@ -30,11 +30,12 @@ public class GrabberSubsystem extends BaseSubsystem {
 
     
     public GrabberSubsystem() {
-        
+        super();
     }
 
     @Override
     public void initialize() {
+        dataLogger.log(this);
         dataLogger.warn("Grabber Subsystem Init");
         leftMotor = new WPI_TalonSRX(RobotMap.CAN.Grabber.MOTOR_LEFT);
         rightMotor = new WPI_TalonSRX(RobotMap.CAN.Grabber.MOTOR_RIGHT);

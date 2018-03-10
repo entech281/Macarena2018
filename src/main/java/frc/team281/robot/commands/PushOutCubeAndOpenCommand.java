@@ -11,6 +11,7 @@ public class PushOutCubeAndOpenCommand extends BaseCommand{
         grab = (GrabberSubsystem) subsystem;
         setTimeout(3);
     }
+    @Override
     public void initialize() {
         grab.startShooting();
     }
