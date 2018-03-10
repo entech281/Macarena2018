@@ -26,7 +26,7 @@ import frc.team281.robot.subsystems.TalonSettingsBuilder;
 public class RealDriveSubsystem extends BaseDriveSubsystem {
 
 	public static final int NAVX_CALIBRATION_LOOP_TIME_MS = 50;
-	public static final double ENCODER_TICKS_PER_INCH = 52.;
+	public static final double ENCODER_TICKS_PER_INCH = 40.;
 
 	public static final int POSITION_ENCODER_TOLERANCE = 25;
 	public static final double POSITION_TOLERANCE_INCHES = (double)POSITION_ENCODER_TOLERANCE/ ENCODER_TICKS_PER_INCH;
@@ -63,7 +63,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 		rearLeftMotor = new WPI_TalonSRX(RobotMap.CAN.REAR_LEFT_MOTOR);
 		rearRightMotor = new WPI_TalonSRX(RobotMap.CAN.REAR_RIGHT_MOTOR);
 		
-		TalonSettings leftSpeedSettings = TalonSettingsBuilder.defaults()
+		TalonSettings leftFrontSpeedSettings = TalonSettingsBuilder.defaults()
 				.withCurrentLimits(35, 30, 200)
 				.coastInNeutral()
 				.withDirections(false, false)
@@ -71,18 +71,40 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 				.noMotorStartupRamping()
 				.useSpeedControl()
 				.build();
-		TalonSettings rightSpeedSettings = TalonSettingsBuilder.inverted(leftSpeedSettings);
-		
+		TalonSettings rightFrontSpeedSettings = TalonSettingsBuilder.defaults()
+                .withCurrentLimits(35, 30, 200)
+                .coastInNeutral()
+                .withDirections(true, true)
+                .limitMotorOutputs(1.0, 0.2)
+                .noMotorStartupRamping()
+                .useSpeedControl()
+                .build();
+		TalonSettings leftRearSpeedSettings = TalonSettingsBuilder.defaults()
+                .withCurrentLimits(35, 30, 200)
+                .coastInNeutral()
+                .withDirections(false, false)
+                .limitMotorOutputs(1.0, 0.2)
+                .noMotorStartupRamping()
+                .useSpeedControl()
+                .build();
+        TalonSettings rightRearSpeedSettings = TalonSettingsBuilder.defaults()
+                .withCurrentLimits(35, 30, 200)
+                .coastInNeutral()
+                .withDirections(false, true)
+                .limitMotorOutputs(1.0, 0.2)
+                .noMotorStartupRamping()
+                .useSpeedControl()
+                .build();
 
 		speedModeTalons = new FourTalonsWithSettings(
 		        frontLeftMotor,
 		        rearLeftMotor,
 		        frontRightMotor, 		        
 		        rearRightMotor,
-		        leftSpeedSettings,
-		        rightSpeedSettings);		
+		        leftFrontSpeedSettings,leftRearSpeedSettings,
+		        rightFrontSpeedSettings,rightRearSpeedSettings);		
 
-		TalonSettings leftPositionSettings = TalonSettingsBuilder.defaults()
+		TalonSettings leftFrontPositionSettings = TalonSettingsBuilder.defaults()
 				.withCurrentLimits(35, 30, 200)
 				.coastInNeutral()
 				.withDirections(false, false)
@@ -90,27 +112,49 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 				.noMotorStartupRamping()
 				.usePositionControl()
 				.withGains(0.3,5.0, 0.0, 0.0)
-				.withMotionProfile(150, 150,POSITION_ENCODER_TOLERANCE)
+				.withMotionProfile(315, 150,POSITION_ENCODER_TOLERANCE)
 				.build();
-
-		TalonSettings rightPositionSettings = TalonSettingsBuilder.defaults()
+		TalonSettings leftRearPositionSettings = TalonSettingsBuilder.defaults()
+                .withCurrentLimits(35, 30, 200)
+                .coastInNeutral()
+                .withDirections(false, false)
+                .limitMotorOutputs(1.0, 0.25)
+                .noMotorStartupRamping()
+                .usePositionControl()
+                .withGains(0.3,5.0, 0.0, 0.0)
+                .withMotionProfile(315, 150,POSITION_ENCODER_TOLERANCE)
+                .build();
+		TalonSettings rightFrontPositionSettings = TalonSettingsBuilder.defaults()
 				.withCurrentLimits(35, 30, 200)
 				.coastInNeutral()
-				.withDirections(false, true)
+				.withDirections(true, true)
 				.limitMotorOutputs(1.0, 0.15)
 				.noMotorStartupRamping()
 				.usePositionControl()
 				.withGains(0.3,8.0, 0, 0.0)
-				.withMotionProfile(150, 150,POSITION_ENCODER_TOLERANCE)
+				.withMotionProfile(300, 150,POSITION_ENCODER_TOLERANCE)
 				.build();
 		
+
+        TalonSettings rightRearPositionSettings = TalonSettingsBuilder.defaults()
+                .withCurrentLimits(35, 30, 200)
+                .coastInNeutral()
+                .withDirections(false, true)
+                .limitMotorOutputs(1.0, 0.15)
+                .noMotorStartupRamping()
+                .usePositionControl()
+                .withGains(0.3,8.0, 0, 0.0)
+                .withMotionProfile(300, 150,POSITION_ENCODER_TOLERANCE)
+                .build();
 		positionModeTalons = new FourTalonsWithSettings(
                 frontLeftMotor,
                 rearLeftMotor,                
                 frontRightMotor, 
                 rearRightMotor,
-                leftPositionSettings,
-                rightPositionSettings);
+                leftFrontPositionSettings,
+                leftRearPositionSettings,
+                rightFrontPositionSettings,
+                rightRearPositionSettings);
 				
 		arcadeDrive = new BasicArcadeDriveController(speedModeTalons, driveInstructionSource);
 		positionDrive = new PositionDriveController(positionModeTalons, getPositionBuffer(), 

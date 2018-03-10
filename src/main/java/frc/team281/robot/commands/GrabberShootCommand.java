@@ -14,6 +14,7 @@ public class GrabberShootCommand extends BaseCommand {
 
     public GrabberShootCommand(BaseSubsystem subsystem, double timeOut) {
         super(subsystem, timeOut);
+        grab = (GrabberSubsystem)subsystem;
     }
     @Override
     public void execute() {

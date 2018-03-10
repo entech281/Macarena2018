@@ -52,7 +52,7 @@ public class BaseTest {
 		TalonSettings rightSpeedSettingsToAdjust = TalonSettingsBuilder.defaults().withCurrentLimits(35, 30, 200).coastInNeutral()
 				.withDirections(false, false).noMotorOutputLimits().noMotorStartupRamping().useSpeedControl().build();
 		
-		FourTalonsWithSettings settings = new FourTalonsWithSettings(frontLeft,frontRight,rearLeft,rearRight,leftSpeedSettingsToAdjust,rightSpeedSettingsToAdjust);
+		FourTalonsWithSettings settings = new FourTalonsWithSettings(frontLeft,frontRight,rearLeft,rearRight,leftSpeedSettingsToAdjust,rightSpeedSettingsToAdjust, rightSpeedSettingsToAdjust, rightSpeedSettingsToAdjust);
 		
 		return settings;
 	}

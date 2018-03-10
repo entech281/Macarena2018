@@ -88,7 +88,8 @@ public class EncoderCheck {
 	}
 
 	public boolean isRightFrontOk() {
-		return this.rightFrontCounts > 0;
+	    return false;
+		//return this.rightFrontCounts > 0;
 	}
 
 	public boolean isLeftOk() {

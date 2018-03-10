@@ -57,10 +57,11 @@ public class AutoCommandFactory {
     
     protected CommandGroup makeAutoProcedure(BaseCommand followPath) {
        CommandGroup auto = new CommandGroup();
-           auto.addParallel(new WristPivotDownCommand(wristSubsystem));
-           auto.addParallel(new LifterRaiseSeconds(lifterSubsystem,0.25));
            auto.addSequential(followPath);
+           auto.addParallel(new LifterRaiseSeconds(lifterSubsystem,1.5));
+           auto.addSequential(new WristPivotDownCommand(wristSubsystem));
            auto.addSequential(new GrabberShootCommand(grabberSubsystem, 2));
+           
        return auto;
     }
     
@@ -68,12 +69,7 @@ public class AutoCommandFactory {
         FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
                 PositionCalculator.builder()
                 .forward(24)
-                .left(25)
-                .forward(111)
-                .right(35)
-                .forward(40)
                 .right(90)
-                .forward(42)
                 .build()
         );
         return followPath;
@@ -82,13 +78,8 @@ public class AutoCommandFactory {
     public BaseCommand autoPathB() {
         FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
                 PositionCalculator.builder()
-                .forward(24)
-                .left(25)
-                .forward(111)
-                .right(35)
-                .forward(74)
-                .right(20)
-                .forward(96)
+                .forward(158)
+                .right(90)
                 .build()
         ); 
         return followPath;

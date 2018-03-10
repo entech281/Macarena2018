@@ -15,7 +15,8 @@ public class TalonPositionControllerGroup {
 	private TalonPositionController frontRight;
 	private TalonPositionController rearLeft;
 	private TalonPositionController rearRight;
-
+	public static final double FRONT_RIGHT_ADJUST =0.846741;
+	public static final double REAR_RIGHT_ADJUST =1.10978;
 	public TalonPositionControllerGroup(TalonPositionController frontLeft, TalonPositionController frontRight,
 			TalonPositionController rearLeft, TalonPositionController rearRight) {
 		this.frontLeft = frontLeft;
@@ -51,8 +52,8 @@ public class TalonPositionControllerGroup {
 
 		frontLeft.setDesiredPosition(leftPosition);
 		rearLeft.setDesiredPosition(leftPosition);
-		frontRight.setDesiredPosition(rightPosition);
-		rearRight.setDesiredPosition(rightPosition);
+		frontRight.setDesiredPosition(FRONT_RIGHT_ADJUST*rightPosition);
+		rearRight.setDesiredPosition(REAR_RIGHT_ADJUST*rightPosition);
 	}
 	public Position getCurrentPosition(EncoderInchesConverter converter) {
 

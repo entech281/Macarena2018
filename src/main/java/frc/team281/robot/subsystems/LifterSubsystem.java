@@ -94,6 +94,7 @@ public class LifterSubsystem extends BaseSubsystem {
     @Override
     public void periodic() {
         dataLogger.log("UpperLimit",isLifterAtTop());
+        dataLogger.log("UpperLimitSwitch",isTopLimitSwitchPressed());
         dataLogger.log("LowerLimit",isLifterAtBottom());
         
         if (movingUp && ( ! isTopLimitSwitchPressed() )) {

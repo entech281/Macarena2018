@@ -24,12 +24,16 @@ public class FourTalonsWithSettings {
 
 	
 	public FourTalonsWithSettings(WPI_TalonSRX frontLeft, WPI_TalonSRX rearLeft, WPI_TalonSRX frontRight,WPI_TalonSRX rearRight,
-			TalonSettings leftSettings, TalonSettings rightSettings) {
+			TalonSettings frontLeftSettings,TalonSettings rearLeftSettings, TalonSettings frontRightSettings,TalonSettings rearRightSettings) {
+	    
 		this.frontLeft = frontLeft;
 		this.frontRight = frontRight;
 		this.rearLeft = rearLeft;
 		this.rearRight = rearRight;
-		applySettings(leftSettings, rightSettings);
+		this.frontLeftSettings = frontLeftSettings;
+        this.rearLeftSettings = rearLeftSettings;
+        this.frontRightSettings = frontRightSettings;
+        this.rearRightSettings = rearRightSettings;
 	}	
 	private FourTalonsWithSettings() {
 		

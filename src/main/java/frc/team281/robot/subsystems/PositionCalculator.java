@@ -7,7 +7,7 @@ import frc.team281.robot.commands.FollowPositionPathCommand;
 
 public class PositionCalculator {
 
-    public static final double DISTANCE_BETWEEN_WHEELS = 27.5;
+    public static final double DISTANCE_BETWEEN_WHEELS = 27.5*1.27;
 
     private static double computeTurn(double degrees) {
         return (((DISTANCE_BETWEEN_WHEELS * Math.PI) / 360) * degrees);

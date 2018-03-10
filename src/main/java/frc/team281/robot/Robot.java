@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Preferences;
 import frc.team281.robot.commands.GrabberCloseCommand;
 import frc.team281.robot.commands.GrabberLoadCommand;
 import frc.team281.robot.commands.GrabberOpenCommand;
@@ -59,6 +60,11 @@ public class Robot extends IterativeRobot implements CommandFactory {
     DigitalInput rightPositionSwitch = new DigitalInput(DigitalIO.RIGHT_SWITCH_POSITION);
     DigitalInput preferenceSwitch = new DigitalInput(DigitalIO.PREFERENCE_SWITCH);
     
+    private Preferences prefs;
+    public int rightSwitchPreference;
+    public int leftSwitchPreference;
+    public int rightScalePreference;
+    public int leftScalePreference;
     /**
      * This function is run when the robot is first started up and should be used
      * for any initialization code.
@@ -97,18 +103,19 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     @Override
     public void autonomousInit() {
-    	 	 	String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
-         FieldMessage fieldMessage = new FieldMessageGetter(leftPositionSwitch.get(), rightPositionSwitch.get(), preferenceSwitch.get()).convertGameMessageToFieldMessage(gameMessage); 
-         whatAutoToRun = new ConvertFieldMessageToCommandGroup().convert(fieldMessage);
+        
+    	 	String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
+        FieldMessage fieldMessage = new FieldMessageGetter(leftPositionSwitch.get(), rightPositionSwitch.get(), preferenceSwitch.get()).convertGameMessageToFieldMessage(gameMessage); 
+        whatAutoToRun = new ConvertFieldMessageToCommandGroup().convert(fieldMessage);
          
     		SmartDashboard.putString("Selected Auto", whatAutoToRun+"");
         driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
 
         AutoCommandFactory af = new AutoCommandFactory(lifterSubsystem, grabberSubsystem, wristSubsystem, driveSubsystem);
-        CommandGroup autoCommand = af.makeAutoCommand(WhichAutoCodeToRun.A);
-        // DFNEC.start();
-        DRAR.start();
-        //autoCommand.start();
+        CommandGroup autoCommand = af.makeAutoCommand(WhichAutoCodeToRun.B);
+        //DFNEC.start();
+        // DRAR.start();
+        autoCommand.start();
        
     }
     
@@ -124,6 +131,10 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     @Override
     public void disabledPeriodic() {
+        rightScalePreference = prefs.getInt("Right Scale: ", 1);
+        leftScalePreference=prefs.getInt("Left Scale", 2);
+        rightSwitchPreference=prefs.getInt("Right Switch", 3);
+        leftSwitchPreference=prefs.getInt("Right Scale", 4);
         Scheduler.getInstance().run();
     }
 
