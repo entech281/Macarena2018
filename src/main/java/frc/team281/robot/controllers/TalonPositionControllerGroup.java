@@ -15,8 +15,8 @@ public class TalonPositionControllerGroup {
 	private TalonPositionController frontRight;
 	private TalonPositionController rearLeft;
 	private TalonPositionController rearRight;
-	public static final double FRONT_RIGHT_ADJUST =0.846741;
-	public static final double REAR_RIGHT_ADJUST =1.10978;
+	public static final double FRONT_RIGHT_ADJUST =1.0;
+	public static final double REAR_RIGHT_ADJUST =1.0;
 	public TalonPositionControllerGroup(TalonPositionController frontLeft, TalonPositionController frontRight,
 			TalonPositionController rearLeft, TalonPositionController rearRight) {
 		this.frontLeft = frontLeft;

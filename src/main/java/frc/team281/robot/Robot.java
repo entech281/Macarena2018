@@ -72,7 +72,7 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     @Override
     public void robotInit() {
-
+        
         // create the objects for the real match
         DataLoggerFactory.configureForMatch();
 
@@ -131,14 +131,16 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     @Override
     public void disabledPeriodic() {
-        rightScalePreference = prefs.getInt("Right Scale: ", 1);
-        leftScalePreference =  prefs.getInt("Left Scale", 2);
-        rightSwitchPreference = prefs.getInt("Right Switch", 3);
-        leftSwitchPreference = prefs.getInt("Right Scale", 4);
-        SmartDashboard.putString("right Scale Preference: ",rightScalePreference+"");
-        SmartDashboard.putString("left Scale Preference: ",leftScalePreference+"");
-        SmartDashboard.putString("right Switch Preference: ",rightSwitchPreference+"");
-        SmartDashboard.putString("left Switch Preference: ",leftSwitchPreference+"");
+        //if(prefs!=null) {
+        //    rightScalePreference = prefs.getInt("Right Scale: ", 1);
+        //    leftScalePreference =  prefs.getInt("Left Scale", 2);
+        //    rightSwitchPreference = prefs.getInt("Right Switch", 3);
+        //    leftSwitchPreference = prefs.getInt("Right Scale", 4);
+        //    SmartDashboard.putString("right Scale Preference: ",rightScalePreference+"");
+        //    SmartDashboard.putString("left Scale Preference: ",leftScalePreference+"");
+        //    SmartDashboard.putString("right Switch Preference: ",rightSwitchPreference+"");
+        //    SmartDashboard.putString("left Switch Preference: ",leftSwitchPreference+"");
+       // }
         Scheduler.getInstance().run();
     }
 
