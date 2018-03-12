@@ -1,5 +1,7 @@
 package frc.team281.robot;
 
+import java.util.List;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.team281.robot.commands.BaseCommand;
 import frc.team281.robot.commands.FollowPositionPathCommand;
@@ -10,6 +12,7 @@ import frc.team281.robot.commands.LifterRaiseSeconds;
 import frc.team281.robot.subsystems.GrabberSubsystem;
 import frc.team281.robot.subsystems.WristSubsystem;
 import frc.team281.robot.subsystems.LifterSubsystem;
+import frc.team281.robot.subsystems.Position;
 import frc.team281.robot.subsystems.PositionCalculator;
 import frc.team281.robot.subsystems.drive.RealDriveSubsystem;
 
@@ -31,24 +34,42 @@ public class AutoCommandFactory {
     public CommandGroup makeAutoCommand(WhichAutoCodeToRun whatAutoToRun) {
 
         switch (whatAutoToRun) {
-        case A: whatAutoToRun = WhichAutoCodeToRun.A;
-            return makeAutoProcedure(autoPathA());
+        case A: 
+            return makeAutoProcedure(autoPathA(false));
+        
+        case A_MIRRORED:
+        	return makeAutoProcedure(autoPathA(true));
             
-        case B: whatAutoToRun = WhichAutoCodeToRun.B;
-            return makeAutoProcedure(autoPathB());
+        case B: 
+            return makeAutoProcedure(autoPathB(false));
              
-        case C: whatAutoToRun = WhichAutoCodeToRun.C;
-            return makeAutoProcedure(autoPathC());
+        case B_MIRRORED:
+        	return makeAutoProcedure(autoPathB(true));
+        	
+        case C:
+            return makeAutoProcedure(autoPathC(false));
             
-        case D: whatAutoToRun = WhichAutoCodeToRun.D;
-            return makeAutoProcedure(autoPathE());
+        case C_MIRRORED:
+        	return makeAutoProcedure(autoPathC(true));
+        	
+        case D:
+            return makeAutoProcedure(autoPathD(false));
             
-        case E: whatAutoToRun = WhichAutoCodeToRun.E;
-            return makeAutoProcedure(autoPathE());
+        case D_MIRRORED:
+        	return makeAutoProcedure(autoPathD(true));
+        	
+        case E:
+            return makeAutoProcedure(autoPathE(false));
             
-        case F: whatAutoToRun = WhichAutoCodeToRun.F;
-            return makeAutoProcedure(autoPathF());
+        case E_MIRRORED:
+        	return makeAutoProcedure(autoPathE(true));
+        	
+        case F:
+            return makeAutoProcedure(autoPathF(false));
             
+        case F_MIRRORED:
+        	return makeAutoProcedure(autoPathF(true));
+        	
         default:
             break;
         }
@@ -65,29 +86,30 @@ public class AutoCommandFactory {
        return auto;
     }
     
-    public BaseCommand autoPathA() {
-        FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
-                PositionCalculator.builder()
-                .forward(24)
-                .right(90)
-                .build()
-        );
-        return followPath;
+    public BaseCommand autoPathA(boolean mirrored) {
+       List<Position> lp = PositionCalculator.builder()
+    		   .forward(24)
+    		   .right(90)
+    		   .build();
+       if ( mirrored ) {
+    	   	lp = PositionCalculator.mirror(lp);
+       }
+        return new FollowPositionPathCommand( driveSubsystem, lp);
     }
     
-    public BaseCommand autoPathB() {
-        FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
-                PositionCalculator.builder()
+    public BaseCommand autoPathB(boolean mirrored) {
+    	List<Position> lp = PositionCalculator.builder() 
                 .forward(158)
                 .right(90)
-                .build()
-        ); 
-        return followPath;
+                .build();
+        if ( mirrored ) {
+        	lp = PositionCalculator.mirror(lp);
+        }
+        return new FollowPositionPathCommand( driveSubsystem, lp);
     }
     
-    public BaseCommand autoPathC() {
-        FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
-                PositionCalculator.builder()
+    public BaseCommand autoPathC(boolean mirrored) {
+    	List<Position> lp = PositionCalculator.builder()
                 .forward(24)
                 .left(25)
                 .forward(111)
@@ -99,32 +121,35 @@ public class AutoCommandFactory {
                 .forward(110)
                 .right(90)
                 .forward(41)
-                .build()
-        );
-        return followPath;
+                .build();
+    	if ( mirrored ) {
+    		lp = PositionCalculator.mirror(lp);
+    	}
+    	return new FollowPositionPathCommand( driveSubsystem, lp);
     }
     
-    public BaseCommand autoPathD() {
-        FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
-                PositionCalculator.builder()
+    public BaseCommand autoPathD(boolean mirrored) {
+    	List<Position> lp = PositionCalculator.builder()
                 .forward(138)
-                .build()
-        ); 
-        return followPath;
+                .build();
+    	if ( mirrored ) {
+    		lp = PositionCalculator.mirror(lp);
+    	}
+        return new FollowPositionPathCommand( driveSubsystem, lp);
     }
     
-    public BaseCommand autoPathE() {
-        FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
-                PositionCalculator.builder()
+    public BaseCommand autoPathE(boolean mirrored) {
+    	List<Position> lp = PositionCalculator.builder()
                 .forward(138)
-                .build()
-        );  
-        return followPath;
+                .build();
+        if ( mirrored ) {
+        	lp = PositionCalculator.mirror(lp);
+        }
+        return new FollowPositionPathCommand( driveSubsystem, lp);
     }
     
-    public BaseCommand autoPathF() {
-        FollowPositionPathCommand followPath = new FollowPositionPathCommand(driveSubsystem, 
-                PositionCalculator.builder()
+    public BaseCommand autoPathF(boolean mirrored) {
+    	List<Position> lp = PositionCalculator.builder()
                 .forward(138)
                 .left(25)     
                 .forward(111)     
@@ -136,8 +161,10 @@ public class AutoCommandFactory {
                 .forward(130)     
                 .left(90)     
                 .forward(41)
-                .build()
-        );
-        return followPath;
+                .build();
+        if ( mirrored ) {
+        	lp = PositionCalculator.mirror(lp);
+        }
+        return new FollowPositionPathCommand( driveSubsystem, lp);
     }
 }
