@@ -78,8 +78,8 @@ public class AutoCommandFactory {
     
     protected CommandGroup makeAutoProcedure(BaseCommand followPath) {
        CommandGroup auto = new CommandGroup();
-           auto.addSequential(followPath);
            auto.addParallel(new LifterRaiseSeconds(lifterSubsystem,1.5));
+           auto.addSequential(followPath);           
            auto.addSequential(new WristPivotDownCommand(wristSubsystem));
            auto.addSequential(new GrabberShootCommand(grabberSubsystem, 2));
            
@@ -101,6 +101,7 @@ public class AutoCommandFactory {
     	List<Position> lp = PositionCalculator.builder() 
                 .forward(158)
                 .right(90)
+                .forward(10)
                 .build();
         if ( mirrored ) {
         	lp = PositionCalculator.mirror(lp);
