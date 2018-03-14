@@ -16,14 +16,27 @@ public class DriveToPositionCommand extends BaseCommand {
         this.driveSubsystem = subsystem;
     }
 
+    public DriveToPositionCommand(BaseDriveSubsystem subsystem, Position position, double timeoutSeconds) {
+        super(subsystem,timeoutSeconds);
+        this.desiredPosition = position;
+        this.driveSubsystem = subsystem;
+    }    
+    
     @Override
     protected void initialize() {
         driveSubsystem.getPositionBuffer().addPosition(desiredPosition);
     }
 
     @Override
+    protected void end() {
+    	if ( isTimedOut() ) {
+    		driveSubsystem.getPositionBuffer().clear();
+    	}    	
+    }
+    
+    @Override
     protected boolean isFinished() {
-        return ! driveSubsystem.getPositionBuffer().hasNextPosition();
+        return (! driveSubsystem.getPositionBuffer().hasNextPosition() || isTimedOut() );
     }
 
 }
