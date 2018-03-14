@@ -33,4 +33,8 @@ public class PositionBuffer implements PositionSource {
 			targetList.remove(0);
 		}
 	}
+	
+	public void clear() {
+		targetList.clear();
+	}
 }
