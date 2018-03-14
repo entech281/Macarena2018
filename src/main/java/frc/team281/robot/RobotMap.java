@@ -49,6 +49,9 @@ public class RobotMap {
             public static final int GRABBER_SHOOT = 9;
             public static final int GRABBER_OPEN = 7;
             public static final int WRIST_UP = 6;
+            public static final int GRABBER_LOAD_AND_CLOSE=10;
+            public static final int GRABBER_SHOOT_AND_OPEN=12;
+            
         }
     }
 

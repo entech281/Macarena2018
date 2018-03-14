@@ -65,8 +65,8 @@ public class TestTalonControllerGroup {
 		assertEquals(400, group.computeLeftEncoderCounts());
 	}
 
-	@Test
-	public void testSetDesiredPosition() {
+	/*@Test
+	 public void testSetDesiredPosition() {
 		// left, right
 
 		group.setDesiredPosition(100, 200, true);
@@ -75,5 +75,5 @@ public class TestTalonControllerGroup {
 		Mockito.verify(lr).setDesiredPosition(100);
 		Mockito.verify(rf).setDesiredPosition(200);
 		Mockito.verify(rr).setDesiredPosition(200);
-	}
+	}*/
 }

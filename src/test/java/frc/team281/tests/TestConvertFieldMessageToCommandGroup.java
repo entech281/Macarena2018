@@ -39,21 +39,21 @@ public class TestConvertFieldMessageToCommandGroup {
 	public void testStartingPositionRightSwitchLeftScaleRight() {
 		
 		configureMessage(StartingPosition.RIGHT, true, false, Override.NO);
-		assertEquals(WhichAutoCodeToRun.B1,converter.convert(message));
+		assertEquals(WhichAutoCodeToRun.B_MIRRORED,converter.convert(message));
 	}
 	
 	@Test
 	public void testStartingPositionRightSwitchRightScaleRight() {
 		
 		configureMessage(StartingPosition.RIGHT, false, false, Override.YES);
-		assertEquals(WhichAutoCodeToRun.B1,converter.convert(message));
+		assertEquals(WhichAutoCodeToRun.B_MIRRORED,converter.convert(message));
 	}
 	
 	@Test
 	public void testStartingPositionMiddleSwitchRightScaleRight() {
 		
 		configureMessage(StartingPosition.MIDDLE, false, false, Override.NO);
-		assertEquals(WhichAutoCodeToRun.D1,converter.convert(message));
+		assertEquals(WhichAutoCodeToRun.D_MIRRORED,converter.convert(message));
 	}
 }
 

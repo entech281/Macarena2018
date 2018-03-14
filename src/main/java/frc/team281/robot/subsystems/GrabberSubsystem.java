@@ -30,11 +30,12 @@ public class GrabberSubsystem extends BaseSubsystem {
 
     
     public GrabberSubsystem() {
-        
+        super();
     }
 
     @Override
     public void initialize() {
+        dataLogger.log(this);
         dataLogger.warn("Grabber Subsystem Init");
         leftMotor = new WPI_TalonSRX(RobotMap.CAN.Grabber.MOTOR_LEFT);
         rightMotor = new WPI_TalonSRX(RobotMap.CAN.Grabber.MOTOR_RIGHT);
@@ -106,7 +107,7 @@ public class GrabberSubsystem extends BaseSubsystem {
         dataLogger.log("RightMotorMode", rightMotorController.getTalon().getControlMode()+"");
         
         if (isShooting) {
-        	startShooting();
+            startShooting();
         }
         if (isLoading) {
             if ( isCubeTouchingSwitch() ){
@@ -118,8 +119,8 @@ public class GrabberSubsystem extends BaseSubsystem {
     }
 
     public void stopMotors() {
-    	isLoading = false;
-    	isShooting = false;
+    	    isLoading = false;
+    	    isShooting = false;
         leftMotorController.setDesiredSpeed(0);
         rightMotorController.setDesiredSpeed(0);  
     }

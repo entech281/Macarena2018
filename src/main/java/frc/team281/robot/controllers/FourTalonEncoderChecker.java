@@ -135,6 +135,7 @@ public class FourTalonEncoderChecker {
 	}
 
 	public boolean isRightFrontOk() {
+	    //return false;
 		return checkPair(talons.getFrontRight(),talons.getRearRight());
 	}
 

@@ -24,7 +24,7 @@ public class EncoderCheck {
 		this.leftRearCounts = leftRearCounts;
 	}
 	
-	public EncoderCheck(FourTalonsWithSettings talons ) {
+	public EncoderCheck( FourTalonsWithSettings talons ) {
 		this(   talons.getRearLeft().getSelectedSensorPosition(0),
 				talons.getFrontLeft().getSelectedSensorPosition(0),
 				talons.getFrontRight().getSelectedSensorPosition(0),
@@ -88,7 +88,8 @@ public class EncoderCheck {
 	}
 
 	public boolean isRightFrontOk() {
-		return this.rightFrontCounts > 0;
+	    return false;
+		//return this.rightFrontCounts > 0;
 	}
 
 	public boolean isLeftOk() {

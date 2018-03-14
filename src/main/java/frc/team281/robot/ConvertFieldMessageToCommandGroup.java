@@ -33,26 +33,26 @@ public class ConvertFieldMessageToCommandGroup {
 	
 		else if(message.getPosition()==StartingPosition.RIGHT) {
 			if(message.isOurSwitchOnTheLeft() == false && message.isOurScaleOnTheLeft() == false) {
-				convert = WhichAutoCodeToRun.A1;
-				return WhichAutoCodeToRun.A1;
+				convert = WhichAutoCodeToRun.A_MIRRORED;
+				return WhichAutoCodeToRun.A_MIRRORED;
 				}
 			else if(message.isOurSwitchOnTheLeft() == false && message.isOurScaleOnTheLeft() == true) {
-				convert = WhichAutoCodeToRun.A1;
-				return WhichAutoCodeToRun.A1;			
+				convert = WhichAutoCodeToRun.A_MIRRORED;
+				return WhichAutoCodeToRun.A_MIRRORED;			
 				}
 			else if(message.isOurSwitchOnTheLeft() == true && message.isOurScaleOnTheLeft() == true) {
-				convert = WhichAutoCodeToRun.C1;
-				return WhichAutoCodeToRun.C1;			
+				convert = WhichAutoCodeToRun.C_MIRRORED;
+				return WhichAutoCodeToRun.C_MIRRORED;			
 				}
 			else if(message.isOurSwitchOnTheLeft() == true && message.isOurScaleOnTheLeft() == false) {
-				convert = WhichAutoCodeToRun.B1;
-				return WhichAutoCodeToRun.B1;			
+				convert = WhichAutoCodeToRun.B_MIRRORED;
+				return WhichAutoCodeToRun.B_MIRRORED;			
 				}
 			}	
 			else if(message.getPosition()==StartingPosition.MIDDLE){
 				if(message.isOurSwitchOnTheLeft() == false) {
-					convert = WhichAutoCodeToRun.D1;
-					return WhichAutoCodeToRun.D1;
+					convert = WhichAutoCodeToRun.D_MIRRORED;
+					return WhichAutoCodeToRun.D_MIRRORED;
 				}
 				else {
 					convert = WhichAutoCodeToRun.D;
@@ -84,26 +84,26 @@ public class ConvertFieldMessageToCommandGroup {
 	
 		else if(message.getPosition()==StartingPosition.RIGHT) {
 			if(message.isOurSwitchOnTheLeft() == false && message.isOurScaleOnTheLeft() == false) {
-				convert = WhichAutoCodeToRun.B1;
-				return WhichAutoCodeToRun.B1;
+				convert = WhichAutoCodeToRun.B_MIRRORED;
+				return WhichAutoCodeToRun.B_MIRRORED;
 				}
 			else if(message.isOurSwitchOnTheLeft() == false && message.isOurScaleOnTheLeft() == true) {
-				convert = WhichAutoCodeToRun.F1;
-				return WhichAutoCodeToRun.F1;			
+				convert = WhichAutoCodeToRun.F_MIRRORED;
+				return WhichAutoCodeToRun.F_MIRRORED;			
 				}
 			else if(message.isOurSwitchOnTheLeft() == true && message.isOurScaleOnTheLeft() == true) {
-				convert = WhichAutoCodeToRun.F1;
-				return WhichAutoCodeToRun.F1;			
+				convert = WhichAutoCodeToRun.F_MIRRORED;
+				return WhichAutoCodeToRun.F_MIRRORED;			
 				}
 			else if(message.isOurSwitchOnTheLeft() == true && message.isOurScaleOnTheLeft() == false) {
-				convert = WhichAutoCodeToRun.B1;
-				return WhichAutoCodeToRun.B1;			
+				convert = WhichAutoCodeToRun.B_MIRRORED;
+				return WhichAutoCodeToRun.B_MIRRORED;			
 				}
 			}	
 			else if(message.getPosition()==StartingPosition.MIDDLE){
 				if(message.isOurSwitchOnTheLeft() == false) {
-					convert = WhichAutoCodeToRun.E1;
-					return WhichAutoCodeToRun.E1;
+					convert = WhichAutoCodeToRun.E_MIRRORED;
+					return WhichAutoCodeToRun.E_MIRRORED;
 				}
 				else {
 					convert = WhichAutoCodeToRun.E;

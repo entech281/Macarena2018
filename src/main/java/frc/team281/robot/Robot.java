@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Preferences;
 import frc.team281.robot.commands.GrabberCloseCommand;
 import frc.team281.robot.commands.GrabberLoadCommand;
 import frc.team281.robot.commands.GrabberOpenCommand;
@@ -14,6 +15,7 @@ import frc.team281.robot.commands.GrabberShootCommand;
 import frc.team281.robot.commands.GrabberStopCommand;
 import frc.team281.robot.commands.LifterHomeCommand;
 import frc.team281.robot.commands.LifterTopCommand;
+import frc.team281.robot.commands.PushOutCubeAndOpenCommand;
 import frc.team281.robot.commands.LifterLowerCommand;
 import frc.team281.robot.commands.LifterRaiseCommand;
 import frc.team281.robot.commands.LifterStopCommand;
@@ -27,6 +29,7 @@ import frc.team281.robot.subsystems.WristSubsystem;
 import frc.team281.robot.subsystems.drive.BaseDriveSubsystem.DriveMode;
 import frc.team281.robot.subsystems.drive.RealDriveSubsystem;
 import frc.team281.robot.RobotMap.DigitalIO;
+import frc.team281.robot.commands.CloseAndIntakeCommand;
 import frc.team281.robot.commands.DriveForwardNoEncodersCommand;
 import frc.team281.robot.commands.TurnRightNoEncodersCommand;
 
@@ -59,6 +62,11 @@ public class Robot extends IterativeRobot implements CommandFactory {
     DigitalInput rightPositionSwitch = new DigitalInput(DigitalIO.RIGHT_SWITCH_POSITION);
     DigitalInput preferenceSwitch = new DigitalInput(DigitalIO.PREFERENCE_SWITCH);
     
+    private Preferences prefs;
+    public int rightSwitchPreference;
+    public int leftSwitchPreference;
+    public int rightScalePreference;
+    public int leftScalePreference;
     /**
      * This function is run when the robot is first started up and should be used
      * for any initialization code.
@@ -66,7 +74,7 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     @Override
     public void robotInit() {
-
+        
         // create the objects for the real match
         DataLoggerFactory.configureForMatch();
 
@@ -97,18 +105,19 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     @Override
     public void autonomousInit() {
-    	 	 	String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
-         FieldMessage fieldMessage = new FieldMessageGetter(leftPositionSwitch.get(), rightPositionSwitch.get(), preferenceSwitch.get()).convertGameMessageToFieldMessage(gameMessage); 
-         whatAutoToRun = new ConvertFieldMessageToCommandGroup().convert(fieldMessage);
+        
+    	 	String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
+        FieldMessage fieldMessage = new FieldMessageGetter(leftPositionSwitch.get(), rightPositionSwitch.get(), preferenceSwitch.get()).convertGameMessageToFieldMessage(gameMessage); 
+        whatAutoToRun = new ConvertFieldMessageToCommandGroup().convert(fieldMessage);
          
     		SmartDashboard.putString("Selected Auto", whatAutoToRun+"");
         driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
 
         AutoCommandFactory af = new AutoCommandFactory(lifterSubsystem, grabberSubsystem, wristSubsystem, driveSubsystem);
-        CommandGroup autoCommand = af.makeAutoCommand(whatAutoToRun);
-        // DFNEC.start();
-        DRAR.start();
-        //autoCommand.start();
+        CommandGroup autoCommand = af.makeAutoCommand(WhichAutoCodeToRun.B);
+        //DFNEC.start();
+        // DRAR.start();
+        autoCommand.start();
        
     }
     
@@ -124,6 +133,16 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     @Override
     public void disabledPeriodic() {
+        //if(prefs!=null) {
+        //    rightScalePreference = prefs.getInt("Right Scale: ", 1);
+        //    leftScalePreference =  prefs.getInt("Left Scale", 2);
+        //    rightSwitchPreference = prefs.getInt("Right Switch", 3);
+        //    leftSwitchPreference = prefs.getInt("Right Scale", 4);
+        //    SmartDashboard.putString("right Scale Preference: ",rightScalePreference+"");
+        //    SmartDashboard.putString("left Scale Preference: ",leftScalePreference+"");
+        //    SmartDashboard.putString("right Switch Preference: ",rightSwitchPreference+"");
+        //    SmartDashboard.putString("left Switch Preference: ",leftSwitchPreference+"");
+       // }
         Scheduler.getInstance().run();
     }
 
@@ -194,5 +213,15 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     public LifterStopCommand createLifterStopCommand() {
     	return new LifterStopCommand(this.lifterSubsystem);
+    }
+
+    @Override
+    public CloseAndIntakeCommand createCloseAndIntakeCommand() {
+        return new CloseAndIntakeCommand(this.grabberSubsystem);
+    }
+
+    @Override
+    public PushOutCubeAndOpenCommand createPushOutCubeAndOpenCommand() {
+        return new PushOutCubeAndOpenCommand(this.grabberSubsystem);
     }
 }

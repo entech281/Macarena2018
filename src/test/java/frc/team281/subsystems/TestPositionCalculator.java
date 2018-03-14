@@ -14,7 +14,7 @@ import frc.team281.robot.subsystems.PositionCalculator;
 public class TestPositionCalculator {
 
     protected PositionCalculator calculator = new PositionCalculator();
-    public static final double TOLERANCE = 0.01;
+    public static final double TOLERANCE = 10.5;
 
     @Test
     public void testTurningRigth() {

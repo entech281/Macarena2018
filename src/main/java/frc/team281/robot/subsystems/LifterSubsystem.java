@@ -29,7 +29,7 @@ public class LifterSubsystem extends BaseSubsystem {
     private boolean truelyAtTop = false; 
     
     public LifterSubsystem() {
-
+        super();
     }
 
     @Override
@@ -94,16 +94,18 @@ public class LifterSubsystem extends BaseSubsystem {
     @Override
     public void periodic() {
         dataLogger.log("UpperLimit",isLifterAtTop());
+        dataLogger.log("UpperLimitSwitch",isTopLimitSwitchPressed());
         dataLogger.log("LowerLimit",isLifterAtBottom());
-        
+        dataLogger.log("lifter Position 1: ",motorOneController.getActualPosition());
+        dataLogger.log("lifter Position 2: ",motorTwoController.getActualPosition());
         if (movingUp && ( ! isTopLimitSwitchPressed() )) {
-        	upMotorCurrentBaseline = getAverageMotorCurrent();
+        	    upMotorCurrentBaseline = getAverageMotorCurrent();
         }
         if ( movingUp && isLifterAtTop()) {
-        	motorsOff();
+        	    motorsOff();
         }
         if ( movingDown && isLifterAtBottom( )) {
-        	motorsOff();
+        	    motorsOff();
         }
     }
 

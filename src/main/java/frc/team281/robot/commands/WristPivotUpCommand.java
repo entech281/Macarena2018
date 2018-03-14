@@ -7,7 +7,7 @@ public class WristPivotUpCommand extends BaseCommand {
     WristSubsystem wrist;
     public WristPivotUpCommand(BaseSubsystem subsystem) {
         super(subsystem);
-        this.wrist = (WristSubsystem)subsystem;
+        this.wrist = (WristSubsystem) subsystem;
     }
 
     public WristPivotUpCommand(BaseSubsystem subsystem, double timeOut) {
