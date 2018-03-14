@@ -61,7 +61,6 @@ public class Robot extends IterativeRobot implements CommandFactory {
     DigitalInput leftPositionSwitch = new DigitalInput(DigitalIO.LEFT_SWITCH_POSITION);
     DigitalInput rightPositionSwitch = new DigitalInput(DigitalIO.RIGHT_SWITCH_POSITION);
     DigitalInput preferenceSwitch = new DigitalInput(DigitalIO.PREFERENCE_SWITCH);
-    private AutoModeSelectorWidget autoModeSelector;
     private Preferences prefs;
     public int rightSwitchPreference;
     public int leftSwitchPreference;
@@ -101,7 +100,7 @@ public class Robot extends IterativeRobot implements CommandFactory {
         DRAR.addSequential(new WristPivotDownCommand(wristSubsystem));
         DFNEC = new DriveForwardNoEncodersCommand(driveSubsystem, 1.6, .75);
         
-        SmartDashboard.putData(AutoModeSelectorWidget.AUTO_SELECTOR_WIDGET, new AutoModeSelectorWidget() );
+
     }
 
     @Override
@@ -111,12 +110,12 @@ public class Robot extends IterativeRobot implements CommandFactory {
     	
     	String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
         FieldMessage fieldMessage = new FieldMessageGetter(leftPositionSwitch.get(), rightPositionSwitch.get(), preferenceSwitch.get()).convertGameMessageToFieldMessage(gameMessage);
-        WhichAutoCodeToRun autoFromWidget = autoModeSelector.selectAuto(fieldMessage);
+
         
         whatAutoToRun = new ConvertFieldMessageToCommandGroup().convert(fieldMessage);
          
     	SmartDashboard.putString("Selected Auto", whatAutoToRun+"");
-    	SmartDashboard.putString("AutoSelectedFromWidget:", autoFromWidget+"");
+
         driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
 
         AutoCommandFactory af = new AutoCommandFactory(lifterSubsystem, grabberSubsystem, wristSubsystem, driveSubsystem);
@@ -139,11 +138,6 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     @Override
     public void disabledPeriodic() {
-    	String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
-        FieldMessage fieldMessage = new FieldMessageGetter(leftPositionSwitch.get(), rightPositionSwitch.get(), preferenceSwitch.get()).convertGameMessageToFieldMessage(gameMessage);
-        autoModeSelector = (AutoModeSelectorWidget)SmartDashboard.getData(AutoModeSelectorWidget.AUTO_SELECTOR_WIDGET);
-        WhichAutoCodeToRun autoFromWidget = autoModeSelector.selectAuto(fieldMessage);
-        SmartDashboard.putString("AutoSelectedFromWidget:", autoFromWidget+"");
         Scheduler.getInstance().run();
     }
 
