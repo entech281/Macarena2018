@@ -110,17 +110,11 @@ public class AutoCommandFactory {
     
     public BaseCommand autoPathC(boolean mirrored) {
     	List<Position> lp = PositionCalculator.builder()
-                .forward(24)
-                .left(25)
-                .forward(111)
-                .right(35)
-                .forward(84)
-                .right(45)
-                .forward(52)
-                .right(45)
-                .forward(110)
+                .forward(235)
                 .right(90)
-                .forward(41)
+                .forward(190)
+                .right(90)
+                .forward(10)
                 .build();
     	if ( mirrored ) {
     		lp = PositionCalculator.mirror(lp);
