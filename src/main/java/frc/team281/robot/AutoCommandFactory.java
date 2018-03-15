@@ -88,7 +88,7 @@ public class AutoCommandFactory {
     
     public BaseCommand autoPathA(boolean mirrored) {
        List<Position> lp = PositionCalculator.builder()
-    		   .forward(24)
+    		   .forward(14*12)
     		   .right(90)
     		   .build();
        if ( mirrored ) {
@@ -100,7 +100,7 @@ public class AutoCommandFactory {
     public BaseCommand autoPathB(boolean mirrored) {
     	List<Position> lp = PositionCalculator.builder() 
                 .forward(25*12)
-                //.right(90)
+                .right(90)
                 .build();
         if ( mirrored ) {
         	lp = PositionCalculator.mirror(lp);
