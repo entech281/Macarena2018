@@ -112,7 +112,9 @@ public class Robot extends IterativeRobot implements CommandFactory {
         driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
 
         AutoCommandFactory af = new AutoCommandFactory(lifterSubsystem, grabberSubsystem, wristSubsystem, driveSubsystem);
-        CommandGroup autoCommand = af.makeAutoCommand(WhichAutoCodeToRun.C_MIRRORED);
+        CommandGroup autoCommand = af.makeAutoCommand(WhichAutoCodeToRun.A);
+        //DFNEC.start();
+        // DRAR.start();
         autoCommand.start();
        
     }

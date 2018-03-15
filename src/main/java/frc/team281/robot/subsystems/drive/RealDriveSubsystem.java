@@ -26,7 +26,7 @@ import frc.team281.robot.subsystems.TalonSettingsBuilder;
 public class RealDriveSubsystem extends BaseDriveSubsystem {
 
 	public static final int NAVX_CALIBRATION_LOOP_TIME_MS = 50;
-	public static final double ENCODER_TICKS_PER_INCH = 40.;
+	public static final double ENCODER_TICKS_PER_INCH = 44.88;
 
 	public static final int POSITION_ENCODER_TOLERANCE = 25;
 	public static final double POSITION_TOLERANCE_INCHES = (double)POSITION_ENCODER_TOLERANCE/ ENCODER_TICKS_PER_INCH;
@@ -106,45 +106,45 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 
 		TalonSettings leftFrontPositionSettings = TalonSettingsBuilder.defaults()
 				.withCurrentLimits(35, 30, 200)
-				.coastInNeutral()
+				.brakeInNeutral()
 				.withDirections(false, false)
 				.limitMotorOutputs(1.0, 0.25)
 				.noMotorStartupRamping()
 				.usePositionControl()
 				.withGains(0.3,5.0, 0.0, 0.0)
-				.withMotionProfile(400, 250,POSITION_ENCODER_TOLERANCE)
+				.withMotionProfile(400, 500,POSITION_ENCODER_TOLERANCE)
 				.build();
 		TalonSettings leftRearPositionSettings = TalonSettingsBuilder.defaults()
                 .withCurrentLimits(35, 30, 200)
-                .coastInNeutral()
+                .brakeInNeutral()
                 .withDirections(false, false)
                 .limitMotorOutputs(1.0, 0.25)
                 .noMotorStartupRamping()
                 .usePositionControl()
                 .withGains(0.3,5.0, 0.0, 0.0)
-                .withMotionProfile(400, 250,POSITION_ENCODER_TOLERANCE)
+                .withMotionProfile(400, 500,POSITION_ENCODER_TOLERANCE)
                 .build();
 		TalonSettings rightFrontPositionSettings = TalonSettingsBuilder.defaults()
 				.withCurrentLimits(35, 30, 200)
-				.coastInNeutral()
+				.brakeInNeutral()
 				.withDirections(false, true)
 				.limitMotorOutputs(1.0, 0.15)
 				.noMotorStartupRamping()
 				.usePositionControl()
 				.withGains(0.3,8.0, 0, 0.0)
-				.withMotionProfile(400, 250,POSITION_ENCODER_TOLERANCE)
+				.withMotionProfile(400, 500,POSITION_ENCODER_TOLERANCE)
 				.build();
 		
 
         TalonSettings rightRearPositionSettings = TalonSettingsBuilder.defaults()
                 .withCurrentLimits(35, 30, 200)
-                .coastInNeutral()
+                .brakeInNeutral()
                 .withDirections(true, true)
                 .limitMotorOutputs(1.0, 0.15)
                 .noMotorStartupRamping()
                 .usePositionControl()
                 .withGains(0.3,8.0, 0, 0.0)
-                .withMotionProfile(400, 250,POSITION_ENCODER_TOLERANCE)
+                .withMotionProfile(400, 500,POSITION_ENCODER_TOLERANCE)
                 .build();
 		positionModeTalons = new FourTalonsWithSettings(
                 frontLeftMotor,
