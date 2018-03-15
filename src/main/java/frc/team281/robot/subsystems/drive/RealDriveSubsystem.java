@@ -112,7 +112,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 				.noMotorStartupRamping()
 				.usePositionControl()
 				.withGains(0.3,5.0, 0.0, 0.0)
-				.withMotionProfile(315, 150,POSITION_ENCODER_TOLERANCE)
+				.withMotionProfile(400, 250,POSITION_ENCODER_TOLERANCE)
 				.build();
 		TalonSettings leftRearPositionSettings = TalonSettingsBuilder.defaults()
                 .withCurrentLimits(35, 30, 200)
@@ -122,7 +122,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
                 .noMotorStartupRamping()
                 .usePositionControl()
                 .withGains(0.3,5.0, 0.0, 0.0)
-                .withMotionProfile(315, 150,POSITION_ENCODER_TOLERANCE)
+                .withMotionProfile(400, 250,POSITION_ENCODER_TOLERANCE)
                 .build();
 		TalonSettings rightFrontPositionSettings = TalonSettingsBuilder.defaults()
 				.withCurrentLimits(35, 30, 200)
@@ -132,7 +132,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 				.noMotorStartupRamping()
 				.usePositionControl()
 				.withGains(0.3,8.0, 0, 0.0)
-				.withMotionProfile(300, 150,POSITION_ENCODER_TOLERANCE)
+				.withMotionProfile(400, 250,POSITION_ENCODER_TOLERANCE)
 				.build();
 		
 
@@ -144,7 +144,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
                 .noMotorStartupRamping()
                 .usePositionControl()
                 .withGains(0.3,8.0, 0, 0.0)
-                .withMotionProfile(300, 150,POSITION_ENCODER_TOLERANCE)
+                .withMotionProfile(400, 250,POSITION_ENCODER_TOLERANCE)
                 .build();
 		positionModeTalons = new FourTalonsWithSettings(
                 frontLeftMotor,
