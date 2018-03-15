@@ -12,5 +12,6 @@ public enum WhichAutoCodeToRun{
 	C_MIRRORED,
 	D_MIRRORED,
 	E_MIRRORED,
-	F_MIRRORED;
+	F_MIRRORED,
+	NONE
 }

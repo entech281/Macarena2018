@@ -39,19 +39,30 @@ public class FollowPositionPathCommand extends BaseCommand{
         this.driveSubsystem = subsystem;
         this.path = path;
     }
+    public FollowPositionPathCommand(BaseDriveSubsystem subsystem, List<Position> path, double timeoutSeconds) {
+        super(subsystem,timeoutSeconds);
+        this.driveSubsystem = subsystem;
+        this.path = path;
+    }    
     public FollowPositionPathCommand mirror() {
         return new FollowPositionPathCommand(this.driveSubsystem,PositionCalculator.mirror(this.path));
     }
+    
     @Override
     protected void initialize() {
         for (Position p: path){
             driveSubsystem.getPositionBuffer().addPosition(p);
-        }
-        
+        }       
+    }
+    @Override
+    protected void end() {
+    	if ( isTimedOut() ) {
+    		driveSubsystem.getPositionBuffer().clear();
+    	}
     }
     @Override
     protected boolean isFinished() {
-        return ! driveSubsystem.getPositionBuffer().hasNextPosition();
+        return (! driveSubsystem.getPositionBuffer().hasNextPosition()) || isTimedOut() ;
     }
     
 }
