@@ -7,11 +7,13 @@ public enum WhichAutoCodeToRun{
 	D,
 	E,
 	F,
+	G,
 	A_MIRRORED,
 	B_MIRRORED,
 	C_MIRRORED,
 	D_MIRRORED,
 	E_MIRRORED,
 	F_MIRRORED,
+	G_MIRRORED,
 	NONE
 }

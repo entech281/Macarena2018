@@ -12,8 +12,26 @@ public class FieldMessage {
 		NO;
 	}
 	
+	public boolean isRobotInMiddle(){
+	    return position == StartingPosition.MIDDLE;
+	}
+	public boolean isRobotOnASide(){
+	    return position != StartingPosition.MIDDLE;
+	}
+	
+	public boolean isSwitchOnOurSide(){
+	    return ( isOurSwitchOnTheLeft() && position == StartingPosition.LEFT ) ||
+	           ( ! isOurSwitchOnTheLeft() && position == StartingPosition.RIGHT );  
+	}
+    public boolean isScaleOnOurSide(){
+        return ( isOurScaleOnTheLeft() && position == StartingPosition.LEFT ) ||
+               ( ! isOurScaleOnTheLeft() && position == StartingPosition.RIGHT );  
+    }	
 	public boolean isOurSwitchOnTheLeft() {
 		return ourSwitchOnTheLeft;
+	}
+	public boolean isOurSwitchOnTheRight(){
+	    return ! ourSwitchOnTheLeft;
 	}
 	public void setOurSwitchOnTheLeft(boolean ourSwitchOnTheLeft) {
 		this.ourSwitchOnTheLeft = ourSwitchOnTheLeft;
@@ -21,6 +39,10 @@ public class FieldMessage {
 	public boolean isOurScaleOnTheLeft() {
 		return ourScaleOnTheLeft;
 	}
+	public boolean isOurScaleOnTheRight(){
+	    return ! ourScaleOnTheLeft;
+	}
+	
 	public void setOurScaleOnTheLeft(boolean ourScaleOnTheLeft) {
 		this.ourScaleOnTheLeft = ourScaleOnTheLeft;
 	}
