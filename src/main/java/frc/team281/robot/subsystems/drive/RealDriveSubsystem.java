@@ -2,11 +2,12 @@ package frc.team281.robot.subsystems.drive;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
-
+import edu.wpi.first.wpilibj.SerialPort;
 import frc.team281.robot.DriveInstructionSource;
 import frc.team281.robot.RobotMap;
 import frc.team281.robot.subsystems.TalonSettings;
 import frc.team281.robot.subsystems.TalonSettingsBuilder;
+import frc.team281.robot.subsystems.NavXIntializer;
 
 /**
  * This is the drive system that will run in the robot. All the wpilib stuff
@@ -32,7 +33,12 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 	public static final double POSITION_TOLERANCE_INCHES = (double)POSITION_ENCODER_TOLERANCE/ ENCODER_TICKS_PER_INCH;
 	
 	//protected FourTalonGroup talons;
-	private AHRS navX;
+	private AHRS navX = null;
+    private boolean collisionDetected;
+    private double lastWorldAccelX = 0.0;
+    private double lastWorldAccelY = 0.0;
+    private static final double COLLISION_THRESHOLD_DELTA_G = 0.5;
+    private static final double TIP_THRESHOLD_DEGREES = 15.0;
 
 	//private FourDriveTalonCalibratorController calibrator;
 	private BasicArcadeDriveController arcadeDrive;
@@ -55,8 +61,10 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 	@Override
 	public void initialize() {
 
-		//this.navX = new NavXIntializer(SerialPort.Port.kMXP,NAVX_CALIBRATION_LOOP_TIME_MS).getCalibratedNavX();	
-		
+		this.navX = new NavXIntializer(SerialPort.Port.kMXP,NAVX_CALIBRATION_LOOP_TIME_MS).getCalibratedNavX();
+        this.collisionDetected = false;
+        this.lastWorldAccelX = 0.0;
+        this.lastWorldAccelY = 0.0;
 
 		frontLeftMotor = new WPI_TalonSRX(RobotMap.CAN.FRONT_LEFT_MOTOR);
 		frontRightMotor = new WPI_TalonSRX(RobotMap.CAN.FRONT_RIGHT_MOTOR);
@@ -99,10 +107,10 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 		speedModeTalons = new FourTalonsWithSettings(
 		        frontLeftMotor,
 		        rearLeftMotor,
-		        frontRightMotor, 		        
+		        frontRightMotor,
 		        rearRightMotor,
 		        leftFrontSpeedSettings,leftRearSpeedSettings,
-		        rightFrontSpeedSettings,rightRearSpeedSettings);		
+		        rightFrontSpeedSettings,rightRearSpeedSettings);
 
 		TalonSettings leftFrontPositionSettings = TalonSettingsBuilder.defaults()
 				.withCurrentLimits(35, 30, 200)
@@ -148,8 +156,8 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
                 .build();
 		positionModeTalons = new FourTalonsWithSettings(
                 frontLeftMotor,
-                rearLeftMotor,                
-                frontRightMotor, 
+                rearLeftMotor,
+                frontRightMotor,
                 rearRightMotor,
                 leftFrontPositionSettings,
                 leftRearPositionSettings,
@@ -158,7 +166,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 				
 		arcadeDrive = new BasicArcadeDriveController(speedModeTalons, driveInstructionSource);
 		positionDrive = new PositionDriveController(positionModeTalons, getPositionBuffer(), 
-				        new EncoderInchesConverter(ENCODER_TICKS_PER_INCH));	
+				        new EncoderInchesConverter(ENCODER_TICKS_PER_INCH));
 		
 	}
 
@@ -173,9 +181,34 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 	    frontLeftMotor.set(0.0);
 	    rearLeftMotor.set(0.0);
         frontRightMotor.set(0.0);
-        rearRightMotor.set(0.0);    
+        rearRightMotor.set(0.0);
 	}
-	
+
+    public void resetCollision() {
+        collisionDetected = false;
+    }
+
+    public boolean hasCollisionOccured() {
+        if (this.navX != null) {
+            double currWorldAccelX = navX.getWorldLinearAccelX();
+            double currWorldAccelY = navX.getWorldLinearAccelY();
+            double currJerkX = currWorldAccelX - lastWorldAccelX;
+            double currJerkY = currWorldAccelY - lastWorldAccelY;
+            lastWorldAccelX = currWorldAccelX;
+            lastWorldAccelY = currWorldAccelY;
+
+            if ( ( Math.abs(currJerkX) > COLLISION_THRESHOLD_DELTA_G ) ||
+                 ( Math.abs(currJerkY) > COLLISION_THRESHOLD_DELTA_G ) ) {
+                collisionDetected = true;
+            }
+            if ( ( Math.abs(this.navX.getPitch()) > TIP_THRESHOLD_DEGREES ) ||
+                 ( Math.abs(this.navX.getRoll())  > TIP_THRESHOLD_DEGREES ) ) {
+                collisionDetected = true;
+            }
+        }
+        return collisionDetected;
+    }
+
 	@Override
 	public void periodic() {
 		dataLogger.log("DriveMode", driveMode + "");
@@ -183,7 +216,14 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 		dataLogger.log("frontLeftEncoder", frontLeftMotor.getSelectedSensorPosition(0));
 		dataLogger.log("frontRightEncoder", frontRightMotor.getSelectedSensorPosition(0));
 		dataLogger.log("rearLeftEncoder", rearLeftMotor.getSelectedSensorPosition(0));
-		dataLogger.log("rearRightEncoder", rearRightMotor.getSelectedSensorPosition(0));		
+		dataLogger.log("rearRightEncoder", rearRightMotor.getSelectedSensorPosition(0));
+        if (this.navX != null) {
+            // dataLogger.log("NavX: ", this.navX);
+            dataLogger.log("NavX Collision Detected: ", this.collisionDetected);
+            dataLogger.log("NavX Pitch Angle (X): ", this.navX.getPitch());
+            dataLogger.log("NavX Roll Angle (Y): ", this.navX.getRoll());
+            dataLogger.log("NavX Yaw Angle (Z) : ", this.navX.getYaw());
+        }
 		
 		if (driveMode == DriveMode.POSITION_DRIVE) {
 			runController(positionDrive);
