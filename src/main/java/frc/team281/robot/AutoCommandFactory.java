@@ -103,7 +103,7 @@ public class AutoCommandFactory {
                 .right(90)
                 .build();
         if ( mirrored ) {
-        	lp = PositionCalculator.mirror(lp);
+        	    lp = PositionCalculator.mirror(lp);
         }
         return new FollowPositionPathCommand( driveSubsystem, lp);
     }
