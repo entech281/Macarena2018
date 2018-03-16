@@ -7,6 +7,7 @@ import frc.team281.robot.commands.BaseCommand;
 import frc.team281.robot.commands.FollowPositionPathCommand;
 import frc.team281.robot.commands.GrabberShootCommand;
 import frc.team281.robot.commands.WristPivotDownCommand;
+import frc.team281.robot.strategy.AutoPlan;
 import frc.team281.robot.commands.LifterRaiseCommand;
 import frc.team281.robot.commands.LifterRaiseSeconds;
 import frc.team281.robot.subsystems.GrabberSubsystem;
@@ -31,8 +32,9 @@ public class AutoCommandFactory {
         this.driveSubsystem = driveSubsystem;
     }
     
-    public CommandGroup makeAutoCommand(WhichAutoCodeToRun whatAutoToRun) {
-
+    public CommandGroup makeAutoCommand(AutoPlan autoPlan) {
+        WhichAutoCodeToRun whatAutoToRun = autoPlan.getPath();
+        
         switch (whatAutoToRun) {
         case A: 
             return makeAutoProcedure(autoPathA(false));

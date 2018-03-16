@@ -23,8 +23,9 @@ import frc.team281.robot.commands.WristPivotDownCommand;
 import frc.team281.robot.commands.WristPivotUpCommand;
 import frc.team281.robot.commands.LifterRaiseSeconds;
 import frc.team281.robot.logger.DataLoggerFactory;
+import frc.team281.robot.strategy.AutoPlan;
 import frc.team281.robot.strategy.AutoStrategy;
-import frc.team281.robot.strategy.AutoStrategySelector;
+import frc.team281.robot.strategy.AutoPlanComputer;
 import frc.team281.robot.subsystems.GrabberSubsystem;
 import frc.team281.robot.subsystems.LifterSubsystem;
 import frc.team281.robot.subsystems.WristSubsystem;
@@ -58,7 +59,7 @@ public class Robot extends IterativeRobot implements CommandFactory {
     private DriveForwardNoEncodersCommand DFNEC;
     private CommandGroup DRAR;
     private Compressor compressor;
-    private AutoStrategySelector autoStrategySelector = new AutoStrategySelector();
+    private AutoPlanComputer autoStrategySelector = new AutoPlanComputer();
     DigitalInput leftPositionSwitch = new DigitalInput(DigitalIO.LEFT_SWITCH_POSITION);
     DigitalInput rightPositionSwitch = new DigitalInput(DigitalIO.RIGHT_SWITCH_POSITION);
     DigitalInput preferenceSwitch = new DigitalInput(DigitalIO.PREFERENCE_SWITCH);
@@ -106,13 +107,13 @@ public class Robot extends IterativeRobot implements CommandFactory {
     
     @Override
     public void autonomousInit() {            	
-        WhichAutoCodeToRun whatAutoToRun = selectAutoToRun();         
-    	SmartDashboard.putString("Selected Auto", whatAutoToRun+"");
+        AutoPlan autoPlan = selectAutoToRun();         
+    	SmartDashboard.putString("Selected Auto", autoPlan+"");
 
         driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
 
         AutoCommandFactory af = new AutoCommandFactory(lifterSubsystem, grabberSubsystem, wristSubsystem, driveSubsystem);
-        CommandGroup autoCommand = af.makeAutoCommand(WhichAutoCodeToRun.A);
+        CommandGroup autoCommand = af.makeAutoCommand(autoPlan);
         //DFNEC.start();
         // DRAR.start();
         autoCommand.start();
@@ -135,20 +136,15 @@ public class Robot extends IterativeRobot implements CommandFactory {
         Scheduler.getInstance().run();
     }
 
-    protected WhichAutoCodeToRun selectAutoToRun(){
+    protected AutoPlan selectAutoToRun(){
         
         String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
         FieldMessage fm = new FieldMessageGetter(leftPositionSwitch.get(), rightPositionSwitch.get()).convertGameMessageToFieldMessage(gameMessage);
         
         //the auto selector allows us to select strategies via different methods,
         //or hard-code the strategy here to make sure it works
-        AutoStrategy strategy = autoStrategySelector.selectStrategyFromButtons(fm, true,false,false);
+        return autoStrategySelector.computePlanFromButtons(fm, true,false,false);
         
-        //AutoStrategy strategy = autoStrategySelector.handleScale();
-        //AutoStrategy strategy = autoStrategySelector.handleSwitch();
-        
-        WhichAutoCodeToRun selectedAuto = strategy.getAutoPath(fm);
-        return selectedAuto;
         
     }
     
