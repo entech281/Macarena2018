@@ -1,19 +1,27 @@
 package frc.team281.robot.strategy;
 
-import frc.team281.robot.WhichAutoCodeToRun;
+import java.util.List;
+
+import frc.team281.robot.subsystems.Position;
 
 public class AutoPlan {
 
-    public AutoPlan( boolean isTargetScale, boolean shouldDropCube, WhichAutoCodeToRun path ){
+    public AutoPlan( boolean isTargetScale, boolean shouldDropCube, List<Position> path){
         this.path = path;
         this.shouldDropCube = shouldDropCube;
         this.isTargetingScale = isTargetScale;
     }
+    public void setMirror(boolean mirror){
+        this.mirror = mirror;
+    }
     
-    public WhichAutoCodeToRun getPath() {
+    public boolean shouldMirror(){
+        return this.mirror;
+    }
+    public List<Position> getPath() {
         return path;
     }
-    public void setPath(WhichAutoCodeToRun path) {
+    public void setPath(List<Position> path) {
         this.path = path;
     }
     public boolean isTargetingScale() {
@@ -28,9 +36,10 @@ public class AutoPlan {
     public void setShouldDropCube(boolean shouldDropCube) {
         this.shouldDropCube = shouldDropCube;
     }
-    protected WhichAutoCodeToRun path;
+    protected List<Position> path;
     protected boolean isTargetingScale = false;
     protected boolean shouldDropCube = false;
+    protected boolean mirror= false;
     
     public String toString(){
         return "AutoPlan: Path=" + path + ",scale=" + this.isTargetingScale + ",shouldDrop=" + shouldDropCube;

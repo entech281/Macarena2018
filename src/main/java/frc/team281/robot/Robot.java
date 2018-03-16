@@ -24,7 +24,6 @@ import frc.team281.robot.commands.WristPivotUpCommand;
 import frc.team281.robot.commands.LifterRaiseSeconds;
 import frc.team281.robot.logger.DataLoggerFactory;
 import frc.team281.robot.strategy.AutoPlan;
-import frc.team281.robot.strategy.AutoStrategy;
 import frc.team281.robot.strategy.AutoPlanComputer;
 import frc.team281.robot.subsystems.GrabberSubsystem;
 import frc.team281.robot.subsystems.LifterSubsystem;
@@ -111,7 +110,6 @@ public class Robot extends IterativeRobot implements CommandFactory {
     	SmartDashboard.putString("Selected Auto", autoPlan+"");
 
         driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
-
         AutoCommandFactory af = new AutoCommandFactory(lifterSubsystem, grabberSubsystem, wristSubsystem, driveSubsystem);
         CommandGroup autoCommand = af.makeAutoCommand(autoPlan);
         //DFNEC.start();
@@ -141,11 +139,10 @@ public class Robot extends IterativeRobot implements CommandFactory {
         String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
         FieldMessage fm = new FieldMessageGetter(leftPositionSwitch.get(), rightPositionSwitch.get()).convertGameMessageToFieldMessage(gameMessage);
         
-        //the auto selector allows us to select strategies via different methods,
-        //or hard-code the strategy here to make sure it works
-        return autoStrategySelector.computePlanFromButtons(fm, true,false,false);
-        
-        
+        //TODO: read buttons to get these four booleans, 
+        //      OR  use autoStrategySelector.computePlanFromRobotPreferences(fm);
+        //      OR  read buttons and convert to an int and use autoStrategySelector.computePlanFromRobotPreferences(fm,int)
+        return autoStrategySelector.computePlanFromFieldPoseSwitches(fm, true,false,false,true);
     }
     
     @Override

@@ -1,5 +1,7 @@
 package frc.team281.robot;
 
+import frc.team281.robot.strategy.FieldPose;
+
 public class FieldMessage {
 	public enum StartingPosition{
 		RIGHT,
@@ -7,18 +9,38 @@ public class FieldMessage {
 		MIDDLE;
 	}
 	
-	public enum Override{
-		YES,
-		NO;
-	}
-	
+    public FieldPose getFieldPose(){
+        if ( isScaleOnOurSide() && isSwitchOnOurSide()){
+            return FieldPose.BOTH_OUR_SIDE;
+        }
+        else if ( isScaleOnOtherSide() && isSwitchOnOtherSide()){
+            return  FieldPose.BOTH_OTHER_SIDE;
+        }
+        else if ( isScaleOnOtherSide() && isSwitchOnOurSide() ){
+            return FieldPose.FRONT_SLASH;
+        }
+        else{
+            return FieldPose.BACK_SLASH;
+        }
+    }
+    public boolean isRobotOnLeft(){
+        return position == StartingPosition.LEFT;
+    }
+    public boolean isRobotOnright(){
+        return position == StartingPosition.RIGHT;
+    }
 	public boolean isRobotInMiddle(){
 	    return position == StartingPosition.MIDDLE;
 	}
 	public boolean isRobotOnASide(){
 	    return position != StartingPosition.MIDDLE;
 	}
-	
+	public boolean isSwitchOnOtherSide(){
+	    return ! isSwitchOnOurSide();
+	}
+	public boolean isScaleOnOtherSide(){
+	    return ! isScaleOnOurSide();
+	}
 	public boolean isSwitchOnOurSide(){
 	    return ( isOurSwitchOnTheLeft() && position == StartingPosition.LEFT ) ||
 	           ( ! isOurSwitchOnTheLeft() && position == StartingPosition.RIGHT );  
@@ -64,12 +86,5 @@ public class FieldMessage {
 	public void setPosition(StartingPosition position) {
 		this.position = position;
 	}
-		
-	private Override override = Override.NO;
-	public Override getOverride() {
-		return override;
-	}
-	public void setOverride(Override override) {
-		this.override = override;	
-	}
+
 }

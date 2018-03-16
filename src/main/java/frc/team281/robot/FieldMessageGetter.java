@@ -1,12 +1,7 @@
 package frc.team281.robot;
 
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.team281.robot.FieldMessage.Override;
 import frc.team281.robot.FieldMessage.StartingPosition;
-
-
-
 
 
 public class FieldMessageGetter {
