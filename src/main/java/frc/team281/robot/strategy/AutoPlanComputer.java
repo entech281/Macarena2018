@@ -12,9 +12,11 @@ public class AutoPlanComputer {
 
     public static final String PREFERENCE_STRING = "AutoStrategySelector";
     
-    //TODO: have to implement this to get all of the right plans from the code
-    //this is quite a lot of logical code
+
     public AutoPlan computePlan(FieldMessage fm, int code){
+        //TODO: have to implement this to get all of the right plans from the code
+        //i had planned to use the stragey objects to do this work so we dont have a 
+        //huge 500 line block of code impenetrable code here.
         return null;
     }
     
