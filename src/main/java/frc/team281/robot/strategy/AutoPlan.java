@@ -6,7 +6,8 @@ import frc.team281.robot.subsystems.Position;
 
 public class AutoPlan {
 
-    public AutoPlan( boolean isTargetScale, boolean shouldDropCube, List<Position> path){
+    public AutoPlan(String name, boolean isTargetScale, boolean shouldDropCube, List<Position> path){
+        this.name = name;
         this.path = path;
         this.shouldDropCube = shouldDropCube;
         this.isTargetingScale = isTargetScale;
@@ -40,9 +41,9 @@ public class AutoPlan {
     protected boolean isTargetingScale = false;
     protected boolean shouldDropCube = false;
     protected boolean mirror= false;
-    
+    protected String name = "";
     public String toString(){
-        return "AutoPlan: Path=" + path + ",scale=" + this.isTargetingScale + ",shouldDrop=" + shouldDropCube;
+        return "AutoPlan: Path=" + name + ",scale=" + this.isTargetingScale + ",shouldDrop=" + shouldDropCube;
     }
     
 }

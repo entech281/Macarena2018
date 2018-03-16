@@ -76,11 +76,11 @@ public class AutoPlanComputer {
             boolean backSlashSelector, boolean bothOppositeSelector){
         
         //do nothing by default
-        AutoPlan selectedPlan = new AutoPlan(false,false,EMPTY);
+        AutoPlan selectedPlan = new AutoPlan("DoNothing",false,false,EMPTY);
         
         if ( fm.isRobotInMiddle()){
             if ( fm.isOurScaleOnTheLeft()){
-                selectedPlan =  new AutoPlan(false, true, AUTO_D);
+                selectedPlan =  new AutoPlan("D",false, true, AUTO_D);
             }
         }
         else{
@@ -90,34 +90,34 @@ public class AutoPlanComputer {
             
             if ( pose == FieldPose.BOTH_OUR_SIDE){
                 if ( bothThisSideSelector ){
-                    selectedPlan = new AutoPlan(true,true,AUTO_B);
+                    selectedPlan = new AutoPlan("B",true,true,AUTO_B);
                 }
                 else{
-                    selectedPlan = new AutoPlan(false,true,AUTO_A);
+                    selectedPlan = new AutoPlan("A",false,true,AUTO_A);
                 }
             }
             if ( pose == FieldPose.BOTH_OTHER_SIDE){
                 if ( bothOppositeSelector ){
-                    selectedPlan = new AutoPlan(true,true,AUTO_E);
+                    selectedPlan = new AutoPlan("E",true,true,AUTO_E);
                 }
                 else{
-                    selectedPlan = new AutoPlan(false,true,AUTO_D);
+                    selectedPlan = new AutoPlan("D",false,true,AUTO_D);
                 }
             }
             if ( pose == FieldPose.FRONT_SLASH){
                 if ( frontSlashSelector ){
-                    selectedPlan = new AutoPlan(true,true,AUTO_A);
+                    selectedPlan = new AutoPlan("A",true,true,AUTO_A);
                 }
                 else{
-                    selectedPlan = new AutoPlan(false,true,AUTO_E);
+                    selectedPlan = new AutoPlan("E",false,true,AUTO_E);
                 }
             }    
             if ( pose == FieldPose.BACK_SLASH){
                 if ( backSlashSelector ){
-                    selectedPlan = new AutoPlan(false,true,AUTO_B);
+                    selectedPlan = new AutoPlan("B",false,true,AUTO_B);
                 }
                 else{
-                    selectedPlan = new AutoPlan(true,true,AUTO_D);
+                    selectedPlan = new AutoPlan("D",true,true,AUTO_D);
                 }
             }             
         }

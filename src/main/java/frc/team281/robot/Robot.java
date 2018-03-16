@@ -55,8 +55,6 @@ public class Robot extends IterativeRobot implements CommandFactory {
     private LifterSubsystem lifterSubsystem;
     private GrabberSubsystem grabberSubsystem;
     private WristSubsystem wristSubsystem;
-    private DriveForwardNoEncodersCommand DFNEC;
-    private CommandGroup DRAR;
     private Compressor compressor;
     private AutoPlanComputer autoStrategySelector = new AutoPlanComputer();
     DigitalInput leftPositionSwitch = new DigitalInput(DigitalIO.LEFT_SWITCH_POSITION);
@@ -86,34 +84,18 @@ public class Robot extends IterativeRobot implements CommandFactory {
         grabberSubsystem.initialize();
         wristSubsystem.initialize();
         compressor = new Compressor(RobotMap.CAN.PC_MODULE);
-        compressor.start();
-        setupCommands();        
+        compressor.start();  
 
     }
 
-    protected void setupCommands(){
-        DRAR = new CommandGroup();
-        DRAR.addSequential(new LifterRaiseSeconds(lifterSubsystem,0.4));
-        DRAR.addSequential(new DriveForwardNoEncodersCommand(driveSubsystem, 1.6, .75));
-        if (!leftPositionSwitch.get()) {
-            DRAR.addSequential(new TurnRightNoEncodersCommand(driveSubsystem, 0.5, 0.4));
-        } else if (!rightPositionSwitch.get()) {
-            DRAR.addSequential(new TurnRightNoEncodersCommand(driveSubsystem, 0.5, -0.4));          
-        }
-        DRAR.addSequential(new WristPivotDownCommand(wristSubsystem));
-        DFNEC = new DriveForwardNoEncodersCommand(driveSubsystem, 1.6, .75);        
-    }
     
     @Override
     public void autonomousInit() {            	
         AutoPlan autoPlan = selectAutoToRun();         
     	SmartDashboard.putString("Selected Auto", autoPlan+"");
-
         driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
         AutoCommandFactory af = new AutoCommandFactory(lifterSubsystem, grabberSubsystem, wristSubsystem, driveSubsystem);
         CommandGroup autoCommand = af.makeAutoCommand(autoPlan);
-        //DFNEC.start();
-        // DRAR.start();
         autoCommand.start();
        
     }
@@ -129,7 +111,9 @@ public class Robot extends IterativeRobot implements CommandFactory {
     }
 
     @Override
-    public void disabledPeriodic() {        
+    public void disabledPeriodic() {
+        //this allows us to test very quickly without re-running auto at all.
+        //just flip the switches and we should the dashboard udpate with the right paths!
         SmartDashboard.putString("SelectedAuto", selectAutoToRun()+"");
         Scheduler.getInstance().run();
     }
