@@ -59,7 +59,8 @@ public class Robot extends IterativeRobot implements CommandFactory {
     private AutoPlanComputer autoStrategySelector = new AutoPlanComputer();
     DigitalInput leftPositionSwitch = new DigitalInput(DigitalIO.LEFT_SWITCH_POSITION);
     DigitalInput rightPositionSwitch = new DigitalInput(DigitalIO.RIGHT_SWITCH_POSITION);
-    DigitalInput preferenceSwitch = new DigitalInput(DigitalIO.PREFERENCE_SWITCH);
+    DigitalInput overrideSwitch = new DigitalInput(DigitalIO.PREFERENCE_SWITCH);
+    private FieldMessage fieldPose;
 
     
     /**
@@ -91,11 +92,20 @@ public class Robot extends IterativeRobot implements CommandFactory {
     
     @Override
     public void autonomousInit() {
-        AutoPlan autoPlan = selectAutoToRun();
-    	SmartDashboard.putString("Selected Auto", autoPlan+"");
-        driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
-        AutoCommandFactory af = new AutoCommandFactory(lifterSubsystem, grabberSubsystem, wristSubsystem, driveSubsystem);
-        CommandGroup autoCommand = af.makeAutoCommand(autoPlan);
+       
+        CommandGroup autoCommand = new CommandGroup();
+        if ( fieldPose.isOverrideSwitch()){
+            autoCommand.addSequential(
+                    new DriveForwardNoEncodersCommand(driveSubsystem, 1.75, 0.75));
+        }
+        else{
+            AutoPlan autoPlan = selectAutoToRun();
+            SmartDashboard.putString("Selected Auto", autoPlan+"");
+            driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
+            AutoCommandFactory af = new AutoCommandFactory(lifterSubsystem, grabberSubsystem, wristSubsystem, driveSubsystem);
+            autoCommand = af.makeAutoCommand(autoPlan);
+                        
+        }
         autoCommand.start();
        
     }
@@ -121,13 +131,14 @@ public class Robot extends IterativeRobot implements CommandFactory {
     protected AutoPlan selectAutoToRun(){
         
         String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
-        FieldMessage fm = new FieldMessageGetter(leftPositionSwitch.get(), rightPositionSwitch.get()).convertGameMessageToFieldMessage(gameMessage);
+        fieldPose = new FieldMessageGetter(leftPositionSwitch.get(), rightPositionSwitch.get(), overrideSwitch.get() )
+                .convertGameMessageToFieldMessage(gameMessage);
         
         //TODO: read buttons to get these four booleans, 
         //      OR  use autoStrategySelector.computePlanFromRobotPreferences(fm);
         //      OR  read buttons and convert to an int and use autoStrategySelector.computePlanFromRobotPreferences(fm,int)
         // return autoStrategySelector.computePlanFromFieldPoseSwitches(fm, false,false,false,true);
-        return autoStrategySelector.computePlanFromRobotPreferences(fm);
+        return autoStrategySelector.computePlanFromRobotPreferences(fieldPose);
     }
     
     @Override

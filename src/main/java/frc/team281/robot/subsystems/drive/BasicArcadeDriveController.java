@@ -41,7 +41,7 @@ public class BasicArcadeDriveController extends BaseDriveController {
 		
 		diffDrive = new DifferentialDrive(left,right);
 		diffDrive.setExpiration(100);
-		diffDrive.setSafetyEnabled(true);
+		//diffDrive.setSafetyEnabled(true);
 		
 	}
 

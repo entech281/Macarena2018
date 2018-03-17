@@ -68,6 +68,10 @@ public class AutoPlanComputer {
         return computePlanFromFieldPoseSwitches(fm,false,false,false,false);
     }
 
+    public AutoPlan testPlanE(){
+        return new AutoPlan("Aryan Test",true,true,AUTO_E);
+    }
+    
     public AutoPlan computePlanFromFieldPoseSwitches(FieldMessage fm, boolean bothThisSideSelector, boolean frontSlashSelector, 
             boolean backSlashSelector, boolean bothOppositeSelector){
         

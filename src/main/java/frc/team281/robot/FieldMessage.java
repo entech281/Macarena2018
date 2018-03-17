@@ -80,7 +80,14 @@ public class FieldMessage {
 	private boolean theirSwitchOnTheLeft;
 	
 	private StartingPosition position = StartingPosition.MIDDLE;
-	public StartingPosition getPosition() {
+	private boolean overrideSwitch = false;
+	public boolean isOverrideSwitch() {
+        return overrideSwitch;
+    }
+    public void setOverrideSwitch(boolean overrideSwitch) {
+        this.overrideSwitch = overrideSwitch;
+    }
+    public StartingPosition getPosition() {
 		return position;
 	}
 	public void setPosition(StartingPosition position) {
