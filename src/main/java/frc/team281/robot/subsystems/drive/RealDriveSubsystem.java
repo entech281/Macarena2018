@@ -188,7 +188,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
         collisionDetected = false;
     }
 
-    public boolean hasCollisionOccured() {
+    public boolean hasCollisionOccurred() {
         if (this.navX != null) {
             double currWorldAccelX = navX.getWorldLinearAccelX();
             double currWorldAccelY = navX.getWorldLinearAccelY();
