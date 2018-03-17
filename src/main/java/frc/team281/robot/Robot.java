@@ -23,6 +23,8 @@ import frc.team281.robot.commands.WristPivotDownCommand;
 import frc.team281.robot.commands.WristPivotUpCommand;
 import frc.team281.robot.commands.LifterRaiseSeconds;
 import frc.team281.robot.logger.DataLoggerFactory;
+import frc.team281.robot.strategy.AutoPlan;
+import frc.team281.robot.strategy.AutoPlanComputer;
 import frc.team281.robot.subsystems.GrabberSubsystem;
 import frc.team281.robot.subsystems.LifterSubsystem;
 import frc.team281.robot.subsystems.WristSubsystem;
@@ -53,19 +55,13 @@ public class Robot extends IterativeRobot implements CommandFactory {
     private LifterSubsystem lifterSubsystem;
     private GrabberSubsystem grabberSubsystem;
     private WristSubsystem wristSubsystem;
-    private WhichAutoCodeToRun whatAutoToRun;
-    private DriveForwardNoEncodersCommand DFNEC;
-    private CommandGroup DRAR;
     private Compressor compressor;
-    
+    private AutoPlanComputer autoStrategySelector = new AutoPlanComputer();
     DigitalInput leftPositionSwitch = new DigitalInput(DigitalIO.LEFT_SWITCH_POSITION);
     DigitalInput rightPositionSwitch = new DigitalInput(DigitalIO.RIGHT_SWITCH_POSITION);
     DigitalInput preferenceSwitch = new DigitalInput(DigitalIO.PREFERENCE_SWITCH);
-    private Preferences prefs;
-    public int rightSwitchPreference;
-    public int leftSwitchPreference;
-    public int rightScalePreference;
-    public int leftScalePreference;
+
+    
     /**
      * This function is run when the robot is first started up and should be used
      * for any initialization code.
@@ -88,40 +84,18 @@ public class Robot extends IterativeRobot implements CommandFactory {
         grabberSubsystem.initialize();
         wristSubsystem.initialize();
         compressor = new Compressor(RobotMap.CAN.PC_MODULE);
-        compressor.start();
-        DRAR = new CommandGroup();
-        DRAR.addSequential(new LifterRaiseSeconds(lifterSubsystem,0.4));
-        DRAR.addSequential(new DriveForwardNoEncodersCommand(driveSubsystem, 1.6, .75));
-        if (!leftPositionSwitch.get()) {
-            DRAR.addSequential(new TurnRightNoEncodersCommand(driveSubsystem, 0.5, 0.4));
-        } else if (!rightPositionSwitch.get()) {
-            DRAR.addSequential(new TurnRightNoEncodersCommand(driveSubsystem, 0.5, -0.4));        	
-        }
-        DRAR.addSequential(new WristPivotDownCommand(wristSubsystem));
-        DFNEC = new DriveForwardNoEncodersCommand(driveSubsystem, 1.6, .75);
-        
+        compressor.start();  
 
     }
 
+    
     @Override
-    public void autonomousInit() {
-        
-    	
-    	
-    	String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
-        FieldMessage fieldMessage = new FieldMessageGetter(leftPositionSwitch.get(), rightPositionSwitch.get(), preferenceSwitch.get()).convertGameMessageToFieldMessage(gameMessage);
-
-        
-        whatAutoToRun = new ConvertFieldMessageToCommandGroup().convert(fieldMessage);
-         
-    	SmartDashboard.putString("Selected Auto", whatAutoToRun+"");
-
+    public void autonomousInit() {            	
+        AutoPlan autoPlan = selectAutoToRun();         
+    	SmartDashboard.putString("Selected Auto", autoPlan+"");
         driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
-
         AutoCommandFactory af = new AutoCommandFactory(lifterSubsystem, grabberSubsystem, wristSubsystem, driveSubsystem);
-        CommandGroup autoCommand = af.makeAutoCommand(WhichAutoCodeToRun.A);
-        //DFNEC.start();
-        // DRAR.start();
+        CommandGroup autoCommand = af.makeAutoCommand(autoPlan);
         autoCommand.start();
        
     }
@@ -138,9 +112,23 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     @Override
     public void disabledPeriodic() {
+        //this allows us to test very quickly without re-running auto at all.
+        //just flip the switches and we should the dashboard udpate with the right paths!
+        SmartDashboard.putString("SelectedAuto", selectAutoToRun()+"");
         Scheduler.getInstance().run();
     }
 
+    protected AutoPlan selectAutoToRun(){
+        
+        String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
+        FieldMessage fm = new FieldMessageGetter(leftPositionSwitch.get(), rightPositionSwitch.get()).convertGameMessageToFieldMessage(gameMessage);
+        
+        //TODO: read buttons to get these four booleans, 
+        //      OR  use autoStrategySelector.computePlanFromRobotPreferences(fm);
+        //      OR  read buttons and convert to an int and use autoStrategySelector.computePlanFromRobotPreferences(fm,int)
+        return autoStrategySelector.computePlanFromFieldPoseSwitches(fm, true,false,false,true);
+    }
+    
     @Override
     public void teleopInit() {
         driveSubsystem.setMode(DriveMode.SPEED_DRIVE);
