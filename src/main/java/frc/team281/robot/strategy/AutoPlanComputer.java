@@ -93,7 +93,7 @@ public class AutoPlanComputer {
             }
             if ( pose == FieldPose.BOTH_OTHER_SIDE){
                 if ( bothOppositeSelector ){
-                    selectedPlan = new AutoPlan("G",true,true,AUTO_G);
+                    selectedPlan = new AutoPlan("F",true,true,AUTO_F);
                 }
                 else{
                     selectedPlan = new AutoPlan("D",false,true,AUTO_D);
@@ -101,7 +101,7 @@ public class AutoPlanComputer {
             }
             if ( pose == FieldPose.FRONT_SLASH){
                 if ( frontSlashSelector ){
-                    selectedPlan = new AutoPlan("G",true,true,AUTO_G);
+                    selectedPlan = new AutoPlan("F",true,true,AUTO_F);
                 }
                 else{
                     selectedPlan = new AutoPlan("A",false,true,AUTO_A);
