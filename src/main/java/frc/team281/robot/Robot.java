@@ -90,8 +90,8 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     
     @Override
-    public void autonomousInit() {            	
-        AutoPlan autoPlan = selectAutoToRun();         
+    public void autonomousInit() {
+        AutoPlan autoPlan = selectAutoToRun();
     	SmartDashboard.putString("Selected Auto", autoPlan+"");
         driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
         AutoCommandFactory af = new AutoCommandFactory(lifterSubsystem, grabberSubsystem, wristSubsystem, driveSubsystem);
@@ -126,7 +126,8 @@ public class Robot extends IterativeRobot implements CommandFactory {
         //TODO: read buttons to get these four booleans, 
         //      OR  use autoStrategySelector.computePlanFromRobotPreferences(fm);
         //      OR  read buttons and convert to an int and use autoStrategySelector.computePlanFromRobotPreferences(fm,int)
-        return autoStrategySelector.computePlanFromFieldPoseSwitches(fm, true,false,false,true);
+        // return autoStrategySelector.computePlanFromFieldPoseSwitches(fm, false,false,false,true);
+        return autoStrategySelector.computePlanFromRobotPreferences(fm);
     }
     
     @Override

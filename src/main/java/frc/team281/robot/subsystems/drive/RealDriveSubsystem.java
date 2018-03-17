@@ -37,8 +37,9 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
     private boolean collisionDetected;
     private double lastWorldAccelX = 0.0;
     private double lastWorldAccelY = 0.0;
-    private static final double COLLISION_THRESHOLD_DELTA_G = 0.5;
-    private static final double TIP_THRESHOLD_DEGREES = 15.0;
+    private static final double COLLISION_THRESHOLD_DELTA_G_ACCEL =  0.2;
+    private static final double COLLISION_THRESHOLD_DELTA_G_DECEL = -0.5;
+    private static final double TIP_THRESHOLD_DEGREES = 5.0;
 
 	//private FourDriveTalonCalibratorController calibrator;
 	private BasicArcadeDriveController arcadeDrive;
@@ -197,16 +198,21 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
             lastWorldAccelX = currWorldAccelX;
             lastWorldAccelY = currWorldAccelY;
 
-            if ( ( Math.abs(currJerkX) > COLLISION_THRESHOLD_DELTA_G ) ||
-                 ( Math.abs(currJerkY) > COLLISION_THRESHOLD_DELTA_G ) ) {
+            if ( ( currJerkX > COLLISION_THRESHOLD_DELTA_G_ACCEL ) ||
+                 ( currJerkY > COLLISION_THRESHOLD_DELTA_G_ACCEL ) ) {
                 collisionDetected = true;
             }
-            if ( ( Math.abs(this.navX.getPitch()) > TIP_THRESHOLD_DEGREES ) ||
-                 ( Math.abs(this.navX.getRoll())  > TIP_THRESHOLD_DEGREES ) ) {
+            if ( ( currJerkX < COLLISION_THRESHOLD_DELTA_G_DECEL ) ||
+                 ( currJerkY < COLLISION_THRESHOLD_DELTA_G_DECEL ) ) {
                 collisionDetected = true;
             }
         }
         return collisionDetected;
+    }
+
+    public boolean isRobotTipping() {
+        return ( ( Math.abs(this.navX.getPitch()) > TIP_THRESHOLD_DEGREES ) ||
+                 ( Math.abs(this.navX.getRoll())  > TIP_THRESHOLD_DEGREES ) );
     }
 
 	@Override

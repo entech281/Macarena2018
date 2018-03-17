@@ -7,11 +7,14 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.team281.robot.commands.BaseCommand;
 import frc.team281.robot.commands.DriveToPositionCommand;
 import frc.team281.robot.commands.DriveForwardUntilCollisionCommand;
+import frc.team281.robot.commands.DriveForwardNoEncodersCommand;
 import frc.team281.robot.commands.FollowPositionPathCommand;
 import frc.team281.robot.commands.GrabberShootCommand;
+import frc.team281.robot.commands.GrabberOpenCommand;
 import frc.team281.robot.commands.WristPivotDownCommand;
 import frc.team281.robot.strategy.AutoPlan;
 import frc.team281.robot.commands.LifterRaiseSeconds;
+import frc.team281.robot.commands.LifterTopCommand;
 import frc.team281.robot.subsystems.GrabberSubsystem;
 import frc.team281.robot.subsystems.WristSubsystem;
 import frc.team281.robot.subsystems.LifterSubsystem;
@@ -55,21 +58,22 @@ public class AutoCommandFactory {
         //in teleopInit. We can't do it here because we're creaeting the command, so we'd
         //have to add the mode change into the command itself, which is a bit scary.
         //so i'd rather just use closed position mode to drive forward
-        auto.addSequential(new DriveToPositionCommand(driveSubsystem,
-                    new Position(FORWARD_MOVE_INCHES,FORWARD_MOVE_INCHES),
-                    FORWARD_MOVE_TIMEOUT));
-        auto.addSequential(new DriveForwardUntilCollision(driveSubsystem,2.0,0.4));
+
+        //auto.addSequential(new DriveToPositionCommand(driveSubsystem,
+        //            new Position(FORWARD_MOVE_INCHES,FORWARD_MOVE_INCHES),
+        //            FORWARD_MOVE_TIMEOUT));
+        auto.addSequential(new DriveForwardUntilCollisionCommand(driveSubsystem,3.0,0.6));
 
         if ( autoPlan.isShouldDropCube()){
             if (autoPlan.isTargetingScale()) {
-                auto.addSequential(new WristPivotDownCommand(wristSubsystem));
+                // auto.addSequential(new WristPivotDownCommand(wristSubsystem));
                 auto.addSequential(new GrabberOpenCommand(grabberSubsystem, 2));
             } else {
-                auto.addSequential(new WristPivotDownCommand(wristSubsystem));
-                auto.addSequential(new GrabberShootCommand(grabberSubsystem, 2));
+                //auto.addSequential(new WristPivotDownCommand(wristSubsystem));
+                auto.addSequential(new GrabberShootCommand(grabberSubsystem, 2.5));
             }
         }
-        auto.addSequential(new DriveForwardNoEncoders(driveSubsystem,0.5,-0.4));
+        auto.addSequential(new DriveForwardNoEncodersCommand(driveSubsystem,0.5,-0.4));
         return auto;
     }
     

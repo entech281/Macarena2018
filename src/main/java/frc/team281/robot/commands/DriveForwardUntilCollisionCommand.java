@@ -44,7 +44,7 @@ public class DriveForwardUntilCollisionCommand extends BaseCommand {
 
 	@Override
 	protected boolean isFinished() {
-		return isTimedOut() || drive.hasCollisionOccurred();
+		return isTimedOut() || drive.hasCollisionOccurred() || drive.isRobotTipping();
 	}
 
 	@Override
