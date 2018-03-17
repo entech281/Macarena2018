@@ -6,6 +6,7 @@ import java.util.List;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.team281.robot.commands.BaseCommand;
 import frc.team281.robot.commands.DriveToPositionCommand;
+import frc.team281.robot.commands.DriveForwardUntilCollisionCommand;
 import frc.team281.robot.commands.FollowPositionPathCommand;
 import frc.team281.robot.commands.GrabberShootCommand;
 import frc.team281.robot.commands.WristPivotDownCommand;
@@ -43,13 +44,13 @@ public class AutoCommandFactory {
         }
         
         CommandGroup auto = new CommandGroup();
-        auto.addParallel(new LifterRaiseSeconds(lifterSubsystem,1.5));
-        auto.addSequential(new FollowPositionPathCommand( driveSubsystem, path));
-        if ( autoPlan.isTargetingScale()){
-            //TODO: this needs to move to the top
+        if (autoPlan.isTargetingScale()) {
+            auto.addParallel(new LifterTopCommand(lifterSubsystem));
+        } else {
             auto.addParallel(new LifterRaiseSeconds(lifterSubsystem,1.5));
         }
-        //TODO: we discussed having this be drive forward open loop, 
+        auto.addSequential(new FollowPositionPathCommand( driveSubsystem, path));
+        //TODO: we discussed having this be drive forward open loop,
         //but to do that, we have to change into speed control mode. That currently happens
         //in teleopInit. We can't do it here because we're creaeting the command, so we'd
         //have to add the mode change into the command itself, which is a bit scary.
@@ -57,19 +58,24 @@ public class AutoCommandFactory {
         auto.addSequential(new DriveToPositionCommand(driveSubsystem,
                     new Position(FORWARD_MOVE_INCHES,FORWARD_MOVE_INCHES),
                     FORWARD_MOVE_TIMEOUT));
-        
+        auto.addSequential(new DriveForwardUntilCollision(driveSubsystem,2.0,0.4));
+
         if ( autoPlan.isShouldDropCube()){
-            auto.addSequential(new WristPivotDownCommand(wristSubsystem));
-            auto.addSequential(new GrabberShootCommand(grabberSubsystem, 2));            
+            if (autoPlan.isTargetingScale()) {
+                auto.addSequential(new WristPivotDownCommand(wristSubsystem));
+                auto.addSequential(new GrabberOpenCommand(grabberSubsystem, 2));
+            } else {
+                auto.addSequential(new WristPivotDownCommand(wristSubsystem));
+                auto.addSequential(new GrabberShootCommand(grabberSubsystem, 2));
+            }
         }
+        auto.addSequential(new DriveForwardNoEncoders(driveSubsystem,0.5,-0.4));
         return auto;
     }
     
     protected CommandGroup makeAutoProcedure(BaseCommand followPath) {
        CommandGroup auto = new CommandGroup();
-           
-           auto.addSequential(followPath);           
-           
+       auto.addSequential(followPath);
        return auto;
     }
 }
