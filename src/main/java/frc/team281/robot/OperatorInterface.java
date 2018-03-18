@@ -28,8 +28,11 @@ public class OperatorInterface implements DriveInstructionSource {
     private JoystickButton grabberShootButton;
     private JoystickButton grabberOpenButton;
     private JoystickButton wristUpButton;
-    private JoystickButton grabberShootAndOpenButton;
-    private JoystickButton grabberCloseAndIntakeButton;
+    private JoystickButton bothLeftScaleInAutoButton;
+    private JoystickButton slashScaleInAutoButton;
+    private JoystickButton backslashScaleInAutoButton;
+    private JoystickButton bothRightScaleInAutoButton;
+
     
     public static class LifterHeights {
         public static final double SCALE_HIGH = 100;
@@ -79,13 +82,11 @@ public class OperatorInterface implements DriveInstructionSource {
         grabberOpenButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.GRABBER_OPEN);
         grabberOpenButton.whenPressed(factory.createGrabberOpenCommand());
         grabberOpenButton.whenReleased(factory.createGrabberCloseCommand());
-        
-        grabberShootAndOpenButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.GRABBER_SHOOT_AND_OPEN);
-        grabberShootAndOpenButton.whenPressed(factory.createCloseAndIntakeCommand());
-        
-        grabberCloseAndIntakeButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.GRABBER_LOAD_AND_CLOSE);
-        grabberShootAndOpenButton.whenPressed(factory.createPushOutCubeAndOpenCommand());
-        
+
+        bothLeftScaleInAutoButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.AUTO_SCALE_LEFT);
+        slashScaleInAutoButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.AUTO_SCALE_SLASH);
+        backslashScaleInAutoButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.AUTO_SCALE_BACKSLASH);
+        bothRightScaleInAutoButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.AUTO_SCALE_RIGHT);
     }
 
     @Override
@@ -108,4 +109,21 @@ public class OperatorInterface implements DriveInstructionSource {
         double adjusted = (isNegative? Math.pow(-rawValue, softnessFactor):Math.pow(rawValue, softnessFactor));
         return isNegative?-adjusted:adjusted;
     }
+
+    public boolean getBothLeftScaleInAuto() {
+        return bothLeftScaleInAutoButton.get();
+    }
+
+    public boolean getSlashScaleInAuto() {
+        return slashScaleInAutoButton.get();
+    }
+
+    public boolean getBackslashScaleInAuto() {
+        return backslashScaleInAutoButton.get();
+    }
+
+    public boolean getBothRightScaleInAuto() {
+        return bothRightScaleInAutoButton.get();
+    }
+
 }

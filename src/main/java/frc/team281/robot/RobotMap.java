@@ -49,10 +49,10 @@ public class RobotMap {
             public static final int GRABBER_SHOOT = 9;
             public static final int GRABBER_OPEN = 7;
             public static final int WRIST_UP = 6;
-            public static final int AUTO_SCALE_SAME = 10;
+            public static final int AUTO_SCALE_LEFT = 10;
             public static final int AUTO_SCALE_SLASH = 11;
             public static final int AUTO_SCALE_BACKSLASH = 12;
-            public static final int AUTO_SCALE_OPPOSITE = 13;
+            public static final int AUTO_SCALE_RIGHT = 13;
 
         }
     }
