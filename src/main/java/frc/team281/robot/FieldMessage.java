@@ -8,6 +8,13 @@ public class FieldMessage {
 		LEFT,
 		MIDDLE;
 	}
+
+	private boolean ourSwitchOnTheLeft;
+	private boolean ourScaleOnTheLeft;
+	private boolean theirSwitchOnTheLeft;
+
+	private StartingPosition position = StartingPosition.MIDDLE;
+	private boolean overrideSwitch = false;
 	
     public FieldPose getFieldPose(){
         if ( isScaleOnOurSide() && isSwitchOnOurSide()){
@@ -74,13 +81,7 @@ public class FieldMessage {
 	public void setTheirSwitchOnTheLeft(boolean theirSwitchOnTheLeft) {
 		this.theirSwitchOnTheLeft = theirSwitchOnTheLeft;
 	}
-	
-	private boolean ourSwitchOnTheLeft;
-	private boolean ourScaleOnTheLeft;
-	private boolean theirSwitchOnTheLeft;
-	
-	private StartingPosition position = StartingPosition.MIDDLE;
-	private boolean overrideSwitch = false;
+
 	public boolean isOverrideSwitch() {
         return overrideSwitch;
     }
