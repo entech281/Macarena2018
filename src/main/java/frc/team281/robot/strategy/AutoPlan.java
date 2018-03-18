@@ -12,6 +12,12 @@ public class AutoPlan {
         this.shouldDropCube = shouldDropCube;
         this.isTargetingScale = isTargetScale;
     }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
     public void setMirror(boolean mirror){
         this.mirror = mirror;
     }
@@ -27,6 +33,9 @@ public class AutoPlan {
     }
     public boolean isTargetingScale() {
         return isTargetingScale;
+    }
+    public boolean isTargetingSwitch(){
+        return ! isTargetingScale;
     }
     public void setTargetingScale(boolean isTargetingScale) {
         this.isTargetingScale = isTargetingScale;

@@ -15,11 +15,18 @@ import frc.team281.robot.subsystems.PositionCalculator;
  */
 public class AutoPlanComputer {
 
-    public static final String THIS_SIDE_SELECTOR_PREFERENCE = "THIS_SIDE_SELECTOR";
-    public static final String OPPOSITE_SIDE_SELECTOR_PREFERENCE = "OPPOSITE_SIDE_SELECTOR_PREFERENCE";
-    public static final String FRONT_SLASH_SELECTOR = "FRONT_SLASH_SELECTOR";
-    public static final String BACK_SLASH_SELECTOR = "BACK_SLASH_SELECTOR";
+    public static final String THIS_SIDE_SELECTOR_PREFERENCE = "THIS_SIDE";
+    public static final String OPPOSITE_SIDE_SELECTOR_PREFERENCE = "OPPOSITE_SIDE";
+    public static final String FRONT_SLASH_SELECTOR = "FRONT_SLASH";
+    public static final String BACK_SLASH_SELECTOR = "BACK_SLASH";
 
+    public static final String A = "A";    
+    public static final String B = "B";
+    public static final String C = "C";
+    public static final String D = "D";
+    public static final String E = "E";
+    public static final String F = "F";
+    
     // OUR SIDE SWITCH
     protected List<Position> AUTO_A =  PositionCalculator.builder()
             .forward(14.*12)
@@ -63,10 +70,6 @@ public class AutoPlanComputer {
 
     protected List<Position> EMPTY = PositionCalculator.builder().build();
 
-    public AutoPlan computePlan(FieldMessage fm, int code){
-        //TODO:convert the into 4 booleans
-        return computePlanFromFieldPoseSwitches(fm,false,false,false,false);
-    }
 
     public AutoPlan testPlanE(){
         return new AutoPlan("Aryan Test",true,true,AUTO_E);
@@ -79,7 +82,7 @@ public class AutoPlanComputer {
         AutoPlan selectedPlan = new AutoPlan("DoNothing",false,false,EMPTY);
         
         if ( fm.isRobotInMiddle()){
-            selectedPlan =  new AutoPlan("D",false, true, AUTO_D);
+            selectedPlan =  new AutoPlan(D,false, true, AUTO_D);
             if ( fm.isOurScaleOnTheRight()){
                 selectedPlan.setMirror(true);
             }
@@ -90,39 +93,40 @@ public class AutoPlanComputer {
             
             if ( pose == FieldPose.BOTH_OUR_SIDE){
                 if ( bothThisSideSelector ) {
-                    selectedPlan = new AutoPlan("B",true,true,AUTO_B);
+                    selectedPlan = new AutoPlan(B,true,true,AUTO_B);
                 } else {
-                    selectedPlan = new AutoPlan("A",false,true,AUTO_A);
+                    selectedPlan = new AutoPlan(A,false,true,AUTO_A);
                 }
             }
             if ( pose == FieldPose.BOTH_OTHER_SIDE){
                 if ( bothOppositeSelector ){
-                    selectedPlan = new AutoPlan("F",true,true,AUTO_F);
+                    selectedPlan = new AutoPlan(F,true,true,AUTO_F);
                 }
                 else{
-                    selectedPlan = new AutoPlan("D",false,true,AUTO_D);
+                    selectedPlan = new AutoPlan(C,false,true,AUTO_C);
                 }
             }
             if ( pose == FieldPose.FRONT_SLASH){
                 if ( frontSlashSelector ){
-                    selectedPlan = new AutoPlan("F",true,true,AUTO_F);
+                    selectedPlan = new AutoPlan(F,true,true,AUTO_F);
                 }
                 else{
-                    selectedPlan = new AutoPlan("A",false,true,AUTO_A);
+                    selectedPlan = new AutoPlan(A,false,true,AUTO_A);
                 }
             }    
             if ( pose == FieldPose.BACK_SLASH){
                 if ( backSlashSelector ){
-                    selectedPlan = new AutoPlan("B",false,true,AUTO_B);
+                    selectedPlan = new AutoPlan(B,true,true,AUTO_B);
                 }
                 else{
-                    selectedPlan = new AutoPlan("D",true,true,AUTO_D);
+                    selectedPlan = new AutoPlan(C,false,true,AUTO_C);
                 }
             }             
             //mirror the path if needed
             if ( fm.isRobotOnright()){
                 selectedPlan.setMirror(true);
             }
+
         }
         
         return selectedPlan;
