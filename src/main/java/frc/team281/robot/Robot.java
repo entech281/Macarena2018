@@ -85,7 +85,7 @@ public class Robot extends IterativeRobot implements CommandFactory {
         grabberSubsystem.initialize();
         wristSubsystem.initialize();
         compressor = new Compressor(RobotMap.CAN.PC_MODULE);
-        compressor.start();  
+        compressor.start();
 
     }
 
@@ -104,10 +104,8 @@ public class Robot extends IterativeRobot implements CommandFactory {
             driveSubsystem.setMode(DriveMode.POSITION_DRIVE);
             AutoCommandFactory af = new AutoCommandFactory(lifterSubsystem, grabberSubsystem, wristSubsystem, driveSubsystem);
             autoCommand = af.makeAutoCommand(autoPlan);
-                        
         }
         autoCommand.start();
-       
     }
     
     @Override
@@ -129,16 +127,13 @@ public class Robot extends IterativeRobot implements CommandFactory {
     }
 
     protected AutoPlan selectAutoToRun(){
-        
         String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
         fieldPose = new FieldMessageGetter(leftPositionSwitch.get(), rightPositionSwitch.get(), overrideSwitch.get() )
                 .convertGameMessageToFieldMessage(gameMessage);
-        
-        //TODO: read buttons to get these four booleans, 
-        //      OR  use autoStrategySelector.computePlanFromRobotPreferences(fm);
-        //      OR  read buttons and convert to an int and use autoStrategySelector.computePlanFromRobotPreferences(fm,int)
-        // return autoStrategySelector.computePlanFromFieldPoseSwitches(fm, false,false,false,true);
-        return autoStrategySelector.computePlanFromRobotPreferences(fieldPose);
+        return autoStrategySelector.computePlanFromFieldPoseSwitches(fieldPose, operatorInterface.getBothLeftScaleInAuto(),
+                                                                     operatorInterface.getSlashScaleInAuto(),
+                                                                     operatorInterface.getBackslashScaleInAuto(),
+                                                                     operatorInterface.getBothRightScaleInAuto() );
     }
     
     @Override
