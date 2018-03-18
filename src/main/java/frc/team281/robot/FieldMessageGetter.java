@@ -40,7 +40,6 @@ public class FieldMessageGetter {
 		}
 		if(gameMessage.charAt(1) == 'L') {
 			message.setOurScaleOnTheLeft(true); 
-			
 		}
 		else {
 			message.setOurScaleOnTheLeft(false);
@@ -55,18 +54,13 @@ public class FieldMessageGetter {
 		if ( isRobotOnTheLeft()) {
 			message.setPosition(StartingPosition.LEFT);
 		}
-		
 		else if ( isRobotOnTheRight()) {
 			message.setPosition(StartingPosition.RIGHT);
 		}
-		
 		else {
 			message.setPosition(StartingPosition.MIDDLE);
 		}
 		
 		return message;
-		
-		
 	}
-	
 }
