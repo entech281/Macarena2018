@@ -6,7 +6,7 @@ import frc.team281.robot.subsystems.WristSubsystem;
 public class WristPivotDownCommand extends BaseCommand {
     WristSubsystem wrist;
     public WristPivotDownCommand(BaseSubsystem subsystem) {
-        super(subsystem);
+        super(subsystem, 0.5);
         this.wrist = (WristSubsystem) subsystem;
     }
 
@@ -18,7 +18,7 @@ public class WristPivotDownCommand extends BaseCommand {
     }
     @Override
     protected boolean isFinished() {
-        return true;
+        return isTimedOut();
     }
 
 }
