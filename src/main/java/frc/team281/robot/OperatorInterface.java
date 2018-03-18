@@ -28,10 +28,10 @@ public class OperatorInterface implements DriveInstructionSource {
     private JoystickButton grabberShootButton;
     private JoystickButton grabberOpenButton;
     private JoystickButton wristUpButton;
-    private JoystickButton bothLeftScaleInAutoButton;
-    private JoystickButton slashScaleInAutoButton;
+    private JoystickButton bothThisSideScaleInAutoButton;
+    private JoystickButton frontslashScaleInAutoButton;
     private JoystickButton backslashScaleInAutoButton;
-    private JoystickButton bothRightScaleInAutoButton;
+    private JoystickButton bothOppositeScaleInAutoButton;
 
     
     public static class LifterHeights {
@@ -83,10 +83,10 @@ public class OperatorInterface implements DriveInstructionSource {
         grabberOpenButton.whenPressed(factory.createGrabberOpenCommand());
         grabberOpenButton.whenReleased(factory.createGrabberCloseCommand());
 
-        bothLeftScaleInAutoButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.AUTO_SCALE_LEFT);
-        slashScaleInAutoButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.AUTO_SCALE_SLASH);
+        bothThisSideScaleInAutoButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.AUTO_SCALE_LEFT);
+        frontslashScaleInAutoButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.AUTO_SCALE_SLASH);
         backslashScaleInAutoButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.AUTO_SCALE_BACKSLASH);
-        bothRightScaleInAutoButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.AUTO_SCALE_RIGHT);
+        bothOppositeScaleInAutoButton = new JoystickButton(controlPanel, RobotMap.ControlPanel.Buttons.AUTO_SCALE_RIGHT);
     }
 
     @Override
@@ -110,20 +110,20 @@ public class OperatorInterface implements DriveInstructionSource {
         return isNegative?-adjusted:adjusted;
     }
 
-    public boolean getBothLeftScaleInAuto() {
-        return bothLeftScaleInAutoButton.get();
+    public boolean getBothThisSideScaleInAuto() {
+        return bothThisSideScaleInAutoButton.get();
     }
 
-    public boolean getSlashScaleInAuto() {
-        return slashScaleInAutoButton.get();
+    public boolean getFrontslashScaleInAuto() {
+        return frontslashScaleInAutoButton.get();
     }
 
     public boolean getBackslashScaleInAuto() {
         return backslashScaleInAutoButton.get();
     }
 
-    public boolean getBothRightScaleInAuto() {
-        return bothRightScaleInAutoButton.get();
+    public boolean getBothOppositeScaleInAuto() {
+        return bothOppositeScaleInAutoButton.get();
     }
 
 }

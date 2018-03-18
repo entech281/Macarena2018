@@ -130,10 +130,10 @@ public class Robot extends IterativeRobot implements CommandFactory {
         String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
         fieldPose = new FieldMessageGetter(leftPositionSwitch.get(), rightPositionSwitch.get(), overrideSwitch.get() )
                 .convertGameMessageToFieldMessage(gameMessage);
-        return autoStrategySelector.computePlanFromFieldPoseSwitches(fieldPose, operatorInterface.getBothLeftScaleInAuto(),
-                                                                     operatorInterface.getSlashScaleInAuto(),
+        return autoStrategySelector.computePlanFromFieldPoseSwitches(fieldPose, operatorInterface.getBothThisSideScaleInAuto(),
+                                                                     operatorInterface.getFrontslashScaleInAuto(),
                                                                      operatorInterface.getBackslashScaleInAuto(),
-                                                                     operatorInterface.getBothRightScaleInAuto() );
+                                                                     operatorInterface.getBothOppositeScaleInAuto() );
     }
     
     @Override
