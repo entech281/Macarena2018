@@ -87,7 +87,9 @@ public class AutoPlanComputer {
             //we're on one side or the other
             //use the field Pose to decide what to do
             FieldPose pose = fm.getFieldPose();
-            
+
+            // For the moment, we don't drop the cube if we're travelling to opposite side of field
+            // AutoPlan logicals: goingForSwitch, dropCube
             if ( pose == FieldPose.BOTH_OUR_SIDE){
                 if ( bothThisSideSelector ) {
                     selectedPlan = new AutoPlan(B,true,true,AUTO_B);
@@ -97,35 +99,34 @@ public class AutoPlanComputer {
             }
             if ( pose == FieldPose.BOTH_OTHER_SIDE){
                 if ( bothOppositeSelector ){
-                    selectedPlan = new AutoPlan(F,true,true,AUTO_F);
+                    selectedPlan = new AutoPlan(F,true,false,AUTO_F);
                 }
                 else{
-                    selectedPlan = new AutoPlan(C,false,true,AUTO_C);
+                    selectedPlan = new AutoPlan(C,false,false,AUTO_C);
                 }
             }
             if ( pose == FieldPose.FRONT_SLASH){
                 if ( frontSlashSelector ){
-                    selectedPlan = new AutoPlan(F,true,true,AUTO_F);
+                    selectedPlan = new AutoPlan(F,true,false,AUTO_F);
                 }
                 else{
                     selectedPlan = new AutoPlan(A,false,true,AUTO_A);
                 }
-            }    
+            }
             if ( pose == FieldPose.BACK_SLASH){
                 if ( backSlashSelector ){
                     selectedPlan = new AutoPlan(B,true,true,AUTO_B);
                 }
                 else{
-                    selectedPlan = new AutoPlan(C,false,true,AUTO_C);
+                    selectedPlan = new AutoPlan(C,false,false,AUTO_C);
                 }
-            }             
+            }
             //mirror the path if needed
             if ( fm.isRobotOnright()){
                 selectedPlan.setMirror(true);
             }
 
         }
-        
         return selectedPlan;
     }
         
