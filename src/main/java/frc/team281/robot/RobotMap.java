@@ -33,7 +33,7 @@ public class RobotMap {
 
     public static class DriveJoystick {
         public static final int PORT = 0;
-        public static class Buttons {   
+        public static class Buttons {
             public static final int FIELD_ABSOLUTE_DRIVING = 11;
         }
     }
@@ -49,9 +49,11 @@ public class RobotMap {
             public static final int GRABBER_SHOOT = 9;
             public static final int GRABBER_OPEN = 7;
             public static final int WRIST_UP = 6;
-            public static final int GRABBER_LOAD_AND_CLOSE=10;
-            public static final int GRABBER_SHOOT_AND_OPEN=12;
-            
+            public static final int AUTO_SCALE_SAME = 10;
+            public static final int AUTO_SCALE_SLASH = 11;
+            public static final int AUTO_SCALE_BACKSLASH = 12;
+            public static final int AUTO_SCALE_OPPOSITE = 13;
+
         }
     }
 
