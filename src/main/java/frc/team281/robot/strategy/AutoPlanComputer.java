@@ -20,7 +20,7 @@ public class AutoPlanComputer {
     public static final String FRONT_SLASH_SELECTOR = "FRONT_SLASH";
     public static final String BACK_SLASH_SELECTOR = "BACK_SLASH";
 
-    public static final String A = "A";    
+    public static final String A = "A";
     public static final String B = "B";
     public static final String C = "C";
     public static final String D = "D";
@@ -41,9 +41,9 @@ public class AutoPlanComputer {
 
     // OPPOSITE SIDE SWITCH
     protected List<Position> AUTO_C = PositionCalculator.builder()
-            .forward(19.5*12)
+            .forward(18.69*12)
             .right(90)
-            .forward(15.8*12)
+            .forward(15.14*12)
             .right(90)
             .build();
 
@@ -55,9 +55,11 @@ public class AutoPlanComputer {
             .right(45)
             .build();
 
-    // DRIVE FORWARD ONLY
+    // DRIVE TO CENTER POSITION
     protected List<Position> AUTO_E = PositionCalculator.builder()
-            .forward(11.5*12)
+            .forward(19.5*12)
+            .right(90)
+            .forward(7.9*12)
             .build();
 
     // OPPOSITE SIDE SCALE
@@ -70,12 +72,7 @@ public class AutoPlanComputer {
 
     protected List<Position> EMPTY = PositionCalculator.builder().build();
 
-
-    public AutoPlan testPlanE(){
-        return new AutoPlan("Aryan Test",true,true,AUTO_E);
-    }
-    
-    public AutoPlan computePlanFromFieldPoseSwitches(FieldMessage fm, boolean bothThisSideSelector, boolean frontSlashSelector, 
+    public AutoPlan computePlanFromFieldPoseSwitches(FieldMessage fm, boolean bothThisSideSelector, boolean frontSlashSelector,
             boolean backSlashSelector, boolean bothOppositeSelector){
         
         //do nothing by default
@@ -139,7 +136,7 @@ public class AutoPlanComputer {
                 p.getBoolean(THIS_SIDE_SELECTOR_PREFERENCE,false),
                 p.getBoolean(FRONT_SLASH_SELECTOR,false),
                 p.getBoolean(BACK_SLASH_SELECTOR,false),
-                p.getBoolean(OPPOSITE_SIDE_SELECTOR_PREFERENCE,false)                
+                p.getBoolean(OPPOSITE_SIDE_SELECTOR_PREFERENCE,false)
          );
     }
     
