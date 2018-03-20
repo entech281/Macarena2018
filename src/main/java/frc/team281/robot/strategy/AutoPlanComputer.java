@@ -51,7 +51,7 @@ public class AutoPlanComputer {
     protected List<Position> AUTO_D = PositionCalculator.builder()
             .forward(2.0*12)
             .left(45)
-            .forward(6.5*12)
+            .forward(7*12)
             .right(45)
             .build();
 
@@ -64,11 +64,14 @@ public class AutoPlanComputer {
 
     // OPPOSITE SIDE SCALE
     protected List<Position> AUTO_F = PositionCalculator.builder()
-        .forward(19.5*12)
-        .right(90)
-        .forward(15.8*12)
-        .left(90)
-        .build();
+            .forward(240)
+            .right(90)
+            .forward(190)
+            .left(45)
+            .forward(52)
+            .left(65)
+            .build();
+
 
     protected List<Position> EMPTY = PositionCalculator.builder().build();
 
@@ -80,7 +83,7 @@ public class AutoPlanComputer {
         
         if ( fm.isRobotInMiddle()){
             selectedPlan =  new AutoPlan(D,false, true, AUTO_D);
-            if ( fm.isOurScaleOnTheRight()){
+            if ( fm.isOurSwitchOnTheRight()){
                 selectedPlan.setMirror(true);
             }
         } else {
@@ -107,7 +110,7 @@ public class AutoPlanComputer {
             }
             if ( pose == FieldPose.FRONT_SLASH){
                 if ( frontSlashSelector ){
-                    selectedPlan = new AutoPlan(F,true,false,AUTO_F);
+                    selectedPlan = new AutoPlan(E,true,false,AUTO_E);
                 }
                 else{
                     selectedPlan = new AutoPlan(A,false,true,AUTO_A);
