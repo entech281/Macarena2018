@@ -4,7 +4,7 @@ import frc.team281.robot.subsystems.LifterSubsystem;
 
 public class LifterHomeCommand extends BaseCommand {
 
-    public static final int TIMEOUT_SECS = 10;
+    public static final double TIMEOUT_SECS = 10.;
     
     private LifterSubsystem lifter;
     
@@ -15,9 +15,13 @@ public class LifterHomeCommand extends BaseCommand {
 
     @Override
     protected void initialize() {
-        lifter.motorsDown(LifterSubsystem.DOWN_SPEED_PERCENT);
     }
 
+    @Override
+    protected void execute() {
+        lifter.motorsDown(LifterSubsystem.DOWN_SPEED_PERCENT);        
+    }
+    
     @Override
     protected void end() {
         lifter.motorsOff();
