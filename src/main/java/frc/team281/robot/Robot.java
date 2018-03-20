@@ -128,6 +128,9 @@ public class Robot extends IterativeRobot implements CommandFactory {
 
     protected AutoPlan selectAutoToRun(){
         String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
+        if (( gameMessage == null ) || ( gameMessage.length() < 3 )) {
+            gameMessage = "   ";
+        }
         fieldPose = new FieldMessageGetter(leftPositionSwitch.get(), rightPositionSwitch.get(), overrideSwitch.get() )
                 .convertGameMessageToFieldMessage(gameMessage);
         return autoStrategySelector.computePlanFromFieldPoseSwitches(fieldPose, operatorInterface.getBothThisSideScaleInAuto(),
