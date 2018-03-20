@@ -13,6 +13,10 @@ public class LifterRaiseSeconds extends BaseCommand {
 
     @Override
     protected void initialize() {
+    }
+
+    @Override
+    protected void execute() {
         lifter.motorsUp(LifterSubsystem.UP_SPEED_PERCENT);
     }
 
