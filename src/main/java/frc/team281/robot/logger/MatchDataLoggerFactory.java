@@ -1,4 +1,4 @@
-package frc.team281.robot.logger;
+ package frc.team281.robot.logger;
 
 /**
  * Creates DataLoggers that will send to SmartDashboard and the console. Useful
@@ -11,7 +11,9 @@ public class MatchDataLoggerFactory extends DataLoggerFactory {
 
 	@Override
 	public DataLogger createDataLogger(String name) {
-		return new CompositeLogger(new SmartDashboardLogger(name), new ConsoleDataLogger(name, new WpilibTimeSource()));
+	    // TODO: remove ConsoleDataLogger at the competition.
+		return new CompositeLogger(new SmartDashboardLogger(name));
+		// return new CompositeLogger(new SmartDashboardLogger(name), new ConsoleDataLogger(name, new WpilibTimeSource()));
 	}
 
 }
