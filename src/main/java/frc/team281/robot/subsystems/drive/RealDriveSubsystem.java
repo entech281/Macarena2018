@@ -48,7 +48,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 	private DriveInstructionSource driveInstructionSource;
 	
 	private FourTalonsWithSettings speedModeTalons;
-	public static FourTalonsWithSettings positionModeTalons;
+	private FourTalonsWithSettings positionModeTalons;
 	
 	private WPI_TalonSRX frontLeftMotor;
 	private WPI_TalonSRX frontRightMotor;

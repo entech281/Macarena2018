@@ -26,7 +26,6 @@ public abstract class BaseDriveSubsystem extends BaseSubsystem {
 	protected PositionBuffer positionBuffer = new PositionBuffer();
 	protected boolean calibrated = false;
 	
-	public static FourTalonsWithSettings positionModeTalons;
 	/**
 	 * Changes modes, and returns true if the change worked, false if it didnt
 	 * @param newDriveMode
