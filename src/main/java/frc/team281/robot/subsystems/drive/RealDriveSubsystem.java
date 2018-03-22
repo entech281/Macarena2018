@@ -101,7 +101,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
         TalonSettings rightRearSpeedSettings = TalonSettingsBuilder.defaults()
                 .withCurrentLimits(35, 30, 200)
                 .coastInNeutral()
-                .withDirections(true, true)
+                .withDirections(false, true)
                 .limitMotorOutputs(1.0, 0.2)
                 .noMotorStartupRamping()
                 .useSpeedControl()
@@ -150,7 +150,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
         TalonSettings rightRearPositionSettings = TalonSettingsBuilder.defaults()
                 .withCurrentLimits(35, 30, 200)
                 .brakeInNeutral()
-                .withDirections(true, true)
+                .withDirections(false, true)
                 .limitMotorOutputs(1.0, 0.15)
                 .noMotorStartupRamping()
                 .usePositionControl()
@@ -217,9 +217,11 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
     }
 
     public boolean isRobotTipping() {
-        if ( ( Math.abs(this.navX.getPitch()) > TIP_THRESHOLD_DEGREES ) ||
-             ( Math.abs(this.navX.getRoll())  > TIP_THRESHOLD_DEGREES ) ) {
-            tiltDetected = true;
+        if (this.navX != null) {
+            if ( ( Math.abs(this.navX.getPitch()) > TIP_THRESHOLD_DEGREES ) ||
+                 ( Math.abs(this.navX.getRoll())  > TIP_THRESHOLD_DEGREES ) ) {
+                tiltDetected = true;
+            }
         }
         return tiltDetected;
     }
