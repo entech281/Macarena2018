@@ -86,6 +86,7 @@ public class Robot extends IterativeRobot implements CommandFactory {
         wristSubsystem.initialize();
         compressor = new Compressor(RobotMap.CAN.PC_MODULE);
         compressor.start();
+        
 
     }
 
@@ -123,6 +124,9 @@ public class Robot extends IterativeRobot implements CommandFactory {
         //this allows us to test very quickly without re-running auto at all.
         //just flip the switches and we should the dashboard udpate with the right paths!
         SmartDashboard.putString("SelectedAuto", selectAutoToRun()+"");
+            SmartDashboard.putBoolean("DIO L", leftPositionSwitch.get());
+            SmartDashboard.putBoolean("DIO R", rightPositionSwitch.get());
+            SmartDashboard.putBoolean("DIO O", overrideSwitch.get());
         Scheduler.getInstance().run();
     }
 
