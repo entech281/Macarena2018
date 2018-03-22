@@ -63,7 +63,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 	@Override
 	public void initialize() {
 
-		this.navX = new NavXIntializer(SerialPort.Port.kMXP,NAVX_CALIBRATION_LOOP_TIME_MS).getCalibratedNavX();
+		// this.navX = new NavXIntializer(SerialPort.Port.kMXP,NAVX_CALIBRATION_LOOP_TIME_MS).getCalibratedNavX();
         this.collisionDetected = false;
         this.tiltDetected = false;
         this.lastWorldAccelX = 0.0;
