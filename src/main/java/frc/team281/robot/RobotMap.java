@@ -65,9 +65,14 @@ public class RobotMap {
         public static final int LIFTER_AT_BOTTOM = 0;
         public static final int LIFTER_AT_TOP = 1;
         public static final int GRABBER_CUBE_LOADED = 2;
-        public static final int LEFT_SWITCH_POSITION = 3;
-        public static final int RIGHT_SWITCH_POSITION = 4;
-        public static final int PREFERENCE_SWITCH = 5;
+        // Right switch position works and is the right 3 position
+        // Left switch position is currently the preference switch which also works
+        // CAUTION: this allows field crew to tell the software that the robot is in
+        //  BOTH the left and right position.
+        // The preference override is on left 3-position but it's DIO port cannot be read
+        public static final int LEFT_SWITCH_POSITION = 5;
+        public static final int RIGHT_SWITCH_POSITION = 3;
+        public static final int PREFERENCE_SWITCH = 4;
         public static final int LIFTER_ENCODER_A = 8;
         public static final int LIFTER_ENCODER_B = 9;
 
