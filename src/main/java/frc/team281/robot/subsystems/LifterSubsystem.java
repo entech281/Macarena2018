@@ -17,12 +17,12 @@ public class LifterSubsystem extends BaseSubsystem {
 
     public static final double CURRENT_STOP_FACTOR = 1.15;
     public static final double UP_SPEED_PERCENT = 0.7;
-    public static final double DOWN_SPEED_PERCENT = 0.4;
+    public static final double DOWN_SPEED_PERCENT = 0.55;
     public static final double SLOW_SPEED_UP_PERCENT = 0.4;
-    public static final double SLOW_SPEED_DOWN_PERCENT = 0.1;
+    public static final double SLOW_SPEED_DOWN_PERCENT = 0.35;
     public static final int MIN_HEIGHT_COUNTS = 0;
-    public static final int MAX_HEIGHT_COUNTS = 5000;
-    public static final int RAMP_DOWN_COUNTS = 500;
+    public static final int MAX_HEIGHT_COUNTS = 4268;
+    public static final int RAMP_DOWN_COUNTS = 300;
 
     private DigitalInput bottomLimitSwitch;
     private DigitalInput topLimitSwitch;
@@ -135,12 +135,12 @@ public class LifterSubsystem extends BaseSubsystem {
     }
 
     public boolean isLifterAtTop() {
-        // SAFETY return ! topLimitSwitch.get();
-    	if (movingUp && isTopLimitSwitchPressed() &&
-    			(getAverageMotorCurrent() > CURRENT_STOP_FACTOR*upMotorCurrentBaseline)) {
-    		truelyAtTop = true;
-    	}
-    	return truelyAtTop;
+        return ! topLimitSwitch.get();
+    	//if (movingUp && isTopLimitSwitchPressed() &&
+    	//		(getAverageMotorCurrent() > CURRENT_STOP_FACTOR*upMotorCurrentBaseline)) {
+    	//	truelyAtTop = true;
+    	//}
+    	//return truelyAtTop;
     }
     
     private boolean isTopLimitSwitchPressed() {
