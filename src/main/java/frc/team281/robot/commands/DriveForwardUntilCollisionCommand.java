@@ -30,6 +30,7 @@ public class DriveForwardUntilCollisionCommand extends BaseCommand {
 			};
 		drive.setupNewDriveSource(justGoForward);
 		drive.resetCollision();
+		drive.resetTilt();
 	}
 
 	@Override

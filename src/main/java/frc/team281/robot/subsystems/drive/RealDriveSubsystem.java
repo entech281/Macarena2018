@@ -35,6 +35,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 	//protected FourTalonGroup talons;
 	private AHRS navX = null;
     private boolean collisionDetected;
+    private boolean tiltDetected;
     private double lastWorldAccelX = 0.0;
     private double lastWorldAccelY = 0.0;
     private static final double COLLISION_THRESHOLD_DELTA_G_ACCEL =  0.2;
@@ -64,6 +65,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
 
 		this.navX = new NavXIntializer(SerialPort.Port.kMXP,NAVX_CALIBRATION_LOOP_TIME_MS).getCalibratedNavX();
         this.collisionDetected = false;
+        this.tiltDetected = false;
         this.lastWorldAccelX = 0.0;
         this.lastWorldAccelY = 0.0;
 
@@ -189,6 +191,10 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
         collisionDetected = false;
     }
 
+    public void resetTilt() {
+        tiltDetected = false;
+    }
+
     public boolean hasCollisionOccurred() {
         if (this.navX != null) {
             double currWorldAccelX = navX.getWorldLinearAccelX();
@@ -211,8 +217,11 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
     }
 
     public boolean isRobotTipping() {
-        return ( ( Math.abs(this.navX.getPitch()) > TIP_THRESHOLD_DEGREES ) ||
-                 ( Math.abs(this.navX.getRoll())  > TIP_THRESHOLD_DEGREES ) );
+        if ( ( Math.abs(this.navX.getPitch()) > TIP_THRESHOLD_DEGREES ) ||
+             ( Math.abs(this.navX.getRoll())  > TIP_THRESHOLD_DEGREES ) ) {
+            tiltDetected = true;
+        }
+        return tiltDetected;
     }
 
 	@Override
@@ -226,6 +235,7 @@ public class RealDriveSubsystem extends BaseDriveSubsystem {
         if (this.navX != null) {
             // dataLogger.log("NavX: ", this.navX);
             dataLogger.log("NavX Collision Detected: ", this.collisionDetected);
+            dataLogger.log("NavX Tilt Detected: ", this.tiltDetected);
             dataLogger.log("NavX Pitch Angle (X): ", this.navX.getPitch());
             dataLogger.log("NavX Roll Angle (Y): ", this.navX.getRoll());
             dataLogger.log("NavX Yaw Angle (Z) : ", this.navX.getYaw());
