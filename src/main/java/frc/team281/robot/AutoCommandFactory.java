@@ -74,7 +74,7 @@ public class AutoCommandFactory {
                 auto.addSequential(new GrabberOpenCommand(grabberSubsystem, 2));
             } else {
                 auto.addSequential(new WristPivotDownCommand(wristSubsystem));
-                auto.addSequential(new GrabberShootCommand(grabberSubsystem, 2.5));
+                auto.addSequential(new GrabberShootCommand(grabberSubsystem, 10.0));
             }
         }
         auto.addSequential(new DriveForwardNoEncodersCommand(driveSubsystem,0.5,-0.4));
