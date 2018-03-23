@@ -97,22 +97,28 @@ public class AutoPlanComputer {
                 if ( bothThisSideSelector ) {
                     selectedPlan = new AutoPlan(B,true,true,AUTO_B);
                 } else {
-                    selectedPlan = new AutoPlan(A,false,true,AUTO_A);
+                    selectedPlan = new AutoPlan(A,false,false,AUTO_A);
                 }
             }
             if ( pose == FieldPose.BOTH_OTHER_SIDE){
-                if ( bothOppositeSelector ){
-                    selectedPlan = new AutoPlan(F,true,false,AUTO_F);
-                }
-                else{
-                    selectedPlan = new AutoPlan(C,false,false,AUTO_C);
+                if ( fm.isOverrideSwitch() ) {
+                    selectedPlan = new AutoPlan(E,true,false,AUTO_E);
+                } else {
+                    if ( bothOppositeSelector ){
+                        selectedPlan = new AutoPlan(F,true,false,AUTO_F);
+                    } else {
+                        selectedPlan = new AutoPlan(C,false,false,AUTO_C);
+                    }
                 }
             }
             if ( pose == FieldPose.FRONT_SLASH){
-                if ( frontSlashSelector ){
-                    selectedPlan = new AutoPlan(F,true,false,AUTO_F);
-                }
-                else{
+                if ( frontSlashSelector ){ 
+                    if ( fm.isOverrideSwitch() ) {
+                        selectedPlan = new AutoPlan(E,true,false,AUTO_E);
+                    } else {
+                        selectedPlan = new AutoPlan(F,true,false,AUTO_F);
+                    }
+                } else {
                     selectedPlan = new AutoPlan(A,false,true,AUTO_A);
                 }
             }
@@ -121,7 +127,11 @@ public class AutoPlanComputer {
                     selectedPlan = new AutoPlan(B,true,true,AUTO_B);
                 }
                 else{
-                    selectedPlan = new AutoPlan(C,false,false,AUTO_C);
+                    if ( fm.isOverrideSwitch() ) {
+                        selectedPlan = new AutoPlan(E,false,false,AUTO_E);
+                    } else {
+                        selectedPlan = new AutoPlan(C,false,false,AUTO_C);
+                    }
                 }
             }
             //mirror the path if needed

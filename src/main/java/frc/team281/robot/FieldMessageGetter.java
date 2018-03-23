@@ -8,11 +8,11 @@ public class FieldMessageGetter {
 	
 	boolean leftSwitchValue = false;
 	boolean rightSwitchValue = false;
-	boolean overrideSwitchValue = false;
+	boolean stopShortValue = false;
 	public FieldMessageGetter(boolean leftSwitchValue, boolean rightSwitchValue, boolean overrideSwitchValue) {
 		this.leftSwitchValue = leftSwitchValue;
 		this.rightSwitchValue = rightSwitchValue;
-		this.overrideSwitchValue = overrideSwitchValue;
+		this.stopShortValue = overrideSwitchValue;
 	}
 	
     public boolean isRobotOnTheLeft() {
@@ -27,10 +27,10 @@ public class FieldMessageGetter {
 	public FieldMessage convertGameMessageToFieldMessage(String gameMessage) {
 	    SmartDashboard.putBoolean("RobotLeftSwitch", isRobotOnTheLeft());
 	    SmartDashboard.putBoolean("RobotRightSwitch", isRobotOnTheRight());
-	    SmartDashboard.putBoolean("RobotRightSwitch", ! overrideSwitchValue);
+	    SmartDashboard.putBoolean("StopShortSwitch", stopShortValue);
 	    
 		FieldMessage message = new FieldMessage();
-		message.setOverrideSwitch(! overrideSwitchValue);
+		message.setOverrideSwitch(stopShortValue);
 		
 		if(gameMessage.charAt(0) == 'L') {
 			message.setOurSwitchOnTheLeft(true); 

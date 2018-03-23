@@ -60,12 +60,11 @@ public class AutoCommandFactory {
         //so i'd rather just use closed position mode to drive forward
 
         if (autoPlan.isTargetingSwitch()) {
-            auto.addSequential(new DriveForwardUntilCollisionCommand(driveSubsystem,3.0,0.6));
+            auto.addSequential(new DriveForwardNoEncodersCommand(driveSubsystem,3.0,0.6));
         } else {
-            auto.addSequential(new DriveForwardUntilCollisionCommand(driveSubsystem,3.0,0.6));            
-            //auto.addSequential(new DriveToPositionCommand(driveSubsystem,
-            //            new Position(FORWARD_MOVE_INCHES,FORWARD_MOVE_INCHES),
-            //            FORWARD_MOVE_TIMEOUT));
+            auto.addSequential(new DriveToPositionCommand(driveSubsystem,
+                        new Position(FORWARD_MOVE_INCHES,FORWARD_MOVE_INCHES),
+                        FORWARD_MOVE_TIMEOUT));
         }
 
         if ( autoPlan.isShouldDropCube()){

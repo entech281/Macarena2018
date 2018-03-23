@@ -135,7 +135,9 @@ public class Robot extends IterativeRobot implements CommandFactory {
         if (( gameMessage == null ) || ( gameMessage.length() < 3 )) {
             gameMessage = "   ";
         }
-        fieldPose = new FieldMessageGetter(leftPositionSwitch.get(), rightPositionSwitch.get(), overrideSwitch.get() )
+        Preferences p = Preferences.getInstance();
+        boolean override = p.getBoolean("STOP_AT_E",false);
+        fieldPose = new FieldMessageGetter(leftPositionSwitch.get(), rightPositionSwitch.get(), override )
                 .convertGameMessageToFieldMessage(gameMessage);
         return autoStrategySelector.computePlanFromFieldPoseSwitches(fieldPose, operatorInterface.getBothThisSideScaleInAuto(),
                                                                      operatorInterface.getFrontslashScaleInAuto(),
