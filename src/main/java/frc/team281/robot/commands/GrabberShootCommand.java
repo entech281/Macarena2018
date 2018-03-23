@@ -25,7 +25,13 @@ public class GrabberShootCommand extends BaseCommand {
         return false;
     }
     
+    @Override
     public void end() {
         grab.stopMotors();
+    }
+    
+    @Override
+    public void interrupted() {
+        
     }
 }

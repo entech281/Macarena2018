@@ -34,7 +34,7 @@ public class GrabberLoadCommand extends BaseCommand {
     
     @Override
     public void interrupted() {
-        end();
+        // end();
     }
 
 }
