@@ -15,7 +15,7 @@ public class LifterSubsystem extends BaseSubsystem {
     private TalonSpeedController motorOneController;
     private TalonSpeedController motorTwoController;
 
-    public static final double CURRENT_STOP_FACTOR = 1.10;
+    public static final double CURRENT_STOP_FACTOR = 1.15;
     public static final double UP_SPEED_PERCENT = 0.7;
     public static final double DOWN_SPEED_PERCENT = 0.55;
     public static final double SLOW_SPEED_UP_PERCENT = 0.4;

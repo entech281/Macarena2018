@@ -24,7 +24,7 @@ import frc.team281.robot.subsystems.drive.RealDriveSubsystem;
 
 public class AutoCommandFactory {
 
-    public static final double FORWARD_MOVE_INCHES = 10.0;
+    public static final double FORWARD_MOVE_INCHES = 13.0;
     public static final double FORWARD_MOVE_TIMEOUT = 2.0;
     private LifterSubsystem lifterSubsystem;
     private GrabberSubsystem grabberSubsystem;
@@ -60,7 +60,7 @@ public class AutoCommandFactory {
         //so i'd rather just use closed position mode to drive forward
 
         if (autoPlan.isTargetingSwitch()) {
-            auto.addSequential(new DriveForwardNoEncodersCommand(driveSubsystem,3.0,0.6));
+            auto.addSequential(new DriveForwardUntilCollisionCommand(driveSubsystem,3.0,0.6));
         } else {
             auto.addSequential(new DriveToPositionCommand(driveSubsystem,
                         new Position(FORWARD_MOVE_INCHES,FORWARD_MOVE_INCHES),

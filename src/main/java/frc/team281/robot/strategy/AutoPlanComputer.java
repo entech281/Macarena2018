@@ -35,7 +35,7 @@ public class AutoPlanComputer {
 
     // OUR SIDE SCALE
     protected List<Position> AUTO_B = PositionCalculator.builder()
-            .forward(25.*12)
+            .forward(24.5*12)
             .right(90)
             .build();
 
