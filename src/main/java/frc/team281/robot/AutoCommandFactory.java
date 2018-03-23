@@ -70,7 +70,7 @@ public class AutoCommandFactory {
         if ( autoPlan.isShouldDropCube()){
             if (autoPlan.isTargetingScale()) {
                 auto.addSequential(new WristPivotDownCommand(wristSubsystem));
-                auto.addSequential(new GrabberOpenCommand(grabberSubsystem, 2));
+                auto.addSequential(new GrabberOpenCommand(grabberSubsystem, 2.0));
             } else {
                 auto.addSequential(new WristPivotDownCommand(wristSubsystem));
                 auto.addSequential(new GrabberShootCommand(grabberSubsystem, 10.0));

@@ -92,12 +92,12 @@ public class AutoPlanComputer {
             FieldPose pose = fm.getFieldPose();
 
             // For the moment, we don't drop the cube if we're traveling to opposite side of field
-            // AutoPlan logicals: goingForSwitch, dropCube
+            // AutoPlan logicals: isTargetScale, dropCube
             if ( pose == FieldPose.BOTH_OUR_SIDE){
                 if ( bothThisSideSelector ) {
                     selectedPlan = new AutoPlan(B,true,true,AUTO_B);
                 } else {
-                    selectedPlan = new AutoPlan(A,false,false,AUTO_A);
+                    selectedPlan = new AutoPlan(A,false,true,AUTO_A);
                 }
             }
             if ( pose == FieldPose.BOTH_OTHER_SIDE){
