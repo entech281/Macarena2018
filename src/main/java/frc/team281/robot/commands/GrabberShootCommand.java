@@ -9,7 +9,6 @@ public class GrabberShootCommand extends BaseCommand {
     public GrabberShootCommand(BaseSubsystem subsystem) {
         super(subsystem);
         grab = (GrabberSubsystem)subsystem;
-        setTimeout(2);
     }
 
     public GrabberShootCommand(BaseSubsystem subsystem, double timeOut) {
@@ -23,7 +22,7 @@ public class GrabberShootCommand extends BaseCommand {
 
     @Override
     protected boolean isFinished() {
-        return isTimedOut();
+        return false;
     }
     
     public void end() {
