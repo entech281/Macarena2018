@@ -50,7 +50,7 @@ public class AutoCommandFactory {
         if (autoPlan.isTargetingScale()) {
             auto.addParallel(new LifterTopCommand(lifterSubsystem));
         } else {
-            auto.addParallel(new LifterRaiseSeconds(lifterSubsystem,1.5));
+            auto.addParallel(new LifterRaiseSeconds(lifterSubsystem,1.35));
         }
         auto.addSequential(new FollowPositionPathCommand( driveSubsystem, path));
         //TODO: we discussed having this be drive forward open loop,
