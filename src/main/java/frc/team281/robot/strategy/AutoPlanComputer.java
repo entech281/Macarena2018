@@ -26,6 +26,7 @@ public class AutoPlanComputer {
     public static final String D = "D";
     public static final String E = "E";
     public static final String F = "F";
+    public static final String G = "G";
     
     // OUR SIDE SWITCH
     protected List<Position> AUTO_A =  PositionCalculator.builder()
@@ -47,12 +48,20 @@ public class AutoPlanComputer {
             .right(90)
             .build();
 
-    // CENTER
+    // CENTER - LEFT
     protected List<Position> AUTO_D = PositionCalculator.builder()
             .forward(2.0*12)
             .left(45)
             .forward(7*12)
             .right(45)
+            .build();
+
+    // CENTER - RIGHT (just a bit shorter since can't put robot on centerline of field)
+    protected List<Position> AUTO_G = PositionCalculator.builder()
+            .forward(2.0*12)
+            .right(45)
+            .forward(6.5*12)
+            .left(45)
             .build();
 
     // DRIVE TO CENTER POSITION
@@ -82,9 +91,10 @@ public class AutoPlanComputer {
         AutoPlan selectedPlan = new AutoPlan("DoNothing",false,false,EMPTY);
         
         if ( fm.isRobotInMiddle()){
-            selectedPlan =  new AutoPlan(D,false, true, AUTO_D);
             if ( fm.isOurSwitchOnTheRight()){
-                selectedPlan.setMirror(true);
+                selectedPlan =  new AutoPlan(G,false, true, AUTO_G);
+            } else {
+                selectedPlan =  new AutoPlan(D,false, true, AUTO_D);
             }
         } else {
             //we're on one side or the other
